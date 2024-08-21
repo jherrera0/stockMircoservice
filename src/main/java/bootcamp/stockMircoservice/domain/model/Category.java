@@ -1,9 +1,12 @@
 package bootcamp.stockMircoservice.domain.model;
 
 public class Category {
+
     private long id;
     private String name;
     private String description;
+    public static final int MAX_NAME_LENGTH = 50;
+    public static final int MAX_DESCRIPTION_LENGTH = 90;
 
     public Category(int id, String name, String description) {
         this.id = id;

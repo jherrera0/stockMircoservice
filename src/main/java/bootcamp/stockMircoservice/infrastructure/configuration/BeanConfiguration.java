@@ -3,7 +3,7 @@ package bootcamp.stockMircoservice.infrastructure.configuration;
 import bootcamp.stockMircoservice.domain.api.ICategoryServicePort;
 import bootcamp.stockMircoservice.domain.spi.ICategoryPersistencePort;
 import bootcamp.stockMircoservice.domain.usecase.CategoryCase;
-import bootcamp.stockMircoservice.infrastructure.output.jpa.adapter.CategoryAdapter;
+import bootcamp.stockMircoservice.infrastructure.output.jpa.adapter.CategoryJpaAdapter;
 import bootcamp.stockMircoservice.infrastructure.output.jpa.mapper.ICategoryEntityMapper;
 import bootcamp.stockMircoservice.infrastructure.output.jpa.repository.ICategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class BeanConfiguration {
 
     @Bean
     public ICategoryPersistencePort categoryPersistence() {
-        return new CategoryAdapter(categoryEntityMapper, categoryRepository);
+        return new CategoryJpaAdapter(categoryEntityMapper, categoryRepository);
     }
     @Bean
     public ICategoryServicePort categoryServicePort() {

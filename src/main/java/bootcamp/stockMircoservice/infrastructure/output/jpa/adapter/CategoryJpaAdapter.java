@@ -2,8 +2,7 @@ package bootcamp.stockMircoservice.infrastructure.output.jpa.adapter;
 
 import bootcamp.stockMircoservice.domain.model.Category;
 import bootcamp.stockMircoservice.domain.spi.ICategoryPersistencePort;
-import bootcamp.stockMircoservice.infrastructure.exception.CategoriesNotFoundException;
-import bootcamp.stockMircoservice.infrastructure.exception.CategoryAlreadyExistsException;
+import bootcamp.stockMircoservice.infrastructure.exception.*;
 import bootcamp.stockMircoservice.infrastructure.output.jpa.entity.CategoryEntity;
 import bootcamp.stockMircoservice.infrastructure.output.jpa.mapper.ICategoryEntityMapper;
 import bootcamp.stockMircoservice.infrastructure.output.jpa.repository.ICategoryRepository;
@@ -13,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 
-public class CategoryAdapter implements ICategoryPersistencePort {
+public class CategoryJpaAdapter implements ICategoryPersistencePort {
     private final ICategoryEntityMapper categoryEntityMapper;
     private final ICategoryRepository categoryRepository;
 
@@ -22,6 +21,21 @@ public class CategoryAdapter implements ICategoryPersistencePort {
     public void saveCategory(Category category) {
         if (categoryRepository.findByName(category.getName()).isPresent()) {
             throw new CategoryAlreadyExistsException();
+        }
+
+        if(category.getName().isEmpty()){
+            throw new CategoryNameEmptyException();
+        }
+
+        if(category.getName().length() > Category.MAX_NAME_LENGTH){
+            throw new CategoryOversizeNameException();
+        }
+        if(category.getName().isEmpty()){
+            throw new CategoryDescriptionEmptyException();
+        }
+
+        if(category.getDescription().length() > Category.MAX_DESCRIPTION_LENGTH){
+            throw new CategoryOversizeDescriptionException();
         }
         categoryRepository.save(categoryEntityMapper.toCategoryEntity(category));
     }
