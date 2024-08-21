@@ -1,7 +1,6 @@
 
 server:
   port: 8080
-
 spring:
   datasource:
     url: jdbc:mysql://localhost:8090/category
@@ -10,6 +9,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-
 appDescription: "Stock API"
 appVersion: "1.0.0"
+
+springdoc:
+  api-docs:
+    enabled: true
+
+  swagger-ui:
+    path: /category/swagger-ui.html
+    enabled: true

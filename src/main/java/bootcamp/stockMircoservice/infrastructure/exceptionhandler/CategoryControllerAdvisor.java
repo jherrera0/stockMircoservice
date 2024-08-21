@@ -38,5 +38,10 @@ public class CategoryControllerAdvisor {
         ResponseEntity responseEntity = new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         return responseEntity;
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Void> handleRuntimeException(RuntimeException e) {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
 

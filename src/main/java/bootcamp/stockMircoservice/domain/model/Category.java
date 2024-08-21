@@ -8,6 +8,14 @@ public class Category {
     public static final int MAX_NAME_LENGTH = 50;
     public static final int MAX_DESCRIPTION_LENGTH = 90;
 
+    public Category() {
+    }
+
+    public Category(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public Category(int id, String name, String description) {
         this.id = id;
         this.name = name;
