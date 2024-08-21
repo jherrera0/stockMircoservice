@@ -14,14 +14,17 @@ import java.util.List;
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 
 public interface CategoryResponseMapper {
+    @Mapping(target = "id",ignore = true)
     @Mapping(source = "name", target = "name")
     @Mapping(source = "description", target = "description")
+
     CategoryRequest toCategoryRequest(Category category);
 
     default List<CategoryResponse> toResponseList(List<Category> categoryRequestList) {
         return categoryRequestList.stream().map(
                 categoryRequest-> {
                     CategoryResponse categoryResponse = new CategoryResponse();
+                    categoryResponse.setId(categoryRequest.getId());
                     categoryResponse.setName(categoryRequest.getName());
                     categoryResponse.setDescription(categoryRequest.getDescription());
                     return categoryResponse;
