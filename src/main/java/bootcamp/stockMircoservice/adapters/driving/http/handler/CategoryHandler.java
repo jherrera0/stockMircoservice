@@ -29,7 +29,7 @@ public class CategoryHandler implements ICategoryHandler {
     }
 
     @Override
-    public List<CategoryResponse> getAllCategories(Integer Page, Integer Size) {
-        return categoryResponseMapper.toResponseList(categoryServicePort.getAllCategories(Page, Size));
+    public List<CategoryResponse> getAllCategories(Integer page, Integer size, String sortDirection) {
+        return categoryResponseMapper.toResponseList(categoryServicePort.getAllCategories(page, size, sortDirection));
     }
 }

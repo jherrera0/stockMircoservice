@@ -18,9 +18,10 @@ public class CategoryCase implements ICategoryServicePort {
         this.categoryPersistencePort.saveCategory(category);
     }
 
+
     @Override
-    public List<Category> getAllCategories(Integer Page, Integer size) {
-        return categoryPersistencePort.getAllCategories(Page, size);
+    public List<Category> getAllCategories(Integer Page, Integer size, String sortDirection) {
+        return categoryPersistencePort.getAllCategories(Page, size, sortDirection);
     }
 
 }
