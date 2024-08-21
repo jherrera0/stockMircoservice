@@ -19,7 +19,8 @@ public class CategoryCase implements ICategoryServicePort {
     }
 
     @Override
-    public List<Category> getAllCategories() {
-        return categoryPersistencePort.getAllCategories();
+    public List<Category> getAllCategories(Integer Page, Integer size) {
+        return categoryPersistencePort.getAllCategories(Page, size);
     }
+
 }

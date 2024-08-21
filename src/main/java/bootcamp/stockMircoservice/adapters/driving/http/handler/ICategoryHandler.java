@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ICategoryHandler {
     void saveCategory(CategoryRequest categoryRequest);
-    List<CategoryResponse> getAllCategories();
+    List<CategoryResponse> getAllCategories(Integer Page, Integer size);
 }
