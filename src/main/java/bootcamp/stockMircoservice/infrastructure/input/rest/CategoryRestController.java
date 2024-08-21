@@ -4,6 +4,7 @@ import bootcamp.stockMircoservice.adapters.driving.http.dto.CategoryRequest;
 import bootcamp.stockMircoservice.adapters.driving.http.dto.CategoryResponse;
 import bootcamp.stockMircoservice.adapters.driving.http.handler.ICategoryHandler;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -39,7 +40,7 @@ public class CategoryRestController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @Operation(summary = "Get all the Categories")
+    @Operation(summary = "Get all the Categories sorted by name")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "All Categories returned",
                     content = @Content(mediaType = "application/json",
@@ -47,7 +48,10 @@ public class CategoryRestController {
             @ApiResponse(responseCode = "404", description = "No categories found", content = @Content)
     })
     @GetMapping
-    public ResponseEntity<List<CategoryResponse>> getCategory(@RequestParam Integer page, @RequestParam Integer size){
-        return ResponseEntity.ok(categoryHandler.getAllCategories(page, size));
+    @Parameter(name = "page" , description = "Page number to retrieve (0-based)", example = "0")
+    @Parameter(name = "size", description = "Number of items per page", example = "10")
+    @Parameter(name = "sortDirection", description = "Sort direction (asc or desc)", example = "asc")
+    public ResponseEntity<List<CategoryResponse>> getCategory(@RequestParam Integer page, @RequestParam Integer size, @RequestParam(required = false) String sortDirection){
+        return ResponseEntity.ok(categoryHandler.getAllCategories(page, size, sortDirection));
     }
 }

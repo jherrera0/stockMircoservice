@@ -9,6 +9,7 @@ import bootcamp.stockMircoservice.infrastructure.output.jpa.repository.ICategory
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -43,12 +44,18 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
     }
 
     @Override
-    public List<Category> getAllCategories(Integer page, Integer size) {
-        Pageable pagination = PageRequest.of(page, size);
+    public List<Category> getAllCategories(Integer page, Integer size, String sortDirection) {
+        Pageable pagination;
+        if (sortDirection == null || sortDirection.isEmpty()) {
+            pagination = PageRequest.of(page, size);
+        } else {
+            pagination = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), "name"));
+        }
         List<CategoryEntity> categories = categoryRepository.findAll(pagination).getContent();
         if (categories.isEmpty()) {
             throw new CategoriesNotFoundException();
         }
-        return  categoryEntityMapper.toCategoryList(categories);
+        return categoryEntityMapper.toCategoryList(categories);
     }
+
 }
