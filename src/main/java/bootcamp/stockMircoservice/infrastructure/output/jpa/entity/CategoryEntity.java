@@ -26,5 +26,6 @@ public class CategoryEntity {
 
     @Schema(description = "A brief description of the category", example = "Category for all electronic items", maxLength = 90)
     private String description;
+
 }
 

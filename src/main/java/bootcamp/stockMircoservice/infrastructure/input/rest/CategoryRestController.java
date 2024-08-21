@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/category/")
 @RequiredArgsConstructor
 @Tag(name = "Category", description = "API for managing categories")
 public class CategoryRestController {
@@ -47,7 +47,7 @@ public class CategoryRestController {
             @ApiResponse(responseCode = "404", description = "No categories found", content = @Content)
     })
     @GetMapping
-    public ResponseEntity<List<CategoryResponse>> getCategory(){
-        return ResponseEntity.ok(categoryHandler.getAllCategories());
+    public ResponseEntity<List<CategoryResponse>> getCategory(@RequestParam Integer page, @RequestParam Integer size){
+        return ResponseEntity.ok(categoryHandler.getAllCategories(page, size));
     }
 }
