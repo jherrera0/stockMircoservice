@@ -11,37 +11,28 @@ public class CategoryControllerAdvisor {
 
     @ExceptionHandler(CategoryAlreadyExistsException.class)
     public ResponseEntity<String> handleCategoryAlreadyExistsException(CategoryAlreadyExistsException ex) {
-        ResponseEntity responseEntity = new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-        return responseEntity;
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(CategoryDescriptionEmptyException.class)
     public ResponseEntity<String> handleCategoryDescriptionEmptyException(CategoryDescriptionEmptyException ex) {
-        ResponseEntity responseEntity = new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-        return responseEntity;
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(CategoryOversizeDescriptionException.class)
     public ResponseEntity<String> handleCategoryOversizeDescriptionException(CategoryOversizeDescriptionException ex) {
-        ResponseEntity responseEntity = new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-        return responseEntity;
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(CategoryOversizeNameException.class)
     public ResponseEntity<String> handleCategoryOversizeNameException(CategoryOversizeNameException ex) {
-        ResponseEntity responseEntity = new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-        return responseEntity;
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(CategoryNameEmptyException.class)
     public ResponseEntity<String> handleCategoryNameEmptyException(CategoryNameEmptyException ex) {
-        ResponseEntity responseEntity = new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-        return responseEntity;
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Void> handleRuntimeException(RuntimeException e) {
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 }
 

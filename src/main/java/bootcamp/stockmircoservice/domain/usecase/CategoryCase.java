@@ -20,8 +20,8 @@ public class CategoryCase implements ICategoryServicePort {
 
 
     @Override
-    public List<Category> getAllCategories(Integer Page, Integer size, String sortDirection) {
-        return categoryPersistencePort.getAllCategories(Page, size, sortDirection);
+    public List<Category> getAllCategories(Integer page, Integer size, String sortDirection) {
+        return categoryPersistencePort.getAllCategories(page, size, sortDirection);
     }
 
 }
