@@ -27,4 +27,5 @@ public interface CategoryResponseMapper {
                     return categoryResponse;
                 }).toList();
     }
+
 }
