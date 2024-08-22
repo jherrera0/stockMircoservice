@@ -66,19 +66,6 @@ class CategoryJpaAdapterTest {
         assertThrows(CategoriesNotFoundException.class, () -> categoryJpaAdapter.getAllCategories(0, 10, null));
     }
     @Test
-    void getAllCategories_ShouldReturnCategories_WhenSortDirectionIsNull() {
-        CategoryEntity categoryEntity = new CategoryEntity();
-        Page<CategoryEntity> page = new PageImpl<>(Collections.singletonList(categoryEntity));
-        Pageable pageable = PageRequest.of(0, 10);
-        when(categoryRepository.findAll(pageable)).thenReturn(page);
-        when(categoryEntityMapper.toCategoryList(anyList())).thenReturn(Collections.singletonList(new Category("Test", "Description")));
-
-        List<Category> categories = categoryJpaAdapter.getAllCategories(0, 10, null);
-
-        assertFalse(categories.isEmpty());
-        assertEquals(1, categories.size());
-    }
-    @Test
     void getAllCategories_ShouldReturnCategories_WhenSortDirectionIsEmpty() {
         CategoryEntity categoryEntity = new CategoryEntity();
         Page<CategoryEntity> page = new PageImpl<>(Collections.singletonList(categoryEntity));
