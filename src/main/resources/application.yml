@@ -9,8 +9,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-appDescription: "Stock API"
-appVersion: "1.0.0"
 
 springdoc:
   api-docs:
