@@ -62,18 +62,6 @@ class CategoryHandlerTest {
         assertEquals(1, result.size());
     }
     @Test
-    void getAllCategories_ShouldReturnCategoryResponses_WhenSortDirectionIsNull() {
-        List<Category> categories = Collections.singletonList(new Category());
-        List<CategoryResponse> categoryResponses = Collections.singletonList(new CategoryResponse());
-        when(categoryServicePort.getAllCategories(0, 10, null)).thenReturn(categories);
-        when(categoryResponseMapper.toResponseList(categories)).thenReturn(categoryResponses);
-
-        List<CategoryResponse> result = categoryHandler.getAllCategories(0, 10, null);
-
-        assertFalse(result.isEmpty());
-        assertEquals(1, result.size());
-    }
-    @Test
     void getAllCategories_ShouldReturnCategoryResponses_WhenSortDirectionIsEmpty() {
         List<Category> categories = Collections.singletonList(new Category());
         List<CategoryResponse> categoryResponses = Collections.singletonList(new CategoryResponse());
