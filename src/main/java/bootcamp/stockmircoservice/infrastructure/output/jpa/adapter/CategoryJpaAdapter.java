@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 
@@ -22,24 +23,6 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
 
     @Override
     public void saveCategory(Category category) {
-        if (categoryRepository.findByName(category.getName()).isPresent()) {
-            throw new CategoryAlreadyExistsException();
-        }
-
-        if(category.getName().isEmpty()){
-            throw new CategoryNameEmptyException();
-        }
-
-        if(category.getName().length() > Category.MAX_NAME_LENGTH){
-            throw new CategoryOversizeNameException();
-        }
-        if(category.getDescription().isEmpty()){
-            throw new CategoryDescriptionEmptyException();
-        }
-
-        if(category.getDescription().length() > Category.MAX_DESCRIPTION_LENGTH){
-            throw new CategoryOversizeDescriptionException();
-        }
         categoryRepository.save(categoryEntityMapper.toCategoryEntity(category));
     }
 
@@ -52,10 +35,12 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
             pagination = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), "name"));
         }
         List<CategoryEntity> categories = categoryRepository.findAll(pagination).getContent();
-        if (categories.isEmpty()) {
-            throw new CategoriesNotFoundException();
-        }
         return categoryEntityMapper.toCategoryList(categories);
+    }
+
+    @Override
+    public Optional<Category> findByName(String name) {
+        return categoryRepository.findByNameIgnoreCase(name).map(categoryEntityMapper::toCategory);
     }
 
 }
