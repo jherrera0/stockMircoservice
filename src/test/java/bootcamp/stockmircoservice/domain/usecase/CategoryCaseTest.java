@@ -73,4 +73,26 @@ class CategoryHandlerTest {
         assertFalse(result.isEmpty());
         assertEquals(1, result.size());
     }
+    @Test
+    void getAllCategories_ShouldReturnCategoryResponses_WhenPageAndSizeAreNull() {
+        List<Category> categories = Collections.singletonList(new Category());
+        List<CategoryResponse> categoryResponses = Collections.singletonList(new CategoryResponse());
+        when(categoryServicePort.getAllCategories(null, null, "asc")).thenReturn(categories);
+        when(categoryResponseMapper.toResponseList(categories)).thenReturn(categoryResponses);
+
+        List<CategoryResponse> result = categoryHandler.getAllCategories(null, null, "asc");
+
+        assertFalse(result.isEmpty());
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    void getAllCategories_ShouldReturnEmptyList_WhenNoCategoriesExist() {
+        when(categoryServicePort.getAllCategories(0, 10, "asc")).thenReturn(Collections.emptyList());
+        when(categoryResponseMapper.toResponseList(Collections.emptyList())).thenReturn(Collections.emptyList());
+
+        List<CategoryResponse> result = categoryHandler.getAllCategories(0, 10, "asc");
+
+        assertTrue(result.isEmpty());
+    }
 }
