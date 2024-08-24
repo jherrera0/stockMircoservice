@@ -1,7 +1,7 @@
 package bootcamp.stockmircoservice.infrastructure.input.rest;
 
-import bootcamp.stockmircoservice.adapters.driving.http.dto.CategoryRequest;
-import bootcamp.stockmircoservice.adapters.driving.http.dto.CategoryResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequest;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.ICategoryHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

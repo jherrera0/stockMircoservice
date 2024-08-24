@@ -1,7 +1,7 @@
 package bootcamp.stockmircoservice.adapters.driving.http.handler;
 
-import bootcamp.stockmircoservice.adapters.driving.http.dto.CategoryRequest;
-import bootcamp.stockmircoservice.adapters.driving.http.dto.CategoryResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequest;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
 
 import java.util.List;
 
