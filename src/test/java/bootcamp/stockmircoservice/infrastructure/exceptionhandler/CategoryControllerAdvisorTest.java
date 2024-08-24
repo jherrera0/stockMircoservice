@@ -11,25 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CategoryControllerAdvisorTest {
 
     @Test
-    void handleCategoryAlreadyExistsException() {
-    }
-
-    @Test
-    void handleCategoryDescriptionEmptyException() {
-    }
-
-    @Test
-    void handleCategoryOversizeDescriptionException() {
-    }
-
-    @Test
-    void handleCategoryOversizeNameException() {
-    }
-
-    @Test
-    void handleCategoryNameEmptyException() {
-    }
-    @Test
     void handleCategoryAlreadyExistsException_ShouldReturnBadRequest() {
         CategoryControllerAdvisor advisor = new CategoryControllerAdvisor();
         CategoryAlreadyExistsException ex = new CategoryAlreadyExistsException();
