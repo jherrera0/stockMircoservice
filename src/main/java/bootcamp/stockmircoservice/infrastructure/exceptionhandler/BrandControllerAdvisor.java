@@ -1,7 +1,6 @@
 package bootcamp.stockmircoservice.infrastructure.exceptionhandler;
 
 import bootcamp.stockmircoservice.infrastructure.exception.brand.*;
-import bootcamp.stockmircoservice.infrastructure.exception.category.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,7 +14,7 @@ public class BrandControllerAdvisor {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(CategoryDescriptionEmptyException.class)
+    @ExceptionHandler(BrandDescriptionEmptyException.class)
     public ResponseEntity<String> handleBrandDescriptionEmptyException(BrandDescriptionEmptyException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }

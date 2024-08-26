@@ -14,20 +14,21 @@ public class BrandCase implements IBrandServicePort {
 
     @Override
     public void saveBrand(Brand brand) {
-        if (brandPersistencePort.findByName(brand.getName()).isPresent()) {
-            throw new BrandAlreadyExistsException();
-        }
-        if(brand.getName().isEmpty()){
+        if(brand.getName().isEmpty()||brand.getName().isBlank()){
             throw new BrandNameEmptyException();
         }
+
         if(brand.getName().length() > Brand.MAX_NAME_LENGTH){
             throw new BrandOversizeNameException();
         }
-        if(brand.getDescription().isEmpty()){
+        if(brand.getDescription().isEmpty()||brand.getDescription().isBlank()){
             throw new BrandDescriptionEmptyException();
         }
         if(brand.getDescription().length() > Brand.MAX_DESCRIPTION_LENGTH){
             throw new BrandOversizeDescriptionException();
+        }
+        if (brandPersistencePort.findByName(brand.getName()).isPresent()) {
+            throw new BrandAlreadyExistsException();
         }
         brandPersistencePort.saveBrand(brand)
         ;

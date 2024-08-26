@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/brands/")
+@RequestMapping("/brand/")
 @RequiredArgsConstructor
 @Tag(name = "brand", description = "API for managing brands")
 public class BrandRestController {
@@ -29,11 +29,7 @@ public class BrandRestController {
     })
     @PostMapping("/save")
     public ResponseEntity<Void> saveBrand(@RequestBody BrandRequest brandRequest) {
-        try {
-            brandHandler.saveBrand(brandRequest);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        brandHandler.saveBrand(brandRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
