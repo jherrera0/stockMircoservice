@@ -39,12 +39,29 @@ class CategoryJpaAdapterTest {
         MockitoAnnotations.openMocks(this);
     }
     @Test
-    void saveCategory_ShouldThrowException_WhenCategoryAlreadyExists() {
-        Category category = new Category("Test", "Description");
-        when(categoryRepository.findByName(category.getName())).thenReturn(Optional.of(new CategoryEntity()));
+    void findByName_ShouldReturnCategory_WhenCategoryExists() {
+        String categoryName = "Test";
+        CategoryEntity categoryEntity = new CategoryEntity();
+        when(categoryRepository.findByNameIgnoreCase(categoryName)).thenReturn(Optional.of(categoryEntity));
+        when(categoryEntityMapper.toCategory(categoryEntity)).thenReturn(new Category(categoryName, "Description"));
 
-        assertThrows(CategoryAlreadyExistsException.class, () -> categoryJpaAdapter.saveCategory(category));
+        Optional<Category> result = categoryJpaAdapter.findByName(categoryName);
+
+        assertTrue(result.isPresent());
+        assertEquals(categoryName, result.get().getName());
     }
+
+    @Test
+    void findByName_ShouldReturnEmpty_WhenCategoryDoesNotExist() {
+        String categoryName = "NonExistent";
+        when(categoryRepository.findByNameIgnoreCase(categoryName)).thenReturn(Optional.empty());
+
+        Optional<Category> result = categoryJpaAdapter.findByName(categoryName);
+
+        assertFalse(result.isPresent());
+    }
+
+
     @Test
     void getAllCategories_ShouldReturnCategories_WhenCategoriesExist() {
         CategoryEntity categoryEntity = new CategoryEntity();

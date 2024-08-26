@@ -36,12 +36,9 @@ public class CategoryRestController {
     })
     @PostMapping("/save")
     public ResponseEntity<Void> saveCategory(@RequestBody CategoryRequest categoryRequest){
-        try {
             categoryHandler.saveCategory(categoryRequest);
             return ResponseEntity.status(HttpStatus.CREATED).build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
     }
 
     @Operation(summary = "Get all the Categories sorted by name or unsorted")

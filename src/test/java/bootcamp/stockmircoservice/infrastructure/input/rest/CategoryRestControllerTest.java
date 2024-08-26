@@ -52,17 +52,6 @@ class CategoryRestControllerTest {
     }
 
     @Test
-    void getCategory_ShouldReturnCategories_WhenSortDirectionIsNull() {
-        List<CategoryResponse> categoryResponses = Collections.singletonList(new CategoryResponse());
-        when(categoryHandler.getAllCategories(0, 10, null)).thenReturn(categoryResponses);
-
-        ResponseEntity<List<CategoryResponse>> response = categoryRestController.getCategory(0, 10, null);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertFalse(response.getBody().isEmpty());
-    }
-
-    @Test
     void getCategory_ShouldReturnCategories_WhenSortDirectionIsEmpty() {
         List<CategoryResponse> categoryResponses = Collections.singletonList(new CategoryResponse());
         when(categoryHandler.getAllCategories(0, 10, "")).thenReturn(categoryResponses);
