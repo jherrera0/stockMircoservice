@@ -1,5 +1,6 @@
 package bootcamp.stockmircoservice.infrastructure.exceptionhandler;
 
+import bootcamp.stockmircoservice.infrastructure.exception.brand.*;
 import bootcamp.stockmircoservice.infrastructure.exception.category.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,30 +8,30 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class CategoryControllerAdvisor {
+public class BrandControllerAdvisor {
 
-    @ExceptionHandler(CategoryAlreadyExistsException.class)
-    public ResponseEntity<String>handleCategoryAlreadyExistsException(CategoryAlreadyExistsException ex) {
+    @ExceptionHandler(BrandAlreadyExistsException.class)
+    public ResponseEntity<String>handleBrandAlreadyExistsException(BrandAlreadyExistsException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(CategoryDescriptionEmptyException.class)
-    public ResponseEntity<String> handleCategoryDescriptionEmptyException(CategoryDescriptionEmptyException ex) {
+    public ResponseEntity<String> handleBrandDescriptionEmptyException(BrandDescriptionEmptyException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(CategoryOversizeDescriptionException.class)
-    public ResponseEntity<String> handleCategoryOversizeDescriptionException(CategoryOversizeDescriptionException ex) {
+    @ExceptionHandler(BrandOversizeDescriptionException.class)
+    public ResponseEntity<String> handleBrandOversizeDescriptionException(BrandOversizeDescriptionException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(CategoryOversizeNameException.class)
-    public ResponseEntity<String> handleCategoryOversizeNameException(CategoryOversizeNameException ex) {
+    @ExceptionHandler(BrandOversizeNameException.class)
+    public ResponseEntity<String> handleBrandOversizeNameException(BrandOversizeNameException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(CategoryNameEmptyException.class)
-    public ResponseEntity<String> handleCategoryNameEmptyException(CategoryNameEmptyException ex) {
+    @ExceptionHandler(BrandNameEmptyException.class)
+    public ResponseEntity<String> handleBrandNameEmptyException(BrandNameEmptyException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 

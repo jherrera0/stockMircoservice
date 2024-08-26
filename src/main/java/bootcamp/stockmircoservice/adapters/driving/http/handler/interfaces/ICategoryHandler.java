@@ -1,4 +1,4 @@
-package bootcamp.stockmircoservice.adapters.driving.http.handler;
+package bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;

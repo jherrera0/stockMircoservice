@@ -2,7 +2,7 @@ package bootcamp.stockmircoservice.infrastructure.input.rest;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
-import bootcamp.stockmircoservice.adapters.driving.http.handler.ICategoryHandler;
+import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.ICategoryHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
