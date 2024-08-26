@@ -1,9 +1,7 @@
 package bootcamp.stockmircoservice.infrastructure.configuration;
 
-import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.api.ICategoryServicePort;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
-import bootcamp.stockmircoservice.domain.usecase.BrandCase;
 import bootcamp.stockmircoservice.domain.usecase.CategoryCase;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.adapter.CategoryJpaAdapter;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.mapper.ICategoryEntityMapper;

@@ -2,7 +2,7 @@ package bootcamp.stockmircoservice.adapters.driving.http.handler;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.BrandRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IBrandHandler;
-import bootcamp.stockmircoservice.adapters.driving.http.mapper.BrandRequestMapper;import bootcamp.stockmircoservice.adapters.driving.http.mapper.BrandResponseMapper;
+import bootcamp.stockmircoservice.adapters.driving.http.mapper.BrandRequestMapper;
 import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 
 import bootcamp.stockmircoservice.domain.model.Brand;

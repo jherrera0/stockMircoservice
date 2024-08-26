@@ -2,10 +2,8 @@ package bootcamp.stockmircoservice.domain.usecase;
 
 import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.model.Brand;
-import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.domain.spi.IBrandPersistencePort;
 import bootcamp.stockmircoservice.infrastructure.exception.brand.*;
-import bootcamp.stockmircoservice.infrastructure.exception.category.*;
 
 public class BrandCase implements IBrandServicePort {
     private final IBrandPersistencePort brandPersistencePort;
