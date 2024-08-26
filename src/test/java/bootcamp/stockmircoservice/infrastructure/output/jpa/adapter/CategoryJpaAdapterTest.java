@@ -2,7 +2,6 @@ package bootcamp.stockmircoservice.infrastructure.output.jpa.adapter;
 
 
 import bootcamp.stockmircoservice.domain.model.Category;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategoriesNotFoundException;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.CategoryEntity;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.mapper.ICategoryEntityMapper;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.ICategoryRepository;
