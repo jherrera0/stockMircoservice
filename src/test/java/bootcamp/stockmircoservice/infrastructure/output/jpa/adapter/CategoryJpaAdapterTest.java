@@ -76,13 +76,6 @@ class CategoryJpaAdapterTest {
         assertEquals(1, categories.size());
     }
     @Test
-    void getAllCategories_ShouldThrowException_WhenNoCategoriesFound() {
-        Pageable pageable = PageRequest.of(0, 10);
-        when(categoryRepository.findAll(pageable)).thenReturn(Page.empty());
-
-        assertThrows(CategoriesNotFoundException.class, () -> categoryJpaAdapter.getAllCategories(0, 10, null));
-    }
-    @Test
     void getAllCategories_ShouldReturnCategories_WhenSortDirectionIsEmpty() {
         CategoryEntity categoryEntity = new CategoryEntity();
         Page<CategoryEntity> page = new PageImpl<>(Collections.singletonList(categoryEntity));

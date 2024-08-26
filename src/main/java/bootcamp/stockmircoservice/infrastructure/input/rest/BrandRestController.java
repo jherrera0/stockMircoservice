@@ -2,6 +2,7 @@ package bootcamp.stockmircoservice.infrastructure.input.rest;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.BrandRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IBrandHandler;
+import bootcamp.stockmircoservice.infrastructure.exception.brand.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -29,7 +30,24 @@ public class BrandRestController {
     })
     @PostMapping("/save")
     public ResponseEntity<Void> saveBrand(@RequestBody BrandRequest brandRequest) {
-        brandHandler.saveBrand(brandRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        if (brandRequest == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        try {
+            brandHandler.saveBrand(brandRequest);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+
+        } catch (BrandAlreadyExistsException e) {
+
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+
+        } catch (BrandNameEmptyException | BrandDescriptionEmptyException | BrandOversizeNameException |
+                 BrandOversizeDescriptionException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

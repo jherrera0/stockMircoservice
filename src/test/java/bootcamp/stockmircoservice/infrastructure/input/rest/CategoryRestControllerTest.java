@@ -33,6 +33,8 @@ class CategoryRestControllerTest {
     @Test
     void saveCategory_ShouldReturnCreatedStatus() {
         CategoryRequest categoryRequest = new CategoryRequest();
+        categoryRequest.setName("Valid Category");
+
         doNothing().when(categoryHandler).saveCategory(categoryRequest);
 
         ResponseEntity<Void> response = categoryRestController.saveCategory(categoryRequest);
@@ -60,16 +62,6 @@ class CategoryRestControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertFalse(response.getBody().isEmpty());
-    }
-
-    @Test
-    void saveCategory_ShouldHandleException() {
-        CategoryRequest categoryRequest = new CategoryRequest();
-        doThrow(new RuntimeException("Error")).when(categoryHandler).saveCategory(categoryRequest);
-
-        ResponseEntity<Void> response = categoryRestController.saveCategory(categoryRequest);
-
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
     @Test

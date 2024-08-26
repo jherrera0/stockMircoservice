@@ -17,7 +17,6 @@ public class BrandCase implements IBrandServicePort {
         if(brand.getName().isEmpty()||brand.getName().isBlank()){
             throw new BrandNameEmptyException();
         }
-
         if(brand.getName().length() > Brand.MAX_NAME_LENGTH){
             throw new BrandOversizeNameException();
         }
@@ -30,7 +29,6 @@ public class BrandCase implements IBrandServicePort {
         if (brandPersistencePort.findByName(brand.getName()).isPresent()) {
             throw new BrandAlreadyExistsException();
         }
-        brandPersistencePort.saveBrand(brand)
-        ;
+        brandPersistencePort.saveBrand(brand);
     }
 }
