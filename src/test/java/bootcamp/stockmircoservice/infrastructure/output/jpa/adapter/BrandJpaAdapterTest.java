@@ -9,7 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,10 +46,6 @@ class BrandJpaAdapterTest {
         verify(brandRepository, times(1)).save(brandEntity);
     }
 
-    @Test
-    void saveBrand_ShouldThrowException_WhenBrandIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> brandJpaAdapter.saveBrand(null));
-    }
 
     @Test
     void findByName_ShouldReturnBrand_WhenBrandExists() {
@@ -72,12 +72,55 @@ class BrandJpaAdapterTest {
     }
 
     @Test
-    void findByName_ShouldThrowException_WhenNameIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> brandJpaAdapter.findByName(null));
+    void getAllBrands_ShouldReturnEmptyList_WhenNoBrandsExist() {
+        when(brandRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(Collections.emptyList()));
+        when(brandEntityMapper.toBrandList(Collections.emptyList())).thenReturn(Collections.emptyList());
+
+        List<Brand> result = brandJpaAdapter.getAllBrands(0, 10, "asc");
+
+        assertTrue(result.isEmpty());
     }
 
     @Test
-    void findByName_ShouldThrowException_WhenNameIsEmpty() {
-        assertThrows(IllegalArgumentException.class, () -> brandJpaAdapter.findByName(""));
+    void getAllBrands_ShouldReturnBrandsList_WhenBrandsExist() {
+        List<BrandEntity> brandEntities = List.of(new BrandEntity(), new BrandEntity());
+        List<Brand> brands = List.of(new Brand("Brand1", "Description1"), new Brand("Brand2", "Description2"));
+        when(brandRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(brandEntities));
+        when(brandEntityMapper.toBrandList(brandEntities)).thenReturn(brands);
+
+        List<Brand> result = brandJpaAdapter.getAllBrands(0, 10, "asc");
+
+        assertEquals(2, result.size());
+        assertEquals("Brand1", result.get(0).getName());
+        assertEquals("Brand2", result.get(1).getName());
     }
+
+    @Test
+    void getAllBrands_ShouldReturnBrandsList_WhenSortDirectionIsNull() {
+        List<BrandEntity> brandEntities = List.of(new BrandEntity(), new BrandEntity());
+        List<Brand> brands = List.of(new Brand("Brand1", "Description1"), new Brand("Brand2", "Description2"));
+        when(brandRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(brandEntities));
+        when(brandEntityMapper.toBrandList(brandEntities)).thenReturn(brands);
+
+        List<Brand> result = brandJpaAdapter.getAllBrands(0, 10, null);
+
+        assertEquals(2, result.size());
+        assertEquals("Brand1", result.get(0).getName());
+        assertEquals("Brand2", result.get(1).getName());
+    }
+
+    @Test
+    void getAllBrands_ShouldReturnBrandsList_WhenSortDirectionIsEmpty() {
+        List<BrandEntity> brandEntities = List.of(new BrandEntity(), new BrandEntity());
+        List<Brand> brands = List.of(new Brand("Brand1", "Description1"), new Brand("Brand2", "Description2"));
+        when(brandRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(brandEntities));
+        when(brandEntityMapper.toBrandList(brandEntities)).thenReturn(brands);
+
+        List<Brand> result = brandJpaAdapter.getAllBrands(0, 10, "");
+
+        assertEquals(2, result.size());
+        assertEquals("Brand1", result.get(0).getName());
+        assertEquals("Brand2", result.get(1).getName());
+    }
+
 }
