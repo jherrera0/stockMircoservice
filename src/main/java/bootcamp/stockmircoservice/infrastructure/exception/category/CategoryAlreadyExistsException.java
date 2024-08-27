@@ -1,7 +1,7 @@
-package bootcamp.stockmircoservice.infrastructure.exception;
+package bootcamp.stockmircoservice.infrastructure.exception.category;
 
 public class CategoryAlreadyExistsException extends RuntimeException {
     public CategoryAlreadyExistsException() {
-        super("There is already a category with that name");
+        super("Category already exists");
     }
 }
