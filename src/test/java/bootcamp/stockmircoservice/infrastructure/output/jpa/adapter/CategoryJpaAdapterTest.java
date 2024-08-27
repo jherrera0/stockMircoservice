@@ -2,6 +2,7 @@ package bootcamp.stockmircoservice.infrastructure.output.jpa.adapter;
 
 
 import bootcamp.stockmircoservice.domain.model.Category;
+import bootcamp.stockmircoservice.infrastructure.exception.*;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.CategoryEntity;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.mapper.ICategoryEntityMapper;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.ICategoryRepository;
@@ -73,6 +74,13 @@ class CategoryJpaAdapterTest {
 
         assertFalse(categories.isEmpty());
         assertEquals(1, categories.size());
+    }
+    @Test
+    void getAllCategories_ShouldThrowException_WhenNoCategoriesFound() {
+        Pageable pageable = PageRequest.of(0, 10);
+        when(categoryRepository.findAll(pageable)).thenReturn(Page.empty());
+
+        assertThrows(CategoriesNotFoundException.class, () -> categoryJpaAdapter.getAllCategories(0, 10, null));
     }
     @Test
     void getAllCategories_ShouldReturnCategories_WhenSortDirectionIsEmpty() {
