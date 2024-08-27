@@ -17,17 +17,11 @@ public class BrandJpaAdapter implements IBrandPersistencePort {
 
     @Override
     public void saveBrand(Brand brand) {
-        if (brand == null) {
-            throw new IllegalArgumentException("Brand cannot be null");
-        }
         brandRepository.save(brandEntityMapper.toBrandEntity(brand));
     }
 
     @Override
     public Optional<Brand> findByName(String name) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be null or empty");
-        }
         return brandRepository.findByNameIgnoreCase(name).map(brandEntityMapper::toBrand);
     }
 }

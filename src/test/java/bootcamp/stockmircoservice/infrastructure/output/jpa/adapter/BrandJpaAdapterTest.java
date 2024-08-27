@@ -1,6 +1,7 @@
 package bootcamp.stockmircoservice.infrastructure.output.jpa.adapter;
 
 import bootcamp.stockmircoservice.domain.model.Brand;
+import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandNullFieldException;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.BrandEntity;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.mapper.IBrandEntityMapper;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.IBrandRepository;
@@ -43,11 +44,6 @@ class BrandJpaAdapterTest {
     }
 
     @Test
-    void saveBrand_ShouldThrowException_WhenBrandIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> brandJpaAdapter.saveBrand(null));
-    }
-
-    @Test
     void findByName_ShouldReturnBrand_WhenBrandExists() {
         String brandName = "Test Brand";
         BrandEntity brandEntity = new BrandEntity();
@@ -71,13 +67,4 @@ class BrandJpaAdapterTest {
         assertFalse(result.isPresent());
     }
 
-    @Test
-    void findByName_ShouldThrowException_WhenNameIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> brandJpaAdapter.findByName(null));
-    }
-
-    @Test
-    void findByName_ShouldThrowException_WhenNameIsEmpty() {
-        assertThrows(IllegalArgumentException.class, () -> brandJpaAdapter.findByName(""));
-    }
 }

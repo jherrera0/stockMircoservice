@@ -20,6 +20,28 @@ public class BrandCaseTest {
         brandPersistencePort = mock(IBrandPersistencePort.class);
         brandCase = new BrandCase(brandPersistencePort);
     }
+    @Test
+    void saveBrand_ShouldThrowException_WhenBrandIsNull() {
+        assertThrows(BrandNullFieldException.class, () -> brandCase.saveBrand(null));
+    }
+
+    @Test
+    void saveBrand_ShouldThrowException_WhenBrandNameIsNull() {
+        Brand brand = new Brand();
+        brand.setName(null);
+        brand.setDescription("Valid description");
+
+        assertThrows(BrandNullFieldException.class, () -> brandCase.saveBrand(brand));
+    }
+
+    @Test
+    void saveBrand_ShouldThrowException_WhenBrandDescriptionIsNull() {
+        Brand brand = new Brand();
+        brand.setName("Valid name");
+        brand.setDescription(null);
+
+        assertThrows(BrandNullFieldException.class, () -> brandCase.saveBrand(brand));
+    }
 
     @Test
     void saveBrand_ShouldThrowException_WhenBrandNameIsEmpty() {
