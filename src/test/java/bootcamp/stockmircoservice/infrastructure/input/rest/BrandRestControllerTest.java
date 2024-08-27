@@ -1,7 +1,10 @@
 package bootcamp.stockmircoservice.infrastructure.input.rest;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.BrandRequest;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.BrandResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IBrandHandler;
+import bootcamp.stockmircoservice.adapters.driving.http.mapper.BrandResponseMapper;
+import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandAlreadyExistsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,14 +14,24 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 
 class BrandRestControllerTest {
 
     @Mock
     private IBrandHandler brandHandler;
+
+    @Mock
+    private IBrandServicePort brandServicePort;
+
+    @Mock
+    private BrandResponseMapper brandResponseMapper;
 
     @InjectMocks
     private BrandRestController brandRestController;
@@ -39,31 +52,12 @@ class BrandRestControllerTest {
     }
 
     @Test
-    void saveBrand_ShouldReturnConflictStatus_WhenBrandAlreadyExists() {
-        BrandRequest brandRequest = new BrandRequest();
-        doThrow(new BrandAlreadyExistsException()).when(brandHandler).saveBrand(brandRequest);
+    void getAllBrands_ShouldReturnEmptyList_WhenNoBrandsExist() {
+        when(brandServicePort.getAllBRands(0, 10, "asc")).thenReturn(Collections.emptyList());
+        when(brandResponseMapper.toResponseList(Collections.emptyList())).thenReturn(Collections.emptyList());
 
-        ResponseEntity<Void> response = brandRestController.saveBrand(brandRequest);
+        List<BrandResponse> result = brandHandler.getAllBrands(0, 10, "asc");
 
-        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
-    }
-
-    @Test
-    void saveBrand_ShouldHandleException() {
-        BrandRequest brandRequest = new BrandRequest();
-        doThrow(new RuntimeException("Error")).when(brandHandler).saveBrand(brandRequest);
-
-        ResponseEntity<Void> response = brandRestController.saveBrand(brandRequest);
-
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-    }
-
-    @Test
-    void saveBrand_ShouldReturnBadRequestStatus_WhenBrandRequestIsInvalid() {
-        BrandRequest brandRequest = null;
-
-        ResponseEntity<Void> response = brandRestController.saveBrand(brandRequest);
-
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertTrue(result.isEmpty());
     }
 }

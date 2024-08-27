@@ -5,6 +5,8 @@ import bootcamp.stockmircoservice.domain.model.Brand;
 import bootcamp.stockmircoservice.domain.spi.IBrandPersistencePort;
 import bootcamp.stockmircoservice.infrastructure.exception.brand.*;
 
+import java.util.List;
+
 public class BrandCase implements IBrandServicePort {
     private final IBrandPersistencePort brandPersistencePort;
 
@@ -30,5 +32,10 @@ public class BrandCase implements IBrandServicePort {
             throw new BrandAlreadyExistsException();
         }
         brandPersistencePort.saveBrand(brand);
+    }
+
+    @Override
+    public List<Brand> getAllBRands(Integer page, Integer size, String sortDirection) {
+        return brandPersistencePort.getAllBrands(page, size, sortDirection);
     }
 }

@@ -6,9 +6,12 @@ import bootcamp.stockmircoservice.domain.spi.IBrandPersistencePort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class BrandCaseTest {
@@ -95,5 +98,39 @@ public class BrandCaseTest {
         brandCase.saveBrand(brand);
 
         verify(brandPersistencePort, times(1)).saveBrand(brand);
+    }
+    @Test
+    void getAllBrands_ShouldReturnEmptyList_WhenNoBrandsExist() {
+        when(brandPersistencePort.getAllBrands(0, 10, "asc")).thenReturn(Collections.emptyList());
+
+        List<Brand> result = brandCase.getAllBRands(0, 10, "asc");
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void getAllBrands_ShouldReturnBrands_WhenBrandsExist() {
+        List<Brand> brands = Arrays.asList(new Brand("Brand1", "Description1"), new Brand("Brand2", "Description2"));
+        when(brandPersistencePort.getAllBrands(0, 10, "asc")).thenReturn(brands);
+
+        List<Brand> result = brandCase.getAllBRands(0, 10, "asc");
+
+        assertFalse(result.isEmpty());
+        assertEquals(2, result.size());
+        assertEquals("Brand1", result.get(0).getName());
+        assertEquals("Brand2", result.get(1).getName());
+    }
+
+    @Test
+    void getAllBrands_ShouldReturnBrands_WhenSortDirectionIsEmpty() {
+        List<Brand> brands = Arrays.asList(new Brand("Brand1", "Description1"), new Brand("Brand2", "Description2"));
+        when(brandPersistencePort.getAllBrands(0, 10, "")).thenReturn(brands);
+
+        List<Brand> result = brandCase.getAllBRands(0, 10, "");
+
+        assertFalse(result.isEmpty());
+        assertEquals(2, result.size());
+        assertEquals("Brand1", result.get(0).getName());
+        assertEquals("Brand2", result.get(1).getName());
     }
 }

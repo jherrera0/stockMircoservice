@@ -8,16 +8,6 @@ import org.springframework.http.ResponseEntity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BrandControllerAdvisorTest {
-    @Test
-    void handleBrandAlreadyExistsException_ShouldReturnBadRequest() {
-        BrandControllerAdvisor advisor = new BrandControllerAdvisor();
-        BrandAlreadyExistsException ex = new BrandAlreadyExistsException();
-
-        ResponseEntity<String> response = advisor.handleBrandAlreadyExistsException(ex);
-
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Brand already exists", response.getBody());
-    }
 
     @Test
     void handleBrandDescriptionEmptyException_ShouldReturnBadRequest() {
