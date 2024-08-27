@@ -1,7 +1,6 @@
 package bootcamp.stockmircoservice.domain.api;
 
 import bootcamp.stockmircoservice.domain.model.Brand;
-import bootcamp.stockmircoservice.domain.model.Category;
 
 import java.util.List;
 

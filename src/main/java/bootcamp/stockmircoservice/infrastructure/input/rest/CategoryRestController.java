@@ -63,7 +63,7 @@ public class CategoryRestController {
     @Parameter(name = "page" , description = "Page number to retrieve (0-based)", example = "0")
     @Parameter(name = "size", description = "Number of items per page", example = "10")
     @Parameter(name = "sortDirection", description = "Sort direction (asc or desc)", example = "asc")
-    public ResponseEntity<List<CategoryResponse>> getCategory(@RequestParam Integer page, @RequestParam Integer size, @RequestParam(required = false) String sortDirection){
+    public ResponseEntity<List<CategoryResponse>> getCategories(@RequestParam Integer page, @RequestParam Integer size, @RequestParam(required = false) String sortDirection){
         try {
             if(categoryHandler.getAllCategories(page, size, sortDirection).isEmpty()){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
