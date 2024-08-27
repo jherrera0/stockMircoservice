@@ -16,6 +16,9 @@ public class BrandCase implements IBrandServicePort {
 
     @Override
     public void saveBrand(Brand brand) {
+        if(brand == null||brand.getName() == null||brand.getDescription() == null){
+            throw new BrandNullFieldException();
+        }
         if(brand.getName().isEmpty()||brand.getName().isBlank()){
             throw new BrandNameEmptyException();
         }
