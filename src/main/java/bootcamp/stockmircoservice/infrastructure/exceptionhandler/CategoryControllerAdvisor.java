@@ -1,6 +1,6 @@
 package bootcamp.stockmircoservice.infrastructure.exceptionhandler;
 
-import bootcamp.stockmircoservice.infrastructure.exception.category.*;
+import bootcamp.stockmircoservice.infrastructure.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

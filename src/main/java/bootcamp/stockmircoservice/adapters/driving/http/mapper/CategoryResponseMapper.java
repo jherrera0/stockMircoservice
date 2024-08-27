@@ -1,6 +1,6 @@
 package bootcamp.stockmircoservice.adapters.driving.http.mapper;
 
-import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.CategoryResponse;
 import bootcamp.stockmircoservice.domain.model.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

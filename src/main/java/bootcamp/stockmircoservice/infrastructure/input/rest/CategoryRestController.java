@@ -1,9 +1,8 @@
 package bootcamp.stockmircoservice.infrastructure.input.rest;
 
-import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequest;
-import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
-import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.ICategoryHandler;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryAlreadyExistsException;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.CategoryRequest;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.CategoryResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.handler.ICategoryHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -33,23 +32,13 @@ public class CategoryRestController {
     @Operation(summary = "Add a new category")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Category created", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
-            @ApiResponse(responseCode = "409", description = "Category already exists", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+            @ApiResponse(responseCode = "409", description = "Category already exists", content = @Content)
     })
     @PostMapping("/save")
-    public ResponseEntity<Void> saveCategory(@RequestBody CategoryRequest categoryRequest) {
-        if (categoryRequest == null || categoryRequest.getName() == null || categoryRequest.getName().isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        try {
+    public ResponseEntity<Void> saveCategory(@RequestBody CategoryRequest categoryRequest){
             categoryHandler.saveCategory(categoryRequest);
             return ResponseEntity.status(HttpStatus.CREATED).build();
-        } catch (CategoryAlreadyExistsException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
     }
 
     @Operation(summary = "Get all the Categories sorted by name or unsorted")
