@@ -3,7 +3,6 @@ package bootcamp.stockmircoservice.infrastructure.input.rest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.BrandRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.BrandResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IBrandHandler;
-import bootcamp.stockmircoservice.infrastructure.exception.brand.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
