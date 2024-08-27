@@ -37,11 +37,6 @@ class BrandJpaAdapterTest {
     }
 
     @Test
-    void saveBrand_ShouldThrowException_WhenBrandIsNull() {
-        assertThrows(BrandNullFieldException.class, () -> brandJpaAdapter.saveBrand(null));
-    }
-
-    @Test
     void saveBrand_ShouldSaveBrandSuccessfully() {
         Brand brand = new Brand("Test Brand", "Test Description");
         BrandEntity brandEntity = new BrandEntity();

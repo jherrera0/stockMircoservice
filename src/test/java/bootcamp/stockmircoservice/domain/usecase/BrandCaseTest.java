@@ -3,18 +3,11 @@ package bootcamp.stockmircoservice.domain.usecase;
 import bootcamp.stockmircoservice.domain.model.Brand;
 import bootcamp.stockmircoservice.infrastructure.exception.brand.*;
 import bootcamp.stockmircoservice.domain.spi.IBrandPersistencePort;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.BrandEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
