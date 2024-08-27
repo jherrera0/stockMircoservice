@@ -39,17 +39,8 @@ public class CategoryRestController {
     })
     @PostMapping("/save")
     public ResponseEntity<Void> saveCategory(@RequestBody CategoryRequest categoryRequest) {
-        if (categoryRequest == null || categoryRequest.getName() == null || categoryRequest.getName().isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        try {
-            categoryHandler.saveCategory(categoryRequest);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        } catch (CategoryAlreadyExistsException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        categoryHandler.saveCategory(categoryRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Operation(summary = "Get all the Categories sorted by name or unsorted")
@@ -64,14 +55,6 @@ public class CategoryRestController {
     @Parameter(name = "size", description = "Number of items per page", example = "10")
     @Parameter(name = "sortDirection", description = "Sort direction (asc or desc)", example = "asc")
     public ResponseEntity<List<CategoryResponse>> getCategories(@RequestParam Integer page, @RequestParam Integer size, @RequestParam(required = false) String sortDirection){
-        try {
-            if(categoryHandler.getAllCategories(page, size, sortDirection).isEmpty()){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-            return ResponseEntity.ok(categoryHandler.getAllCategories(page, size, sortDirection));
-
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        return ResponseEntity.ok(categoryHandler.getAllCategories(page, size, sortDirection));
     }
 }
