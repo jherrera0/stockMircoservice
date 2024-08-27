@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class BrandControllerAdvisor {
+    @ExceptionHandler(BrandNullFieldException.class)
+    public ResponseEntity<String> handleBrandNullFieldException(BrandNullFieldException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(BrandAlreadyExistsException.class)
     public ResponseEntity<String>handleBrandAlreadyExistsException(BrandAlreadyExistsException ex) {

@@ -1,6 +1,7 @@
 package bootcamp.stockmircoservice.infrastructure.output.jpa.adapter;
 
 import bootcamp.stockmircoservice.domain.model.Brand;
+import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandNullFieldException;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.BrandEntity;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.mapper.IBrandEntityMapper;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.IBrandRepository;
@@ -33,6 +34,11 @@ class BrandJpaAdapterTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void saveBrand_ShouldThrowException_WhenBrandIsNull() {
+        assertThrows(BrandNullFieldException.class, () -> brandJpaAdapter.saveBrand(null));
     }
 
     @Test
