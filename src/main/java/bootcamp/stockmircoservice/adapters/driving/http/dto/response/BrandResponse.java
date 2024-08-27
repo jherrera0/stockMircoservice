@@ -1,9 +1,9 @@
-package bootcamp.stockmircoservice.adapters.driving.http.dto;
+package bootcamp.stockmircoservice.adapters.driving.http.dto.response;
 
 import lombok.Data;
 
 @Data
-public class CategoryResponse {
+public class BrandResponse {
     private long id;
     private String name;
     private String description;

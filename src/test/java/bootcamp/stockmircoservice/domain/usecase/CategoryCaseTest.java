@@ -1,8 +1,8 @@
 package bootcamp.stockmircoservice.domain.usecase;
 
 
-import bootcamp.stockmircoservice.adapters.driving.http.dto.CategoryRequest;
-import bootcamp.stockmircoservice.adapters.driving.http.dto.CategoryResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequest;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.CategoryHandler;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.CategoryRequestMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.CategoryResponseMapper;
