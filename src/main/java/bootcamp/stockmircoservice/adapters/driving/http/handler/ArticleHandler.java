@@ -5,7 +5,6 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResp
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IArticleHandler;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.ArticleRequestMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.ArticleResponseMapper;
-import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.ArticleResponseMapperImpl;
 import bootcamp.stockmircoservice.domain.api.IArticleServicePort;
 import bootcamp.stockmircoservice.domain.model.Article;
 import jakarta.transaction.Transactional;

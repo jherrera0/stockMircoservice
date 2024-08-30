@@ -1,10 +1,7 @@
 package bootcamp.stockmircoservice.adapters.driving.http.mapper.response;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResponse;
-import bootcamp.stockmircoservice.adapters.driving.http.handler.BrandHandler;
-import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.model.Article;
-import bootcamp.stockmircoservice.domain.usecase.ArticleCase;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
