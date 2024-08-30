@@ -17,7 +17,7 @@ public class CategoryCase implements ICategoryServicePort {
 
     @Override
     public void saveCategory(Category category) {
-        if(category.getName().isEmpty()||category.getName().isBlank()){
+        if(category.getName().isEmpty() || category.getName().isBlank()){
             throw new CategoryNameEmptyException();
         }
         if(category.getName().length() > Category.MAX_NAME_LENGTH){
