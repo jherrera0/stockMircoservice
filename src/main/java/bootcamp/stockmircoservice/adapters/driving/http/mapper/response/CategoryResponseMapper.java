@@ -1,4 +1,4 @@
-package bootcamp.stockmircoservice.adapters.driving.http.mapper;
+package bootcamp.stockmircoservice.adapters.driving.http.mapper.response;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
 import bootcamp.stockmircoservice.domain.model.Category;

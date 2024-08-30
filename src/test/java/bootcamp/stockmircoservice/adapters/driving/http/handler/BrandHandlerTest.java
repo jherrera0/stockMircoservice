@@ -2,8 +2,8 @@ package bootcamp.stockmircoservice.adapters.driving.http.handler;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.BrandRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.BrandResponse;
-import bootcamp.stockmircoservice.adapters.driving.http.mapper.BrandRequestMapper;
-import bootcamp.stockmircoservice.adapters.driving.http.mapper.BrandResponseMapper;
+import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.BrandRequestMapper;
+import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.BrandResponseMapper;
 import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.model.Brand;
 import org.junit.jupiter.api.BeforeEach;

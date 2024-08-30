@@ -1,7 +1,7 @@
 package bootcamp.stockmircoservice.adapters.driving.http.handler;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.ArticleRequest;
-import bootcamp.stockmircoservice.adapters.driving.http.mapper.ArticleRequestMapper;
+import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.ArticleRequestMapper;
 import bootcamp.stockmircoservice.domain.api.IArticleServicePort;
 import bootcamp.stockmircoservice.domain.model.Article;
 import org.junit.jupiter.api.BeforeEach;

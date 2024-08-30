@@ -6,6 +6,8 @@ import bootcamp.stockmircoservice.infrastructure.output.jpa.mapper.IArticleEntit
 import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.IArticleRepository;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 
 public class ArticleJpaAdapter implements IArticlePersistencePort {
@@ -15,5 +17,10 @@ public class ArticleJpaAdapter implements IArticlePersistencePort {
     @Override
     public void saveArticle(Article article) {
         articleRepository.save(articleEntityMapper.toArticleEntity(article));
+    }
+
+    @Override
+    public List<Article> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy) {
+        return articleEntityMapper.toArticleList(articleRepository.findAll());
     }
 }

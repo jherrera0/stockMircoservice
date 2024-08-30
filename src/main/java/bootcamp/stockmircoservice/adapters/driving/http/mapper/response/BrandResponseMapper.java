@@ -1,4 +1,4 @@
-package bootcamp.stockmircoservice.adapters.driving.http.mapper;
+package bootcamp.stockmircoservice.adapters.driving.http.mapper.response;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.BrandResponse;
 import bootcamp.stockmircoservice.domain.model.Brand;

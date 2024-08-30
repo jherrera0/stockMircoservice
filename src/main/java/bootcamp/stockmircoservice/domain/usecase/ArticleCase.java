@@ -7,6 +7,7 @@ import bootcamp.stockmircoservice.infrastructure.exception.article.CategoriesSiz
 import bootcamp.stockmircoservice.infrastructure.exception.article.DuplicateCategoriesException;
 
 import java.util.HashSet;
+import java.util.List;
 
 public class ArticleCase implements IArticleServicePort {
     private final IArticlePersistencePort articlePersistencePort;
@@ -25,6 +26,11 @@ public class ArticleCase implements IArticleServicePort {
         }
 
         articlePersistencePort.saveArticle(article);
+    }
+
+    @Override
+    public List<Article> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy) {
+        return articlePersistencePort.getAllArticles(page, size, sortDirection, sortBy);
     }
 
 
