@@ -1,13 +1,10 @@
 package bootcamp.stockmircoservice.adapters.driving.http.handler;
 
 
-import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.CategoryRequestMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.CategoryResponseMapper;
 import bootcamp.stockmircoservice.domain.api.ICategoryServicePort;
-import bootcamp.stockmircoservice.domain.model.Category;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryRequestNegativeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -21,9 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class CategoryHandlerTest {
-
-    @Mock
-    private CategoryRequestMapper categoryRequestMapper;
 
     @Mock
     private CategoryResponseMapper categoryResponseMapper;
