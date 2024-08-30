@@ -7,13 +7,10 @@ import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.ArticleRe
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.ArticleResponseMapper;
 import bootcamp.stockmircoservice.domain.api.IArticleServicePort;
 import bootcamp.stockmircoservice.domain.model.Article;
-import bootcamp.stockmircoservice.infrastructure.exception.article.CategoriesSizeException;
-import bootcamp.stockmircoservice.infrastructure.exception.article.DuplicateCategoriesException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -27,12 +24,6 @@ public class ArticleHandler implements IArticleHandler {
 
     @Override
     public void saveArticle(ArticleRequest articleRequest) {
-        if(articleRequest.getCategoriesId().size() != new HashSet<>(articleRequest.getCategoriesId()).size()){
-            throw new DuplicateCategoriesException();
-        }
-        if(articleRequest.getCategoriesId().isEmpty()|| articleRequest.getCategoriesId().size()>3){
-            throw new CategoriesSizeException();
-        }
         Article article = articleRequestMapper.toArticle(articleRequest);
         articleServicePort.saveArticle(article);
     }

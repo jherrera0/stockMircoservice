@@ -17,15 +17,5 @@ public interface CategoryResponseMapper {
     @Mapping(source = "name", target = "name")
     @Mapping(source = "description", target = "description")
 
-    default List<CategoryResponse> toResponseList(List<Category> categoryRequestList) {
-        return categoryRequestList.stream().map(
-                categoryRequest-> {
-                    CategoryResponse categoryResponse = new CategoryResponse();
-                    categoryResponse.setId(categoryRequest.getId());
-                    categoryResponse.setName(categoryRequest.getName());
-                    categoryResponse.setDescription(categoryRequest.getDescription());
-                    return categoryResponse;
-                }).toList();
-    }
-
+    List<CategoryResponse> toResponseList(List<Category> categoryRequestList) ;
 }
