@@ -20,7 +20,7 @@ public class ArticleCase implements IArticleServicePort {
             throw new DuplicateCategoriesException();
         }
 
-        if(article.getCategoriesId().isEmpty()||article.getCategoriesId().size()<0 || article.getCategoriesId().size()>3){
+        if(article.getCategoriesId().isEmpty()|| article.getCategoriesId().size()>3){
             throw new CategoriesSizeException();
         }
 
