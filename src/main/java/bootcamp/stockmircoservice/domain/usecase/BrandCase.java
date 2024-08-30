@@ -39,6 +39,9 @@ public class BrandCase implements IBrandServicePort {
 
     @Override
     public List<Brand> getAllBRands(Integer page, Integer size, String sortDirection) {
+        if((page == null) || (page < 0) || (size == null) || (size < 0)){
+            throw new BrandRequestNegativeException();
+        }
         return brandPersistencePort.getAllBrands(page, size, sortDirection);
     }
 }

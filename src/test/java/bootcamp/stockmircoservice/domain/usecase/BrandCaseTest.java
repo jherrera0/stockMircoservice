@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -90,5 +94,46 @@ public class BrandCaseTest {
         when(brandPersistencePort.findByName("NewBrand")).thenReturn(Optional.empty());
         brandCase.saveBrand(brand);
         verify(brandPersistencePort, times(1)).saveBrand(brand);
+    }
+    @Test
+    void getAllBrands_ShouldReturnEmptyList_WhenNoBrandsExist() {
+        when(brandPersistencePort.getAllBrands(0, 10, "asc")).thenReturn(Collections.emptyList());
+
+        List<Brand> result = brandCase.getAllBRands(0, 10, "asc");
+
+        assertTrue(result.isEmpty());
+        verify(brandPersistencePort).getAllBrands(0, 10, "asc");
+    }
+
+    @Test
+    void getAllBrands_ShouldReturnBrandsList_WhenBrandsExist() {
+        List<Brand> brands = Arrays.asList(new Brand("Brand1", "Description1"), new Brand("Brand2", "Description2"));
+        when(brandPersistencePort.getAllBrands(0, 10, "asc")).thenReturn(brands);
+
+        List<Brand> result = brandCase.getAllBRands(0, 10, "asc");
+
+        assertEquals(brands, result);
+        verify(brandPersistencePort).getAllBrands(0, 10, "asc");
+    }
+
+    @Test
+    void getAllBrands_ShouldThrowException_WhenPageIsNegative() {
+        assertThrows(BrandRequestNegativeException.class, () -> brandCase.getAllBRands(-1, 10, "asc"));
+    }
+
+    @Test
+    void getAllBrands_ShouldThrowException_WhenSizeIsNegative() {
+        assertThrows(BrandRequestNegativeException.class, () -> brandCase.getAllBRands(0, -1, "asc"));
+    }
+
+    @Test
+    void getAllBrands_ShouldReturnBrandsList_WhenSortDirectionIsNull() {
+        List<Brand> brands = Arrays.asList(new Brand("Brand1", "Description1"), new Brand("Brand2", "Description2"));
+        when(brandPersistencePort.getAllBrands(0, 10, null)).thenReturn(brands);
+
+        List<Brand> result = brandCase.getAllBRands(0, 10, null);
+
+        assertEquals(brands, result);
+        verify(brandPersistencePort).getAllBrands(0, 10, null);
     }
 }

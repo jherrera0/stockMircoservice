@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class BrandControllerAdvisor {
+
+    @ExceptionHandler(BrandRequestNegativeException.class)
+    public ResponseEntity<String> handleBrandRequestNegativeException(BrandRequestNegativeException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(BrandNullFieldException.class)
     public ResponseEntity<String> handleBrandNullFieldException(BrandNullFieldException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
