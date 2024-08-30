@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ArticleControllerAdvisor {
 
+
     @ExceptionHandler(DuplicateCategoriesException.class)
     public ResponseEntity<String> handleDuplicateCategoriesException(DuplicateCategoriesException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);

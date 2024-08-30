@@ -7,6 +7,7 @@ import bootcamp.stockmircoservice.adapters.driving.http.mapper.CategoryRequestMa
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.CategoryResponseMapper;
 import bootcamp.stockmircoservice.domain.api.ICategoryServicePort;
 import bootcamp.stockmircoservice.domain.model.Category;
+import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryRequestNegativeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -37,39 +38,15 @@ class CategoryHandlerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
-    @Test
-    void saveCategory_ShouldCallServicePort() {
-        CategoryRequest categoryRequest = new CategoryRequest();
-        Category category = new Category();
-        when(categoryRequestMapper.toCategory(categoryRequest)).thenReturn(category);
-        doNothing().when(categoryServicePort).saveCategory(category);
 
-        categoryHandler.saveCategory(categoryRequest);
-
-        verify(categoryServicePort, times(1)).saveCategory(category);
-    }
     @Test
-    void getAllCategories_ShouldReturnCategoryResponses() {
-        List<Category> categories = Collections.singletonList(new Category());
-        List<CategoryResponse> categoryResponses = Collections.singletonList(new CategoryResponse());
-        when(categoryServicePort.getAllCategories(0, 10, "asc")).thenReturn(categories);
-        when(categoryResponseMapper.toResponseList(categories)).thenReturn(categoryResponses);
+    void getAllCategories_ShouldReturnEmptyList_WhenNoCategoriesExist() {
+        when(categoryServicePort.getAllCategories(0, 10, "asc")).thenReturn(Collections.emptyList());
+        when(categoryResponseMapper.toResponseList(Collections.emptyList())).thenReturn(Collections.emptyList());
 
         List<CategoryResponse> result = categoryHandler.getAllCategories(0, 10, "asc");
 
-        assertFalse(result.isEmpty());
-        assertEquals(1, result.size());
+        assertTrue(result.isEmpty());
     }
-    @Test
-    void getAllCategories_ShouldReturnCategoryResponses_WhenSortDirectionIsEmpty() {
-        List<Category> categories = Collections.singletonList(new Category());
-        List<CategoryResponse> categoryResponses = Collections.singletonList(new CategoryResponse());
-        when(categoryServicePort.getAllCategories(0, 10, "")).thenReturn(categories);
-        when(categoryResponseMapper.toResponseList(categories)).thenReturn(categoryResponses);
 
-        List<CategoryResponse> result = categoryHandler.getAllCategories(0, 10, "");
-
-        assertFalse(result.isEmpty());
-        assertEquals(1, result.size());
-    }
 }

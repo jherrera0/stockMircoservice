@@ -16,14 +16,13 @@ public class ArticleCase implements IArticleServicePort {
     }
 
     public void saveArticle(Article article) {
+
         if(article.getCategoriesId().size() != new HashSet<>(article.getCategoriesId()).size()){
             throw new DuplicateCategoriesException();
         }
-
         if(article.getCategoriesId().isEmpty()|| article.getCategoriesId().size()>3){
             throw new CategoriesSizeException();
         }
-
 
         articlePersistencePort.saveArticle(article);
     }

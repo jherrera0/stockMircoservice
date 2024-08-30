@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class CategoryControllerAdvisor {
+    @ExceptionHandler(CategoryRequestNegativeException.class)
+    public ResponseEntity<String> handleCategoryRequestNegativeException(CategoryRequestNegativeException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(CategoryAlreadyExistsException.class)
     public ResponseEntity<String>handleCategoryAlreadyExistsException(CategoryAlreadyExistsException ex) {

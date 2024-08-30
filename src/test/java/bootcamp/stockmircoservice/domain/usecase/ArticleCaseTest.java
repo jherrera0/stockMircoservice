@@ -56,4 +56,35 @@ class ArticleCaseTest {
 
         assertThrows(CategoriesSizeException.class, () -> articleCase.saveArticle(article));
     }
+    @Test
+    void saveArticle_throwsCategoriesSizeException_whenCategoriesSizeIsZero() {
+        IArticlePersistencePort articlePersistencePort = mock(IArticlePersistencePort.class);
+        ArticleCase articleCase = new ArticleCase(articlePersistencePort);
+        Article article = new Article();
+        article.setCategoriesId(new ArrayList<>());
+
+        assertThrows(CategoriesSizeException.class, () -> articleCase.saveArticle(article));
+    }
+
+    @Test
+    void saveArticle_savesArticleSuccessfully_whenCategoriesSizeIsThree() {
+        IArticlePersistencePort articlePersistencePort = mock(IArticlePersistencePort.class);
+        ArticleCase articleCase = new ArticleCase(articlePersistencePort);
+        Article article = new Article();
+        article.setCategoriesId(new ArrayList<>(Arrays.asList(1L, 2L, 3L)));
+
+        articleCase.saveArticle(article);
+
+        verify(articlePersistencePort).saveArticle(article);
+    }
+
+    @Test
+    void saveArticle_throwsDuplicateCategoriesException_whenCategoriesContainDuplicates() {
+        IArticlePersistencePort articlePersistencePort = mock(IArticlePersistencePort.class);
+        ArticleCase articleCase = new ArticleCase(articlePersistencePort);
+        Article article = new Article();
+        article.setCategoriesId(new ArrayList<>(Arrays.asList(1L, 1L, 2L)));
+
+        assertThrows(DuplicateCategoriesException.class, () -> articleCase.saveArticle(article));
+    }
 }
