@@ -2,7 +2,6 @@ package bootcamp.stockmircoservice.adapters.driving.http.handler;
 
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
-import bootcamp.stockmircoservice.adapters.driving.http.mapper.CategoryRequestMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.CategoryResponseMapper;
 import bootcamp.stockmircoservice.domain.api.ICategoryServicePort;
 import org.junit.jupiter.api.BeforeEach;
