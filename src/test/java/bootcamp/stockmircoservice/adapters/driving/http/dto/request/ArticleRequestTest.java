@@ -79,7 +79,7 @@ class ArticleRequestTest {
     void constructor_ShouldInitializeFieldsCorrectly() {
         ArticleRequest articleRequest = new ArticleRequest(1L, "TestName", "TestDescription", 1L, List.of(1L, 2L, 3L), new BigDecimal("19.99"), 100L);
 
-        assertEquals(0L, articleRequest.getId());
+        assertEquals(1L, articleRequest.getId());
         assertEquals("TestName", articleRequest.getName());
         assertEquals("TestDescription", articleRequest.getDescription());
         assertEquals(1L, articleRequest.getBrandId());
