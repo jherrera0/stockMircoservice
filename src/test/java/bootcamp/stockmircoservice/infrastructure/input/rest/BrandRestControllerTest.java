@@ -4,9 +4,7 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.request.BrandRequest
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.BrandResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IBrandHandler;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.BrandResponseMapper;
-import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValues;
 import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
-import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandAlreadyExistsException;
 import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

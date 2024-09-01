@@ -58,7 +58,7 @@ class ArticleEntityTest {
         articleEntity.setId(1L);
         articleEntity.setName("Test Article");
 
-        assertTrue(articleEntity.equals(articleEntity));
+        assertEquals(articleEntity,articleEntity);
     }
 
     @Test

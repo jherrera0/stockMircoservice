@@ -5,15 +5,12 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResp
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IArticleHandler;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.BrandResponseMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.CategoryResponseMapper;
-import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValuesToPage;
 import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.api.ICategoryServicePort;
 import bootcamp.stockmircoservice.domain.model.Article;
-import bootcamp.stockmircoservice.infrastructure.exception.article.*;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.mapper.IArticleEntityMapper;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.IArticleRepository;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.ICategoryRepository;
-import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
