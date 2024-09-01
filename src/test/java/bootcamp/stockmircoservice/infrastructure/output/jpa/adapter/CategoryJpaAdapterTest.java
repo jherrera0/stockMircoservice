@@ -2,6 +2,7 @@ package bootcamp.stockmircoservice.infrastructure.output.jpa.adapter;
 
 
 import bootcamp.stockmircoservice.domain.model.Category;
+import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.ArticleEntity;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.CategoryEntity;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.mapper.ICategoryEntityMapper;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.ICategoryRepository;
@@ -86,5 +87,63 @@ class CategoryJpaAdapterTest {
 
         assertFalse(categories.isEmpty());
         assertEquals(1, categories.size());
+    }
+    @Test
+    void saveCategory_ShouldSaveCategorySuccessfully() {
+        Category category = new Category("Test", "Description");
+        CategoryEntity categoryEntity = new CategoryEntity();
+        when(categoryEntityMapper.toCategoryEntity(category)).thenReturn(categoryEntity);
+
+        categoryJpaAdapter.saveCategory(category);
+
+        verify(categoryRepository, times(1)).save(categoryEntity);
+    }
+
+    @Test
+    void findById_ShouldReturnCategory_WhenCategoryExists() {
+        Long categoryId = 1L;
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setId(categoryId);
+        when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(categoryEntity));
+        when(categoryEntityMapper.toCategory(categoryEntity)).thenReturn(new Category(categoryId,"Test", "Description"));
+
+        Optional<Category> result = categoryJpaAdapter.findById(categoryId);
+
+        assertTrue(result.isPresent());
+        assertEquals(categoryId, result.get().getId());
+    }
+
+    @Test
+    void findById_ShouldReturnEmpty_WhenCategoryDoesNotExist() {
+        Long categoryId = 1L;
+        when(categoryRepository.findById(categoryId)).thenReturn(Optional.empty());
+
+        Optional<Category> result = categoryJpaAdapter.findById(categoryId);
+
+        assertFalse(result.isPresent());
+    }
+
+    @Test
+    void findByArticleId_ShouldReturnCategories_WhenCategoriesExist() {
+        Long articleId = 1L;
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setArticleEntities(Collections.singletonList(new ArticleEntity(articleId)));
+        when(categoryRepository.findAll()).thenReturn(Collections.singletonList(categoryEntity));
+        when(categoryEntityMapper.toCategoryList(anyList())).thenReturn(Collections.singletonList(new Category("Test", "Description")));
+
+        List<Category> categories = categoryJpaAdapter.findByArticleId(articleId);
+
+        assertFalse(categories.isEmpty());
+        assertEquals(1, categories.size());
+    }
+
+    @Test
+    void findByArticleId_ShouldReturnEmptyList_WhenNoCategoriesExist() {
+        Long articleId = 1L;
+        when(categoryRepository.findAll()).thenReturn(Collections.emptyList());
+
+        List<Category> categories = categoryJpaAdapter.findByArticleId(articleId);
+
+        assertTrue(categories.isEmpty());
     }
 }

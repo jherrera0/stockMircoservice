@@ -63,4 +63,85 @@ class CategoryControllerAdvisorTest {
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals("The category name is too long", response.getBody());
     }
+    @Test
+    void handleCategoryRequestNullException_ShouldReturnBadRequest() {
+        CategoryControllerAdvisor advisor = new CategoryControllerAdvisor();
+        CategoryRequestNullException ex = new CategoryRequestNullException();
+
+        ResponseEntity<String> response = advisor.handleCategoryRequestNullException(ex);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Category request cannot be null",
+                response.getBody());
+    }
+
+    @Test
+    void handleCategoryPageInvalidException_ShouldReturnBadRequest() {
+        CategoryControllerAdvisor advisor = new CategoryControllerAdvisor();
+        CategoryPageInvalidException ex = new CategoryPageInvalidException();
+
+        ResponseEntity<String> response = advisor.handleCategoryPageEmptyException(ex);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Category page cannot be negative or null",
+                response.getBody());
+    }
+
+    @Test
+    void handleCategorySizeInvalidException_ShouldReturnBadRequest() {
+        CategoryControllerAdvisor advisor = new CategoryControllerAdvisor();
+        CategorySizeInvalidException ex = new CategorySizeInvalidException();
+
+        ResponseEntity<String> response = advisor.handleCategorySizeEmptyException(ex);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Category size cannot be negative or null",
+                response.getBody());
+    }
+
+    @Test
+    void handleCategorySortDirectionEmptyException_ShouldReturnBadRequest() {
+        CategoryControllerAdvisor advisor = new CategoryControllerAdvisor();
+        CategorySortDirectionEmptyException ex = new CategorySortDirectionEmptyException();
+
+        ResponseEntity<String> response = advisor.handleCategorySortDirectionEmptyException(ex);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Category sort direction cannot be empty or null",
+                response.getBody());
+    }
+
+    @Test
+    void handleCategorySortDirectionInvalidException_ShouldReturnBadRequest() {
+        CategoryControllerAdvisor advisor = new CategoryControllerAdvisor();
+        CategorySortDirectionInvalidException ex = new CategorySortDirectionInvalidException();
+
+        ResponseEntity<String> response = advisor.handleCategorySortDirectionInvalidException(ex);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Category sort direction is invalid, sort direction must be one of the following: asc, desc",
+                response.getBody());
+    }
+
+    @Test
+    void handleCategoryNullFieldException_ShouldReturnBadRequest() {
+        CategoryControllerAdvisor advisor = new CategoryControllerAdvisor();
+        CategoryNullFieldException ex = new CategoryNullFieldException();
+
+        ResponseEntity<String> response = advisor.handleCategoryNullFieldException(ex);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Category cannot be null or have empty fields", response.getBody());
+    }
+
+    @Test
+    void handleCategoryRequestNegativeException_ShouldReturnBadRequest() {
+        CategoryControllerAdvisor advisor = new CategoryControllerAdvisor();
+        CategoryRequestNegativeException ex = new CategoryRequestNegativeException();
+
+        ResponseEntity<String> response = advisor.handleCategoryRequestNegativeException(ex);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("The page and size must be positive", response.getBody());
+    }
 }

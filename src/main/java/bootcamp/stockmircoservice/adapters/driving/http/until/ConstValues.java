@@ -5,6 +5,7 @@ public class ConstValues {
     public static final int BRAND_DESCRIPTION_LENGTH_MAX = 120;
     public static final int CATEGORY_NAME_LENGTH_MAX = 50;
     public static final int CATEGORY_DESCRIPTION_LENGTH_MAX = 90;
+    public static final int ZERO = 0;
 
     private ConstValues() {
     }

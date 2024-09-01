@@ -18,7 +18,7 @@ public interface BrandResponseMapper {
     @Mapping(source = "description", target = "description")
 
     BrandResponse toResponse(Brand brand);
-
+    List<Brand> toBrandList(List<BrandResponse> brandResponse);
     default List<BrandResponse> toResponseList(List<Brand> brandRequestList){
         return brandRequestList.stream().map(
                 brandRequest->{

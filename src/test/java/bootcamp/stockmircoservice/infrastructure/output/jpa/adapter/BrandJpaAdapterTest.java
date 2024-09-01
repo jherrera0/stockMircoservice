@@ -122,5 +122,28 @@ class BrandJpaAdapterTest {
         assertEquals("Brand1", result.get(0).getName());
         assertEquals("Brand2", result.get(1).getName());
     }
+    @Test
+    void findById_ShouldReturnBrand_WhenBrandExists() {
+        Long brandId = 1L;
+        BrandEntity brandEntity = new BrandEntity();
+        brandEntity.setId(brandId);
+        when(brandRepository.findById(brandId)).thenReturn(Optional.of(brandEntity));
+        when(brandEntityMapper.toBrand(brandEntity)).thenReturn(new Brand(brandId,"Test Description","Test Brand"));
+
+        Optional<Brand> result = brandJpaAdapter.findById(brandId);
+
+        assertTrue(result.isPresent());
+        assertEquals(brandId, result.get().getId());
+    }
+
+    @Test
+    void findById_ShouldReturnEmpty_WhenBrandDoesNotExist() {
+        Long brandId = 1L;
+        when(brandRepository.findById(brandId)).thenReturn(Optional.empty());
+
+        Optional<Brand> result = brandJpaAdapter.findById(brandId);
+
+        assertFalse(result.isPresent());
+    }
 
 }

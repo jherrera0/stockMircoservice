@@ -64,7 +64,7 @@ class CategoryTest {
 
     @Test
     void constructorWithIdNameAndDescription_ShouldInitializeFields() {
-        Category category = new Category(1, "TestName", "TestDescription");
+        Category category = new Category(1L, "TestName", "TestDescription");
 
         assertEquals(1, category.getId());
         assertEquals("TestName", category.getName());

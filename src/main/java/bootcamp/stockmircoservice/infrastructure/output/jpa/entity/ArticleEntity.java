@@ -31,4 +31,12 @@ public class ArticleEntity {
             joinColumns = @JoinColumn(name = "article_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<CategoryEntity> categories;
+
+    public ArticleEntity(Long articleId) {
+        this.id = articleId;
+    }
+
+    public ArticleEntity() {
+
+    }
 }

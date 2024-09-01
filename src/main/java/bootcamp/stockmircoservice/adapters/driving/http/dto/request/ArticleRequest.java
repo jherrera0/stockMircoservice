@@ -1,5 +1,6 @@
 package bootcamp.stockmircoservice.adapters.driving.http.dto.request;
 
+import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValues;
 import bootcamp.stockmircoservice.infrastructure.exception.article.ArticlePriceNullException;
 import bootcamp.stockmircoservice.infrastructure.exception.article.ArticleNameEmptyException;
 import bootcamp.stockmircoservice.infrastructure.exception.article.ArticleDescriptionEmptyException;
@@ -78,7 +79,7 @@ public class ArticleRequest {
         if(price == null){
             throw new ArticlePriceNullException();
         }
-        if (price.compareTo(BigDecimal.ZERO) < 0) {
+        if (price.compareTo(BigDecimal.ZERO) < ConstValues.ZERO) {
             throw new ArticlePriceNegativeException();
         }
         this.price = price;
@@ -100,7 +101,7 @@ public class ArticleRequest {
     }
 
     public void setStock(Long stock) {
-        if (stock == null||stock<0) {
+        if (stock == null||stock<ConstValues.ZERO) {
             throw new ArticleIllegalStockValueException();
         }
         this.stock = stock;

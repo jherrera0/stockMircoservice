@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class CategoryControllerAdvisor {
 
+    @ExceptionHandler(CategoryRequestNullException.class)
+    public ResponseEntity<String> handleCategoryRequestNullException(CategoryRequestNullException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(CategoryPageInvalidException.class)
     public ResponseEntity<String> handleCategoryPageEmptyException(CategoryPageInvalidException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);

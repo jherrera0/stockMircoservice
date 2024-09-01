@@ -4,7 +4,10 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.request.BrandRequest
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.BrandResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IBrandHandler;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.BrandResponseMapper;
+import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValues;
 import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
+import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandAlreadyExistsException;
+import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,8 +21,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class BrandRestControllerTest {
 
@@ -52,11 +54,21 @@ class BrandRestControllerTest {
 
     @Test
     void getAllBrands_ShouldReturnEmptyList_WhenNoBrandsExist() {
-        when(brandServicePort.getAllBRands(0, 10, "asc")).thenReturn(Collections.emptyList());
+        when(brandServicePort.getAllBRands(0, 10, ConstValuesToSort.ASCENDANT_SORT)).thenReturn(Collections.emptyList());
         when(brandResponseMapper.toResponseList(Collections.emptyList())).thenReturn(Collections.emptyList());
 
         List<BrandResponse> result = brandHandler.getAllBrands(0, 10, "asc");
 
         assertTrue(result.isEmpty());
+    }
+    @Test
+    void getBrands_ShouldReturnEmptyList_WhenNoBrandsExist() {
+        when(brandServicePort.getAllBRands(0, 10, ConstValuesToSort.ASCENDANT_SORT)).thenReturn(Collections.emptyList());
+        when(brandResponseMapper.toResponseList(Collections.emptyList())).thenReturn(Collections.emptyList());
+
+        ResponseEntity<List<BrandResponse>> response = brandRestController.getBrands(0, 10, ConstValuesToSort.ASCENDANT_SORT);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.getBody().isEmpty());
     }
 }

@@ -1,14 +1,13 @@
 package bootcamp.stockmircoservice.adapters.driving.http.handler;
 
 
+import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.CategoryRequestMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.CategoryResponseMapper;
 import bootcamp.stockmircoservice.domain.api.ICategoryServicePort;
 import bootcamp.stockmircoservice.domain.model.Category;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryPageInvalidException;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategorySizeInvalidException;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategorySortDirectionEmptyException;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategorySortDirectionInvalidException;
+import bootcamp.stockmircoservice.infrastructure.exception.category.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -28,6 +27,11 @@ class CategoryHandlerTest {
 
     @Mock
     private ICategoryServicePort categoryServicePort;
+
+    @Mock
+    private CategoryRequestMapper categoryRequestMapper;
+
+
 
     @InjectMocks
     private CategoryHandler categoryHandler;
@@ -71,6 +75,22 @@ class CategoryHandlerTest {
     void getAllCategories_ShouldThrowException_WhenSortDirectionIsNull() {
         assertThrows(CategorySortDirectionEmptyException.class, () -> categoryHandler.getAllCategories(0, 10, null));
     }
+    @Test
+    void saveCategory_ShouldThrowException_WhenRequestIsNull() {
+        assertThrows(CategoryRequestNullException.class, () -> categoryHandler.saveCategory(null));
+    }
+
+    @Test
+    void saveCategory_ShouldCallServicePort_WhenValidRequest() {
+        CategoryRequest categoryRequest = new CategoryRequest();
+        Category category = new Category();
+        when(categoryRequestMapper.toCategory(categoryRequest)).thenReturn(category);
+
+        categoryHandler.saveCategory(categoryRequest);
+
+        verify(categoryServicePort, times(1)).saveCategory(category);
+    }
+
 
     @Test
     void getAllCategories_ShouldThrowException_WhenSortDirectionIsEmpty() {

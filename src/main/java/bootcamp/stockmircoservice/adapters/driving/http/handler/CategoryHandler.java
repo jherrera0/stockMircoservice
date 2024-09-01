@@ -8,6 +8,7 @@ import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.Category
 import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValuesToPage;
 import bootcamp.stockmircoservice.domain.api.ICategoryServicePort;
 import bootcamp.stockmircoservice.domain.model.Category;
+import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryRequestNullException;
 import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryPageInvalidException;
 import bootcamp.stockmircoservice.infrastructure.exception.category.CategorySizeInvalidException;
 import bootcamp.stockmircoservice.infrastructure.exception.category.CategorySortDirectionEmptyException;
@@ -31,6 +32,9 @@ public class CategoryHandler implements ICategoryHandler {
 
     @Override
     public void saveCategory(CategoryRequest categoryRequest) {
+        if(categoryRequest == null){
+            throw new CategoryRequestNullException();
+        }
         Category category = categoryRequestMapper.toCategory(categoryRequest);
         categoryServicePort.saveCategory(category);
     }
