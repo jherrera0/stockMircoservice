@@ -1,6 +1,5 @@
 package bootcamp.stockmircoservice.infrastructure.exceptionhandler;
 
-import bootcamp.stockmircoservice.domain.model.Brand;
 import bootcamp.stockmircoservice.infrastructure.exception.brand.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

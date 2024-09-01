@@ -25,6 +25,7 @@ public class BrandRequest {
         if (brandRequest == null) {
             throw new BrandNullFieldException();
         }
+        setId(brandRequest.getId());
         setName(brandRequest.getName());
         setDescription(brandRequest.getDescription());
     }

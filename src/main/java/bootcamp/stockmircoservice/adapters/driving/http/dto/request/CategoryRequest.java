@@ -25,6 +25,7 @@ public class CategoryRequest {
         if (categoryRequest == null) {
             throw new CategoryNullFieldException();
         }
+        setId(categoryRequest.getId());
         setName(categoryRequest.getName());
         setDescription(categoryRequest.getDescription());
     }

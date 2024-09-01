@@ -23,6 +23,7 @@ public class ArticleRequest {
     private Long stock;
 
     public ArticleRequest(long id, String name, String description, Long brandId, List<Long> categoriesId, BigDecimal price, Long stock) {
+        setId(id);
         setName(name);
         setDescription(description);
         setBrandId(brandId);
