@@ -46,4 +46,9 @@ public class CategoryCase implements ICategoryServicePort {
         return categoryPersistencePort.getAllCategories(page, size, sortDirection);
     }
 
+    @Override
+    public List<Category> findByArticleId(Long articleId) {
+        return categoryPersistencePort.findByArticleId(articleId);
+    }
+
 }

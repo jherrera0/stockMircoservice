@@ -3,6 +3,7 @@ package bootcamp.stockmircoservice.domain.usecase;
 import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.model.Brand;
 import bootcamp.stockmircoservice.domain.spi.IBrandPersistencePort;
+import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandNotFoundException;
 import bootcamp.stockmircoservice.infrastructure.exception.brand.*;
 
 import java.util.List;
@@ -43,5 +44,10 @@ public class BrandCase implements IBrandServicePort {
             throw new BrandRequestNegativeException();
         }
         return brandPersistencePort.getAllBrands(page, size, sortDirection);
+    }
+
+    @Override
+    public Brand findById(Long id) {
+        return brandPersistencePort.findById(id).orElseThrow(BrandNotFoundException::new);
     }
 }

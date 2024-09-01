@@ -31,5 +31,6 @@ public class ArticleHandler implements IArticleHandler {
     @Override
     public List<ArticleResponse> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy) {
         return articleResponseMapper.toResponseList(articleServicePort.getAllArticles(page, size, sortDirection, sortBy));
+
     }
 }

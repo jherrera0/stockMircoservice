@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class BrandControllerAdvisor {
+    @ExceptionHandler(BrandNotFoundException.class)
+    public ResponseEntity<String> handleBrandNotFoundException(BrandNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(BrandRequestNegativeException.class)
     public ResponseEntity<String> handleBrandRequestNegativeException(BrandRequestNegativeException ex) {

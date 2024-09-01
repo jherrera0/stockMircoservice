@@ -7,4 +7,5 @@ import java.util.List;
 public interface ICategoryServicePort {
     void saveCategory(Category category);
     List<Category> getAllCategories(Integer page, Integer size, String sortDirection);
+    List<Category> findByArticleId(Long articleId);
 }

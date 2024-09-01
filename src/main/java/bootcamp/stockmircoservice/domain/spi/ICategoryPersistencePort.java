@@ -10,4 +10,5 @@ public interface ICategoryPersistencePort {
     List<Category> getAllCategories(Integer page, Integer size, String sortDirection);
     Optional<Category> findByName(String name);
     Optional<Category> findById(Long id);
+    List<Category> findByArticleId(Long articleId);
 }
