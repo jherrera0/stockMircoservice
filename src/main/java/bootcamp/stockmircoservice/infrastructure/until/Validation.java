@@ -62,12 +62,8 @@ public class Validation {
         if(sortBy == null || sortBy.isEmpty()){
             throw new ArticleSortByEmptyException();
         }
-        if(!sortBy.equals(ConstValuesToSort.SORT_BY_NAME)){
-            if(!sortBy.equals(ConstValuesToSort.SORT_BY_BRAND)) {
-                if (!sortBy.equals(ConstValuesToSort.SORT_BY_CATEGORIES_NAME)) {
+        if(!sortBy.equals(ConstValuesToSort.SORT_BY_NAME) &&!sortBy.equals(ConstValuesToSort.SORT_BY_BRAND) && !sortBy.equals(ConstValuesToSort.SORT_BY_CATEGORIES_NAME)) {
                     throw new ArticleSortByInvalidException();
-                }
-            }
         }
     }
 }

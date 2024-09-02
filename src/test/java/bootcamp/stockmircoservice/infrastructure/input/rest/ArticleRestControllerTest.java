@@ -51,16 +51,6 @@ class ArticleRestControllerTest {
     }
 
     @Test
-    void getAllArticles_ShouldReturnArticleResponses_WhenValidParameters() {
-        when(articleRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(List.of()));
-        ResponseEntity<List<ArticleResponse>> response = articleRestController.getAllArticles(1, 10, ConstValuesToSort.ASCENDANT_SORT, ConstValuesToSort.SORT_BY_NAME);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNotNull(response.getBody());
-        assertTrue(response.getBody().isEmpty());
-    }
-
-
-    @Test
     void getAllArticles_ShouldReturnEmptyList_WhenNoArticlesFound() {
         when(articleRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(List.of()));
         ResponseEntity<List<ArticleResponse>> response = articleRestController.getAllArticles(1, 10, ConstValuesToSort.ASCENDANT_SORT, ConstValuesToSort.SORT_BY_NAME);

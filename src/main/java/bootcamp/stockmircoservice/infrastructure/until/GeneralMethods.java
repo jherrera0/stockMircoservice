@@ -11,8 +11,12 @@ import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.ICategory
 import java.util.List;
 
 public class GeneralMethods {
-    public static List<ArticleResponse> MapArticleResponse(List<Article> articles, IBrandServicePort brandServicePort, ICategoryServicePort categoryServicePort, ICategoryRepository categoryRepository, BrandResponseMapper brandResponseMapper, CategoryResponseMapper categoryResponseMapper) {
-        List<ArticleResponse> articleResponses = articles.stream().map(article -> {
+    private GeneralMethods() {
+    }
+
+    public static List<ArticleResponse> mapArticleResponse(List<Article> articles, IBrandServicePort brandServicePort, ICategoryServicePort categoryServicePort, ICategoryRepository categoryRepository, BrandResponseMapper brandResponseMapper, CategoryResponseMapper categoryResponseMapper) {
+        List<ArticleResponse> articleResponses;
+        articleResponses = articles.stream().map(article -> {
             ArticleResponse articleResponse = new ArticleResponse();
             articleResponse.setId(article.getId());
             articleResponse.setName(article.getName());

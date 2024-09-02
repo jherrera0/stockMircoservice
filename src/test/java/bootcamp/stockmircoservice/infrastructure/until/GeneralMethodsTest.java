@@ -28,7 +28,7 @@ class GeneralMethodsTest {
         BrandResponseMapper brandResponseMapper = mock(BrandResponseMapper.class);
         CategoryResponseMapper categoryResponseMapper = mock(CategoryResponseMapper.class);
 
-        List<ArticleResponse> articleResponses = GeneralMethods.MapArticleResponse(articles, brandServicePort, categoryServicePort, categoryRepository, brandResponseMapper, categoryResponseMapper);
+        List<ArticleResponse> articleResponses = GeneralMethods.mapArticleResponse(articles, brandServicePort, categoryServicePort, categoryRepository, brandResponseMapper, categoryResponseMapper);
 
         assertNotNull(articleResponses);
         assertTrue(articleResponses.isEmpty());
@@ -51,7 +51,7 @@ class GeneralMethodsTest {
         when(categoryServicePort.findByArticleId(1L)).thenReturn(null);
         when(categoryResponseMapper.toResponseList(anyList())).thenReturn(null);
 
-        List<ArticleResponse> articleResponses = GeneralMethods.MapArticleResponse(articles, brandServicePort, categoryServicePort, categoryRepository, brandResponseMapper, categoryResponseMapper);
+        List<ArticleResponse> articleResponses = GeneralMethods.mapArticleResponse(articles, brandServicePort, categoryServicePort, categoryRepository, brandResponseMapper, categoryResponseMapper);
 
         assertNotNull(articleResponses);
         assertFalse(articleResponses.isEmpty());

@@ -15,23 +15,7 @@ class CategoryTest {
     }
 
     @Test
-    void setId_ShouldSetId() {
-        Category category = new Category();
-        category.setId(1L);
-
-        assertEquals(1L, category.getId());
-    }
-
-    @Test
     void getName_ShouldReturnName() {
-        Category category = new Category();
-        category.setName("TestName");
-
-        assertEquals("TestName", category.getName());
-    }
-
-    @Test
-    void setName_ShouldSetName() {
         Category category = new Category();
         category.setName("TestName");
 
@@ -45,15 +29,6 @@ class CategoryTest {
 
         assertEquals("TestDescription", category.getDescription());
     }
-
-    @Test
-    void setDescription_ShouldSetDescription() {
-        Category category = new Category();
-        category.setDescription("TestDescription");
-
-        assertEquals("TestDescription", category.getDescription());
-    }
-
     @Test
     void constructorWithNameAndDescription_ShouldInitializeFields() {
         Category category = new Category("TestName", "TestDescription");

@@ -13,7 +13,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class CategoryCaseTest {
+class CategoryCaseTest {
     @Test
     void saveCategory_savesCategorySuccessfully_whenValidCategory() {
         ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
