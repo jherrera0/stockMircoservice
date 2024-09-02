@@ -5,21 +5,15 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResp
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IArticleHandler;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.ArticleRequestMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.ArticleResponseMapper;
-import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValues;
-import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValuesToPage;
 import bootcamp.stockmircoservice.domain.api.IArticleServicePort;
 import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.model.Article;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
-import bootcamp.stockmircoservice.infrastructure.exception.article.*;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryNotExistException;
-import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
 import bootcamp.stockmircoservice.infrastructure.until.Validation;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service

@@ -3,8 +3,6 @@ package bootcamp.stockmircoservice.domain.usecase;
 import bootcamp.stockmircoservice.domain.api.IArticleServicePort;
 import bootcamp.stockmircoservice.domain.model.Article;
 import bootcamp.stockmircoservice.domain.spi.IArticlePersistencePort;
-import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryNotExistException;
 import bootcamp.stockmircoservice.infrastructure.exception.article.CategoriesSizeException;
 import bootcamp.stockmircoservice.infrastructure.exception.article.DuplicateCategoriesException;
 

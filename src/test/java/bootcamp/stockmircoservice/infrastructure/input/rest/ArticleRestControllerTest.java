@@ -3,12 +3,10 @@ package bootcamp.stockmircoservice.infrastructure.input.rest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.ArticleRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.ArticleHandler;
-import bootcamp.stockmircoservice.domain.model.Article;
 import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
 import bootcamp.stockmircoservice.infrastructure.exception.article.*;
 import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryNotExistException;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.ArticleEntity;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.mapper.IArticleEntityMapper;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.IArticleRepository;
 import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
@@ -47,7 +45,6 @@ class ArticleRestControllerTest {
     @InjectMocks
     private ArticleRestController articleRestController;
 
-    //private ArticleRequest articleRequest = new ArticleRequest("name", "description", 1L, List.of(1L), BigDecimal.ONE, 1L);
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);

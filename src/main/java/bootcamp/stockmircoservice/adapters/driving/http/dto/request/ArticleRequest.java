@@ -47,10 +47,6 @@ public class ArticleRequest {
     }
 
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         if (name == null || name.isEmpty()) {
             throw new ArticleNameEmptyException();
@@ -58,9 +54,6 @@ public class ArticleRequest {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
     public void setDescription(String description) {
         if (description == null || description.isEmpty()) {
@@ -69,19 +62,12 @@ public class ArticleRequest {
         this.description = description;
     }
 
-    public Long getBrandId() {
-        return brandId;
-    }
 
     public void setBrandId(Long brandId) {
         if (brandId==null || brandId < 0) {
             throw new ArticleBrandIdErrorException();
         }
         this.brandId = brandId;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
     }
 
     public void setPrice(BigDecimal price) {
@@ -94,19 +80,12 @@ public class ArticleRequest {
         this.price = price;
     }
 
-    public List<Long> getCategoriesId() {
-        return categoriesId;
-    }
 
     public void setCategoriesId(List<Long> categoriesId) {
         if(categoriesId==null||categoriesId.isEmpty()){
             throw new ArticleCategoriesIdEmptyException();
         }
         this.categoriesId = categoriesId;
-    }
-
-    public Long getStock() {
-        return stock;
     }
 
     public void setStock(Long stock) {

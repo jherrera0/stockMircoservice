@@ -1,16 +1,12 @@
 package bootcamp.stockmircoservice.adapters.driving.http.handler;
 
-import bootcamp.stockmircoservice.adapters.driving.http.dto.request.ArticleRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.ArticleRequestMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.ArticleResponseMapper;
 import bootcamp.stockmircoservice.domain.api.IArticleServicePort;
-import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.model.Article;
-import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
 import bootcamp.stockmircoservice.infrastructure.exception.article.*;
-import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,13 +24,7 @@ public class ArticleHandlerTest {
     private IArticleServicePort articleServicePort;
 
     @Mock
-    private ArticleRequestMapper articleRequestMapper;
-
-    @Mock
     private ArticleResponseMapper articleResponseMapper;
-
-    @Mock
-    private ICategoryPersistencePort categoryPersistencePort;
 
     @InjectMocks
     private ArticleHandler articleHandler;

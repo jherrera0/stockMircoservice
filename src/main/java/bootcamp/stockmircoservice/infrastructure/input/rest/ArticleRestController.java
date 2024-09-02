@@ -2,7 +2,6 @@ package bootcamp.stockmircoservice.infrastructure.input.rest;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.ArticleRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResponse;
-import bootcamp.stockmircoservice.adapters.driving.http.handler.ArticleHandler;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IArticleHandler;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.BrandResponseMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.CategoryResponseMapper;
@@ -72,9 +71,7 @@ public class ArticleRestController {
             articleResponse.setBrand(brandResponseMapper.toResponse(brandServicePort.findById(article.getBrandId())));
             articleResponse.getBrand().setId(brandServicePort.findById(article.getBrandId()).getId());
             articleResponse.setCategories(categoryResponseMapper.toResponseList(categoryServicePort.findByArticleId(article.getId())));
-            articleResponse.getCategories().forEach(categoryResponse -> {
-                categoryResponse.setId(categoryRepository.findByName(categoryResponse.getName()).getId());
-            });
+            articleResponse.getCategories().forEach(categoryResponse -> categoryResponse.setId(categoryRepository.findByName(categoryResponse.getName()).getId()));
             return articleResponse;
         }).toList();
         return ResponseEntity.ok(articleResponses);
