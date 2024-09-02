@@ -1,8 +1,8 @@
 package bootcamp.stockmircoservice.infrastructure.input.rest;
 
-import bootcamp.stockmircoservice.adapters.driving.http.dto.CategoryRequest;
-import bootcamp.stockmircoservice.adapters.driving.http.dto.CategoryResponse;
-import bootcamp.stockmircoservice.adapters.driving.http.handler.ICategoryHandler;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequest;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.ICategoryHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -33,6 +33,8 @@ class CategoryRestControllerTest {
     @Test
     void saveCategory_ShouldReturnCreatedStatus() {
         CategoryRequest categoryRequest = new CategoryRequest();
+        categoryRequest.setName("Valid Category");
+
         doNothing().when(categoryHandler).saveCategory(categoryRequest);
 
         ResponseEntity<Void> response = categoryRestController.saveCategory(categoryRequest);
@@ -41,44 +43,24 @@ class CategoryRestControllerTest {
     }
 
     @Test
-    void getCategory_ShouldReturnCategories() {
+    void getCategories_ShouldReturnCategories() {
         List<CategoryResponse> categoryResponses = Collections.singletonList(new CategoryResponse());
         when(categoryHandler.getAllCategories(0, 10, "asc")).thenReturn(categoryResponses);
 
-        ResponseEntity<List<CategoryResponse>> response = categoryRestController.getCategory(0, 10, "asc");
+        ResponseEntity<List<CategoryResponse>> response = categoryRestController.getCategories(0, 10, "asc");
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertFalse(response.getBody().isEmpty());
     }
 
     @Test
-    void getCategory_ShouldReturnCategories_WhenSortDirectionIsEmpty() {
+    void getCategories_ShouldReturnCategories_WhenSortDirectionIsEmpty() {
         List<CategoryResponse> categoryResponses = Collections.singletonList(new CategoryResponse());
         when(categoryHandler.getAllCategories(0, 10, "")).thenReturn(categoryResponses);
 
-        ResponseEntity<List<CategoryResponse>> response = categoryRestController.getCategory(0, 10, "");
+        ResponseEntity<List<CategoryResponse>> response = categoryRestController.getCategories(0, 10, "");
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertFalse(response.getBody().isEmpty());
-    }
-
-    @Test
-    void saveCategory_ShouldHandleException() {
-        CategoryRequest categoryRequest = new CategoryRequest();
-        doThrow(new RuntimeException("Error")).when(categoryHandler).saveCategory(categoryRequest);
-
-        ResponseEntity<Void> response = categoryRestController.saveCategory(categoryRequest);
-
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-    }
-
-    @Test
-    void getCategory_ShouldHandleException() {
-        when(categoryHandler.getAllCategories(0, 10, "asc")).thenThrow(new RuntimeException("Error"));
-
-        ResponseEntity<List<CategoryResponse>> response = categoryRestController.getCategory(0, 10, "asc");
-
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertNull(response.getBody());
     }
 }

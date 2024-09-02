@@ -1,8 +1,8 @@
 package bootcamp.stockmircoservice.infrastructure.input.rest;
 
-import bootcamp.stockmircoservice.adapters.driving.http.dto.CategoryRequest;
-import bootcamp.stockmircoservice.adapters.driving.http.dto.CategoryResponse;
-import bootcamp.stockmircoservice.adapters.driving.http.handler.ICategoryHandler;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequest;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.ICategoryHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -32,13 +32,14 @@ public class CategoryRestController {
     @Operation(summary = "Add a new category")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Category created", content = @Content),
-            @ApiResponse(responseCode = "409", description = "Category already exists", content = @Content)
+            @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Category already exists", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
     @PostMapping("/save")
-    public ResponseEntity<Void> saveCategory(@RequestBody CategoryRequest categoryRequest){
-            categoryHandler.saveCategory(categoryRequest);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-
+    public ResponseEntity<Void> saveCategory(@RequestBody CategoryRequest categoryRequest) {
+        categoryHandler.saveCategory(categoryRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Operation(summary = "Get all the Categories sorted by name or unsorted")
@@ -52,15 +53,7 @@ public class CategoryRestController {
     @Parameter(name = "page" , description = "Page number to retrieve (0-based)", example = "0")
     @Parameter(name = "size", description = "Number of items per page", example = "10")
     @Parameter(name = "sortDirection", description = "Sort direction (asc or desc)", example = "asc")
-    public ResponseEntity<List<CategoryResponse>> getCategory(@RequestParam Integer page, @RequestParam Integer size, @RequestParam(required = false) String sortDirection){
-        try {
-            if(categoryHandler.getAllCategories(page, size, sortDirection).isEmpty()){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-            return ResponseEntity.ok(categoryHandler.getAllCategories(page, size, sortDirection));
-
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    public ResponseEntity<List<CategoryResponse>> getCategories(@RequestParam Integer page, @RequestParam Integer size, @RequestParam String sortDirection){
+        return ResponseEntity.ok(categoryHandler.getAllCategories(page, size, sortDirection));
     }
 }
