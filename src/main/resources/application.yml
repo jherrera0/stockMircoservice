@@ -4,7 +4,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:8090/stock
+    url: jdbc:mysql://localhost:8090/category
     username: root
     password: root
   jpa:
