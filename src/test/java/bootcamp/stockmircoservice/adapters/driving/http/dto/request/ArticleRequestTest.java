@@ -9,19 +9,20 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ArticleRequestTest {
+      private ArticleRequest articleRequest;
     @Test
     void constructor_ShouldThrowException_WhenDescriptionIsNull() {
-        assertThrows(ArticleDescriptionEmptyException.class, () -> new ArticleRequest(1L, "TestName", null, 1L, List.of(1L, 2L, 3L), new BigDecimal("19.99"), 100L));
+        assertThrows(ArticleDescriptionEmptyException.class, () -> articleRequest = new ArticleRequest(1L, "TestName", null, 1L, List.of(1L, 2L, 3L), new BigDecimal("19.99"), 100L));
     }
 
     @Test
     void constructor_ShouldThrowException_WhenCategoriesIdIsEmpty() {
-        assertThrows(ArticleCategoriesIdEmptyException.class, () -> new ArticleRequest(1L, "TestName", "TestDescription", 1L, List.of(), new BigDecimal("19.99"), 100L));
+        assertThrows(ArticleCategoriesIdEmptyException.class, () ->articleRequest = new ArticleRequest(1L, "TestName", "TestDescription", 1L, List.of(), new BigDecimal("19.99"), 100L));
     }
 
     @Test
     void constructor_ShouldThrowException_WhenStockIsNegative() {
-        assertThrows(ArticleIllegalStockValueException.class, () -> new ArticleRequest(1L, "TestName", "TestDescription", 1L, List.of(1L, 2L, 3L), new BigDecimal("19.99"), -100L));
+        assertThrows(ArticleIllegalStockValueException.class, () -> articleRequest =new ArticleRequest(1L, "TestName", "TestDescription", 1L, List.of(1L, 2L, 3L), new BigDecimal("19.99"), -100L));
     }
 
     @Test
@@ -49,7 +50,7 @@ class ArticleRequestTest {
     }
     @Test
     void constructor_ShouldThrowException_WhenNameIsEmpty() {
-        assertThrows(ArticleNameEmptyException.class, () -> new ArticleRequest(1L, "", "TestDescription", 1L, List.of(1L, 2L, 3L), new BigDecimal("19.99"), 100L));
+        assertThrows(ArticleNameEmptyException.class, () -> articleRequest = new ArticleRequest(1L, "", "TestDescription", 1L, List.of(1L, 2L, 3L), new BigDecimal("19.99"), 100L));
     }
 
     @Test

@@ -67,14 +67,16 @@ class CategoryRequestTest {
 
     @Test
     void setName_ShouldThrowException_WhenNameIsOversized() {
+        String oversizedName = "A".repeat(ConstValues.CATEGORY_NAME_LENGTH_MAX + 1);
         CategoryRequest categoryRequest = new CategoryRequest();
-        assertThrows(CategoryNameEmptyException.class, () -> categoryRequest.setName("A".repeat(ConstValues.CATEGORY_NAME_LENGTH_MAX + 1)));
+        assertThrows(CategoryNameEmptyException.class, () -> categoryRequest.setName(oversizedName));
     }
 
     @Test
     void setDescription_ShouldThrowException_WhenDescriptionIsOversized() {
+        String oversizedDescription = "A".repeat(ConstValues.CATEGORY_DESCRIPTION_LENGTH_MAX + 1);
         CategoryRequest categoryRequest = new CategoryRequest();
-        assertThrows(CategoryNameEmptyException.class, () -> categoryRequest.setDescription("A".repeat(ConstValues.CATEGORY_DESCRIPTION_LENGTH_MAX + 1)));
+        assertThrows(CategoryNameEmptyException.class, () -> categoryRequest.setDescription(oversizedDescription));
     }
 
 }
