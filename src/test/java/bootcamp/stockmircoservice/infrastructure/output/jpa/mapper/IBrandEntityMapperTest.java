@@ -5,7 +5,6 @@ import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.ArticleEntity
 import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.BrandEntity;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 
 import java.util.List;
 
