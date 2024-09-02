@@ -173,4 +173,29 @@ public class CategoryCaseTest {
         assertEquals(categories, result);
         verify(categoryPersistencePort).getAllCategories(0, 10, null);
     }
+
+    @Test
+    void findByArticleId_returnsCategoriesList_whenArticleIdExists() {
+        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
+        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
+        List<Category> categories = Arrays.asList(new Category(), new Category());
+        when(categoryPersistencePort.findByArticleId(1L)).thenReturn(categories);
+
+        List<Category> result = categoryCase.findByArticleId(1L);
+
+        assertEquals(categories, result);
+        verify(categoryPersistencePort).findByArticleId(1L);
+    }
+
+    @Test
+    void findByArticleId_returnsEmptyList_whenNoCategoriesFoundForArticleId() {
+        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
+        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
+        when(categoryPersistencePort.findByArticleId(1L)).thenReturn(Collections.emptyList());
+
+        List<Category> result = categoryCase.findByArticleId(1L);
+
+        assertTrue(result.isEmpty());
+        verify(categoryPersistencePort).findByArticleId(1L);
+    }
 }

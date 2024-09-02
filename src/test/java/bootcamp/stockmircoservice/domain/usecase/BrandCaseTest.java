@@ -136,4 +136,23 @@ public class BrandCaseTest {
         assertEquals(brands, result);
         verify(brandPersistencePort).getAllBrands(0, 10, null);
     }
+
+    @Test
+    void findById_ShouldReturnBrand_WhenBrandExists() {
+        Brand brand = new Brand("ExistingBrand", "Description");
+        when(brandPersistencePort.findById(1L)).thenReturn(Optional.of(brand));
+
+        Brand result = brandCase.findById(1L);
+
+        assertEquals(brand, result);
+        verify(brandPersistencePort).findById(1L);
+    }
+
+    @Test
+    void findById_ShouldThrowException_WhenBrandDoesNotExist() {
+        when(brandPersistencePort.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(BrandNotFoundException.class, () -> brandCase.findById(1L));
+        verify(brandPersistencePort).findById(1L);
+    }
 }

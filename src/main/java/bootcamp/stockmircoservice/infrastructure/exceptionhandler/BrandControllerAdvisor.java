@@ -9,6 +9,29 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class BrandControllerAdvisor {
 
+    @ExceptionHandler(BrandSortDirectionEmptyException.class)
+    public ResponseEntity<String> handleBrandSortDirectionEmptyException(BrandSortDirectionEmptyException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BrandSortDirectionInvalidException.class)
+    public ResponseEntity<String> handleBrandSortDirectionInvalidException(BrandSortDirectionInvalidException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(BrandPageInvalidException.class)
+    public ResponseEntity<String> handleBrandPageInvalidException(BrandPageInvalidException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(BrandSizeInvalidException.class)
+    public ResponseEntity<String> handleBrandSizeInvalidException(BrandSizeInvalidException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BrandNotFoundException.class)
+    public ResponseEntity<String> handleBrandNotFoundException(BrandNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(BrandRequestNegativeException.class)
     public ResponseEntity<String> handleBrandRequestNegativeException(BrandRequestNegativeException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);

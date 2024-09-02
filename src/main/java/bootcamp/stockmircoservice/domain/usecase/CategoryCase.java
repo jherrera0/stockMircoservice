@@ -1,5 +1,6 @@
 package bootcamp.stockmircoservice.domain.usecase;
 
+import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValues;
 import bootcamp.stockmircoservice.domain.api.ICategoryServicePort;
 import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
@@ -17,7 +18,7 @@ public class CategoryCase implements ICategoryServicePort {
 
     @Override
     public void saveCategory(Category category) {
-        if(category.getName().isEmpty()||category.getName().isBlank()){
+        if(category.getName().isEmpty() || category.getName().isBlank()){
             throw new CategoryNameEmptyException();
         }
         if(category.getName().length() > Category.MAX_NAME_LENGTH){
@@ -39,11 +40,16 @@ public class CategoryCase implements ICategoryServicePort {
 
     @Override
     public List<Category> getAllCategories(Integer page, Integer size, String sortDirection) {
-        if(page == null || page < 0 || size == null || size < 0){
+        if(page == null || page < ConstValues.ZERO || size == null || size < ConstValues.ZERO){
             throw new CategoryRequestNegativeException();
         }
 
         return categoryPersistencePort.getAllCategories(page, size, sortDirection);
+    }
+
+    @Override
+    public List<Category> findByArticleId(Long articleId) {
+        return categoryPersistencePort.findByArticleId(articleId);
     }
 
 }

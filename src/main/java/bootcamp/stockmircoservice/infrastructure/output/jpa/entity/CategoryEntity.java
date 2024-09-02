@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,5 +28,7 @@ public class CategoryEntity {
     @Schema(description = "A brief description of the category", example = "Category for all electronic items", maxLength = 90)
     private String description;
 
+    @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
+    private List<ArticleEntity> articleEntities;
 }
 

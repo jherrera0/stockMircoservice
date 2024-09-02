@@ -8,6 +8,41 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class CategoryControllerAdvisor {
+    @ExceptionHandler(CategoryNotExistException.class)
+    public ResponseEntity<String> handleCategoryNotExistException(CategoryNotExistException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CategoryRequestNullException.class)
+    public ResponseEntity<String> handleCategoryRequestNullException(CategoryRequestNullException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CategoryPageInvalidException.class)
+    public ResponseEntity<String> handleCategoryPageEmptyException(CategoryPageInvalidException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CategorySizeInvalidException.class)
+    public ResponseEntity<String> handleCategorySizeEmptyException(CategorySizeInvalidException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CategorySortDirectionEmptyException.class)
+    public ResponseEntity<String> handleCategorySortDirectionEmptyException(CategorySortDirectionEmptyException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CategorySortDirectionInvalidException.class)
+    public ResponseEntity<String> handleCategorySortDirectionInvalidException(CategorySortDirectionInvalidException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CategoryNullFieldException.class)
+    public ResponseEntity<String> handleCategoryNullFieldException(CategoryNullFieldException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(CategoryRequestNegativeException.class)
     public ResponseEntity<String> handleCategoryRequestNegativeException(CategoryRequestNegativeException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);

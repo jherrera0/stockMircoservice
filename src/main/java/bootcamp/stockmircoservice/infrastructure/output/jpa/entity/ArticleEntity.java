@@ -23,9 +23,20 @@ public class ArticleEntity {
     private BigDecimal price;
 
     private Long stock;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private BrandEntity brand;
 
-    private Long brandId;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "article_category",
+            joinColumns = @JoinColumn(name = "article_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<CategoryEntity> categories;
 
-    @ElementCollection
-    private List<Long> categoriesId;
+    public ArticleEntity(Long articleId) {
+        this.id = articleId;
+    }
+
+    public ArticleEntity() {
+
+    }
 }

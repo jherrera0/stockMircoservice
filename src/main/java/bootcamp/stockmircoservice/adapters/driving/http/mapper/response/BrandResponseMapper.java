@@ -1,4 +1,4 @@
-package bootcamp.stockmircoservice.adapters.driving.http.mapper;
+package bootcamp.stockmircoservice.adapters.driving.http.mapper.response;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.BrandResponse;
 import bootcamp.stockmircoservice.domain.model.Brand;
@@ -17,6 +17,8 @@ public interface BrandResponseMapper {
     @Mapping(source = "name", target = "name")
     @Mapping(source = "description", target = "description")
 
+    BrandResponse toResponse(Brand brand);
+    List<Brand> toBrandList(List<BrandResponse> brandResponse);
     default List<BrandResponse> toResponseList(List<Brand> brandRequestList){
         return brandRequestList.stream().map(
                 brandRequest->{

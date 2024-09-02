@@ -2,7 +2,7 @@ package bootcamp.stockmircoservice.domain.model;
 
 public class Category {
 
-    private long id;
+    private Long id;
     private String name;
     private String description;
     public static final int MAX_NAME_LENGTH = 50;
@@ -16,16 +16,16 @@ public class Category {
         this.description = description;
     }
 
-    public Category(int id, String name, String description) {
+    public Category(Long id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

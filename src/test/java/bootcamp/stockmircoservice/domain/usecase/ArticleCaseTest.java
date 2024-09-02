@@ -8,10 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class ArticleCaseTest {
 
@@ -86,5 +87,30 @@ class ArticleCaseTest {
         article.setCategoriesId(new ArrayList<>(Arrays.asList(1L, 1L, 2L)));
 
         assertThrows(DuplicateCategoriesException.class, () -> articleCase.saveArticle(article));
+    }
+
+    @Test
+    void getAllArticles_returnsArticlesList_whenValidParameters() {
+        IArticlePersistencePort articlePersistencePort = mock(IArticlePersistencePort.class);
+        ArticleCase articleCase = new ArticleCase(articlePersistencePort);
+        List<Article> articles = Arrays.asList(new Article(), new Article());
+        when(articlePersistencePort.getAllArticles(0, 10, "asc", "name")).thenReturn(articles);
+
+        List<Article> result = articleCase.getAllArticles(0, 10, "asc", "name");
+
+        assertEquals(articles, result);
+        verify(articlePersistencePort).getAllArticles(0, 10, "asc", "name");
+    }
+
+    @Test
+    void getAllArticles_returnsEmptyList_whenNoArticlesFound() {
+        IArticlePersistencePort articlePersistencePort = mock(IArticlePersistencePort.class);
+        ArticleCase articleCase = new ArticleCase(articlePersistencePort);
+        when(articlePersistencePort.getAllArticles(0, 10, "asc", "name")).thenReturn(Collections.emptyList());
+
+        List<Article> result = articleCase.getAllArticles(0, 10, "asc", "name");
+
+        assertTrue(result.isEmpty());
+        verify(articlePersistencePort).getAllArticles(0, 10, "asc", "name");
     }
 }
