@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BrandControllerAdvisorTest {
+class BrandControllerAdvisorTest {
 
     @Test
     void handleBrandDescriptionEmptyException_ShouldReturnBadRequest() {

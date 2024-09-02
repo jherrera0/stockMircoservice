@@ -15,11 +15,4 @@ public class ArticleResponse {
     private BigDecimal price;
     private Long stock;
 
-    public void setBrand(BrandResponse brand) {
-        this.brand = brand;
-    }
-
-    public void setCategories(List<CategoryResponse> categories) {
-        this.categories = categories;
-    }
 }

@@ -43,4 +43,39 @@ class ICategoryEntityMapperTest {
         Category category = categoryEntityMapper.toCategory(categoryEntity);
         assertNull(category);
     }
+    @Test
+    void toCategoryList_ShouldMapEntityListToCategoryListSuccessfully() {
+        List<CategoryEntity> categoryEntities = List.of(
+                new CategoryEntity(1L, "CategoryName1", "CategoryDescription1", List.of(new ArticleEntity())),
+                new CategoryEntity(2L, "CategoryName2", "CategoryDescription2", List.of(new ArticleEntity()))
+        );
+        List<Category> categories = categoryEntityMapper.toCategoryList(categoryEntities);
+        assertNotNull(categories);
+        assertEquals(2, categories.size());
+        assertEquals(categoryEntities.get(0).getId(), categories.get(0).getId());
+        assertEquals(categoryEntities.get(1).getId(), categories.get(1).getId());
+    }
+
+    @Test
+    void toCategoryList_ShouldReturnEmptyList_WhenEntityListIsEmpty() {
+        List<CategoryEntity> categoryEntities = List.of();
+        List<Category> categories = categoryEntityMapper.toCategoryList(categoryEntities);
+        assertNotNull(categories);
+        assertTrue(categories.isEmpty());
+    }
+
+    @Test
+    void toCategoryEntityNamed_ShouldMapIdToCategoryEntitySuccessfully() {
+        Long categoryId = 1L;
+        CategoryEntity categoryEntity = categoryEntityMapper.toCategory(categoryId);
+        assertNotNull(categoryEntity);
+        assertEquals(categoryId, categoryEntity.getId());
+    }
+
+    @Test
+    void toCategoryEntityNamed_ShouldReturnNull_WhenIdIsNull() {
+        Long categoryId = null;
+        CategoryEntity categoryEntity = categoryEntityMapper.toCategory(categoryId);
+        assertNull(categoryEntity.getId());
+    }
 }

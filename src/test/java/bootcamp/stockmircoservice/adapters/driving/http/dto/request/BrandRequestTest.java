@@ -68,14 +68,16 @@ class BrandRequestTest {
 
     @Test
     void setName_ShouldThrowException_WhenNameIsOversized() {
+        String oversizedName = "A".repeat(ConstValues.BRAND_NAME_LENGTH_MAX + 1);
         BrandRequest brandRequest = new BrandRequest();
-        assertThrows(BrandOversizeNameException.class, () -> brandRequest.setName("A".repeat(ConstValues.BRAND_NAME_LENGTH_MAX + 1)));
+        assertThrows(BrandOversizeNameException.class, () -> brandRequest.setName(oversizedName));
     }
 
     @Test
     void setDescription_ShouldThrowException_WhenDescriptionIsOversized() {
+        String oversizedDescription = "B".repeat(ConstValues.BRAND_DESCRIPTION_LENGTH_MAX + 1);
         BrandRequest brandRequest = new BrandRequest();
-        assertThrows(BrandOversizeNameException.class, () -> brandRequest.setDescription("A".repeat(ConstValues.BRAND_DESCRIPTION_LENGTH_MAX + 1)));
+        assertThrows(BrandOversizeNameException.class, () -> brandRequest.setDescription(oversizedDescription));
     }
 
 }

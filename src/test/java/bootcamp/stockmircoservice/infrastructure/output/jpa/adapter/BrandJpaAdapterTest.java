@@ -4,6 +4,7 @@ import bootcamp.stockmircoservice.domain.model.Brand;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.BrandEntity;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.mapper.IBrandEntityMapper;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.IBrandRepository;
+import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -88,7 +89,7 @@ class BrandJpaAdapterTest {
         when(brandRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(brandEntities));
         when(brandEntityMapper.toBrandList(brandEntities)).thenReturn(brands);
 
-        List<Brand> result = brandJpaAdapter.getAllBrands(0, 10, "asc");
+        List<Brand> result = brandJpaAdapter.getAllBrands(0, 10, ConstValuesToSort.ASCENDANT_SORT);
 
         assertEquals(2, result.size());
         assertEquals("Brand1", result.get(0).getName());

@@ -18,23 +18,7 @@ class ArticleTest {
     }
 
     @Test
-    void setId_ShouldSetId() {
-        Article article = new Article();
-        article.setId(1L);
-
-        assertEquals(1L, article.getId());
-    }
-
-    @Test
     void getName_ShouldReturnName() {
-        Article article = new Article();
-        article.setName("TestName");
-
-        assertEquals("TestName", article.getName());
-    }
-
-    @Test
-    void setName_ShouldSetName() {
         Article article = new Article();
         article.setName("TestName");
 
@@ -49,24 +33,9 @@ class ArticleTest {
         assertEquals("TestDescription", article.getDescription());
     }
 
-    @Test
-    void setDescription_ShouldSetDescription() {
-        Article article = new Article();
-        article.setDescription("TestDescription");
-
-        assertEquals("TestDescription", article.getDescription());
-    }
 
     @Test
     void getStock_ShouldReturnStock() {
-        Article article = new Article();
-        article.setStock(100L);
-
-        assertEquals(100L, article.getStock());
-    }
-
-    @Test
-    void setStock_ShouldSetStock() {
         Article article = new Article();
         article.setStock(100L);
 
@@ -81,24 +50,9 @@ class ArticleTest {
         assertEquals(new BigDecimal("19.99"), article.getPrice());
     }
 
-    @Test
-    void setPrice_ShouldSetPrice() {
-        Article article = new Article();
-        article.setPrice(new BigDecimal("19.99"));
-
-        assertEquals(new BigDecimal("19.99"), article.getPrice());
-    }
 
     @Test
     void getBrandId_ShouldReturnBrandId() {
-        Article article = new Article();
-        article.setBrandId(1L);
-
-        assertEquals(1L, article.getBrandId());
-    }
-
-    @Test
-    void setBrandId_ShouldSetBrandId() {
         Article article = new Article();
         article.setBrandId(1L);
 
@@ -115,14 +69,6 @@ class ArticleTest {
     }
 
     @Test
-    void setCategoriesId_ShouldSetCategoriesId() {
-        Article article = new Article();
-        List<Long> categoriesId = List.of(1L, 2L, 3L);
-        article.setCategoriesId(categoriesId);
-
-        assertEquals(categoriesId, article.getCategoriesId());
-    }@Test
-
     void getId_ShouldReturnNull_WhenIdIsNotSet() {
         Article article = new Article();
         assertNull(article.getId());
