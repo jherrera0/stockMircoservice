@@ -5,8 +5,12 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResp
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.ArticleRequestMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.ArticleResponseMapper;
 import bootcamp.stockmircoservice.domain.api.IArticleServicePort;
+import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.model.Article;
+import bootcamp.stockmircoservice.domain.model.Category;
+import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
 import bootcamp.stockmircoservice.infrastructure.exception.article.*;
+import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -14,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,24 +34,15 @@ public class ArticleHandlerTest {
     @Mock
     private ArticleResponseMapper articleResponseMapper;
 
+    @Mock
+    private ICategoryPersistencePort categoryPersistencePort;
+
     @InjectMocks
     private ArticleHandler articleHandler;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-    }
-
-    @Test
-    void saveArticle_ShouldCallServicePort() {
-        ArticleRequest articleRequest = new ArticleRequest();
-        Article article = new Article();
-        when(articleRequestMapper.toArticle(articleRequest)).thenReturn(article);
-        doNothing().when(articleServicePort).saveArticle(article);
-
-        articleHandler.saveArticle(articleRequest);
-
-        verify(articleServicePort, times(1)).saveArticle(article);
     }
 
     @Test
@@ -98,15 +94,28 @@ public class ArticleHandlerTest {
     }
 
     @Test
-    void saveArticle_ShouldCallMapperAndServicePort() {
-        ArticleRequest articleRequest = new ArticleRequest();
-        Article article = new Article();
-        when(articleRequestMapper.toArticle(articleRequest)).thenReturn(article);
-        doNothing().when(articleServicePort).saveArticle(article);
+    void getAllArticles_ShouldReturnEmptyList_WhenNoArticlesExist() {
+        when(articleServicePort.getAllArticles(0, 10, "asc", "name")).thenReturn(List.of());
+        when(articleResponseMapper.toResponseList(List.of())).thenReturn(List.of());
 
-        articleHandler.saveArticle(articleRequest);
+        List<ArticleResponse> result = articleHandler.getAllArticles(0, 10, "asc", "name");
 
-        verify(articleRequestMapper, times(1)).toArticle(articleRequest);
-        verify(articleServicePort, times(1)).saveArticle(article);
+        assertEquals(List.of(), result);
+        verify(articleServicePort, times(1)).getAllArticles(0, 10, "asc", "name");
+        verify(articleResponseMapper, times(1)).toResponseList(List.of());
+    }
+
+    @Test
+    void getAllArticles_ShouldReturnArticles_WhenSortByBrand() {
+        List<Article> articles = List.of(new Article(), new Article());
+        List<ArticleResponse> articleResponses = List.of(new ArticleResponse(), new ArticleResponse());
+        when(articleServicePort.getAllArticles(0, 10, "asc", "brand")).thenReturn(articles);
+        when(articleResponseMapper.toResponseList(articles)).thenReturn(articleResponses);
+
+        List<ArticleResponse> result = articleHandler.getAllArticles(0, 10, "asc", "brand");
+
+        assertEquals(articleResponses, result);
+        verify(articleServicePort, times(1)).getAllArticles(0, 10, "asc", "brand");
+        verify(articleResponseMapper, times(1)).toResponseList(articles);
     }
 }

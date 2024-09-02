@@ -4,9 +4,7 @@ import bootcamp.stockmircoservice.domain.model.Article;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.ArticleEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
 
-import javax.xml.transform.Source;
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {IBrandEntityMapper.class, ICategoryEntityMapper.class})

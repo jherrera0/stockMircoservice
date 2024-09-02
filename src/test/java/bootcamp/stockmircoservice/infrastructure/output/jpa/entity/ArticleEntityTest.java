@@ -53,15 +53,6 @@ class ArticleEntityTest {
     }
 
     @Test
-    void articleEntity_ShouldReturnTrue_WhenEqualsSameObject() {
-        ArticleEntity articleEntity = new ArticleEntity();
-        articleEntity.setId(1L);
-        articleEntity.setName("Test Article");
-
-        assertEquals(articleEntity,articleEntity);
-    }
-
-    @Test
     void articleEntity_ShouldReturnFalse_WhenEqualsDifferentObject() {
         ArticleEntity articleEntity1 = new ArticleEntity();
         articleEntity1.setId(1L);

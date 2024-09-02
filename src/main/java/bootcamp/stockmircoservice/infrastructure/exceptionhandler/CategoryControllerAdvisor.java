@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class CategoryControllerAdvisor {
+    @ExceptionHandler(CategoryNotExistException.class)
+    public ResponseEntity<String> handleCategoryNotExistException(CategoryNotExistException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(CategoryRequestNullException.class)
     public ResponseEntity<String> handleCategoryRequestNullException(CategoryRequestNullException ex) {

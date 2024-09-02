@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class BrandControllerAdvisor {
+
     @ExceptionHandler(BrandSortDirectionEmptyException.class)
     public ResponseEntity<String> handleBrandSortDirectionEmptyException(BrandSortDirectionEmptyException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);

@@ -16,7 +16,7 @@ class ArticleRequestTest {
 
     @Test
     void constructor_ShouldThrowException_WhenCategoriesIdIsEmpty() {
-        assertThrows(ArticleCategoriesIdErrorException.class, () -> new ArticleRequest(1L, "TestName", "TestDescription", 1L, List.of(), new BigDecimal("19.99"), 100L));
+        assertThrows(ArticleCategoriesIdEmptyException.class, () -> new ArticleRequest(1L, "TestName", "TestDescription", 1L, List.of(), new BigDecimal("19.99"), 100L));
     }
 
     @Test
@@ -39,7 +39,7 @@ class ArticleRequestTest {
     @Test
     void setCategoriesId_ShouldThrowException_WhenCategoriesIdIsNull() {
         ArticleRequest articleRequest = new ArticleRequest();
-        assertThrows(ArticleCategoriesIdErrorException.class, () -> articleRequest.setCategoriesId(null));
+        assertThrows(ArticleCategoriesIdEmptyException.class, () -> articleRequest.setCategoriesId(null));
     }
 
     @Test
@@ -67,7 +67,7 @@ class ArticleRequestTest {
     @Test
     void setCategoriesId_ShouldThrowException_WhenCategoriesIdIsEmpty() {
         ArticleRequest articleRequest = new ArticleRequest();
-        assertThrows(ArticleCategoriesIdErrorException.class, () -> articleRequest.setCategoriesId(List.of()));
+        assertThrows(ArticleCategoriesIdEmptyException.class, () -> articleRequest.setCategoriesId(List.of()));
     }
 
     @Test

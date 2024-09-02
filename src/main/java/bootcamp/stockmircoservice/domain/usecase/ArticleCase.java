@@ -3,6 +3,8 @@ package bootcamp.stockmircoservice.domain.usecase;
 import bootcamp.stockmircoservice.domain.api.IArticleServicePort;
 import bootcamp.stockmircoservice.domain.model.Article;
 import bootcamp.stockmircoservice.domain.spi.IArticlePersistencePort;
+import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
+import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryNotExistException;
 import bootcamp.stockmircoservice.infrastructure.exception.article.CategoriesSizeException;
 import bootcamp.stockmircoservice.infrastructure.exception.article.DuplicateCategoriesException;
 
@@ -24,7 +26,6 @@ public class ArticleCase implements IArticleServicePort {
         if(article.getCategoriesId().isEmpty()|| article.getCategoriesId().size()>3){
             throw new CategoriesSizeException();
         }
-
         articlePersistencePort.saveArticle(article);
     }
 
