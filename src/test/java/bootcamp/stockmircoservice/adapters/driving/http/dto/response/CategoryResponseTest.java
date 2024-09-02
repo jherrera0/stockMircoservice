@@ -34,5 +34,40 @@ class CategoryResponseTest {
         assertEquals(0L, response.getId());
         assertEquals("Test Category", response.getName());
     }
+    @Test
+    void shouldCreateCategoryResponseWithAllFields() {
+        CategoryResponse response = new CategoryResponse(1L, "Test Category", "Test Description");
+
+        assertEquals(1L, response.getId());
+        assertEquals("Test Category", response.getName());
+        assertEquals("Test Description", response.getDescription());
+    }
+
+    @Test
+    void shouldHandleNullDescription() {
+        CategoryResponse response = new CategoryResponse(1L, "Test Category", null);
+
+        assertEquals(1L, response.getId());
+        assertEquals("Test Category", response.getName());
+        assertNull(response.getDescription());
+    }
+
+    @Test
+    void shouldHandleEmptyName() {
+        CategoryResponse response = new CategoryResponse(1L, "", "Test Description");
+
+        assertEquals(1L, response.getId());
+        assertEquals("", response.getName());
+        assertEquals("Test Description", response.getDescription());
+    }
+
+    @Test
+    void shouldHandleEmptyDescription() {
+        CategoryResponse response = new CategoryResponse(1L, "Test Category", "");
+
+        assertEquals(1L, response.getId());
+        assertEquals("Test Category", response.getName());
+        assertEquals("", response.getDescription());
+    }
 
 }

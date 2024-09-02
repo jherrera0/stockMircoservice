@@ -12,6 +12,7 @@ import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.mapper.IArticleEntityMapper;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.IArticleRepository;
 import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.ICategoryRepository;
+import bootcamp.stockmircoservice.infrastructure.until.GeneralMethods;
 import bootcamp.stockmircoservice.infrastructure.until.Validation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -35,14 +36,13 @@ import java.util.List;
 public class ArticleRestController {
     private final IArticleHandler articleHandler;
     private final IArticleRepository articleRepository;
-    private final ICategoryRepository categoryRepository;
     private final IArticleEntityMapper articleEntityMapper;
+    private final ICategoryPersistencePort categoryPersistencePort;
     private final BrandResponseMapper brandResponseMapper;
     private final CategoryResponseMapper categoryResponseMapper;
     private final ICategoryServicePort categoryServicePort;
     private final IBrandServicePort brandServicePort;
-    private final ICategoryPersistencePort categoryPersistencePort;
-
+    private final ICategoryRepository categoryRepository;
 
     @Operation(summary = "Add a new category")
     @ApiResponses(value = {
@@ -61,19 +61,7 @@ public class ArticleRestController {
         Validation.validationGetAllArticles(page, size, sortDirection, sortBy);
         Pageable pagination = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), sortBy));
         List<Article> articles = articleEntityMapper.toArticleList(articleRepository.findAll(pagination).getContent());
-        List<ArticleResponse> articleResponses = articles.stream().map(article -> {
-            ArticleResponse articleResponse = new ArticleResponse();
-            articleResponse.setId(article.getId());
-            articleResponse.setName(article.getName());
-            articleResponse.setDescription(article.getDescription());
-            articleResponse.setPrice(article.getPrice());
-            articleResponse.setStock(article.getStock());
-            articleResponse.setBrand(brandResponseMapper.toResponse(brandServicePort.findById(article.getBrandId())));
-            articleResponse.getBrand().setId(brandServicePort.findById(article.getBrandId()).getId());
-            articleResponse.setCategories(categoryResponseMapper.toResponseList(categoryServicePort.findByArticleId(article.getId())));
-            articleResponse.getCategories().forEach(categoryResponse -> categoryResponse.setId(categoryRepository.findByName(categoryResponse.getName()).getId()));
-            return articleResponse;
-        }).toList();
+        List<ArticleResponse> articleResponses = GeneralMethods.MapArticleResponse(articles, brandServicePort, categoryServicePort, categoryRepository, brandResponseMapper, categoryResponseMapper);
         return ResponseEntity.ok(articleResponses);
     }
 }
