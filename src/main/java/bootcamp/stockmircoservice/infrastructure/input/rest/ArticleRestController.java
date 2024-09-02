@@ -61,7 +61,7 @@ public class ArticleRestController {
         Validation.validationGetAllArticles(page, size, sortDirection, sortBy);
         Pageable pagination = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), sortBy));
         List<Article> articles = articleEntityMapper.toArticleList(articleRepository.findAll(pagination).getContent());
-        List<ArticleResponse> articleResponses = GeneralMethods.MapArticleResponse(articles, brandServicePort, categoryServicePort, categoryRepository, brandResponseMapper, categoryResponseMapper);
+        List<ArticleResponse> articleResponses = GeneralMethods.mapArticleResponse(articles, brandServicePort, categoryServicePort, categoryRepository, brandResponseMapper, categoryResponseMapper);
         return ResponseEntity.ok(articleResponses);
     }
 }

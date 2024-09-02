@@ -62,7 +62,7 @@ class ArticleEntityTest {
         articleEntity2.setId(2L);
         articleEntity2.setName("Another Article");
 
-        assertFalse(articleEntity1.equals(articleEntity2));
+        assertEquals(false, articleEntity1.equals(articleEntity2));
     }
 
 }

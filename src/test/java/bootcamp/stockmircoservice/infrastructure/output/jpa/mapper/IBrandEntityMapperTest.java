@@ -41,8 +41,43 @@ class IBrandEntityMapperTest {
 
     @Test
     void toBrand_ShouldReturnNull_WhenBrandEntityIsNull() {
-        BrandEntity BrandEntity = null;
-        Brand brand = brandEntityMapper.toBrand(BrandEntity);
+        BrandEntity brandEntity = null;
+        Brand brand = brandEntityMapper.toBrand(brandEntity);
         assertNull(brand);
+    }
+    @Test
+    void toBrandList_ShouldMapEntityListToBrandListSuccessfully() {
+        List<BrandEntity> brandEntities = List.of(
+                new BrandEntity(1L, "BrandName1", "BrandDescription1", List.of(new ArticleEntity())),
+                new BrandEntity(2L, "BrandName2", "BrandDescription2", List.of(new ArticleEntity()))
+        );
+        List<Brand> brands = brandEntityMapper.toBrandList(brandEntities);
+        assertNotNull(brands);
+        assertEquals(2, brands.size());
+        assertEquals(brandEntities.get(0).getId(), brands.get(0).getId());
+        assertEquals(brandEntities.get(1).getId(), brands.get(1).getId());
+    }
+
+    @Test
+    void toBrandList_ShouldReturnEmptyList_WhenEntityListIsEmpty() {
+        List<BrandEntity> brandEntities = List.of();
+        List<Brand> brands = brandEntityMapper.toBrandList(brandEntities);
+        assertNotNull(brands);
+        assertTrue(brands.isEmpty());
+    }
+
+    @Test
+    void toBrandEntityNamed_ShouldMapIdToBrandEntitySuccessfully() {
+        Long brandId = 1L;
+        BrandEntity brandEntity = brandEntityMapper.toBrand(brandId);
+        assertNotNull(brandEntity);
+        assertEquals(brandId, brandEntity.getId());
+    }
+
+    @Test
+    void toBrandEntityNamed_ShouldReturnNull_WhenIdIsNull() {
+        Long brandId = null;
+        BrandEntity brandEntity = brandEntityMapper.toBrand(brandId);
+        assertNull(brandEntity.getId());
     }
 }
