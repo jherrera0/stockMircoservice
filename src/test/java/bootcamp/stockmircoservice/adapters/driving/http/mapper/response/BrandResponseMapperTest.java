@@ -2,8 +2,6 @@ package bootcamp.stockmircoservice.adapters.driving.http.mapper.response;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.BrandResponse;
 import bootcamp.stockmircoservice.domain.model.Brand;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.ArticleEntity;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.BrandEntity;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
