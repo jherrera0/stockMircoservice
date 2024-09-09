@@ -1,7 +1,6 @@
 package bootcamp.stockmircoservice.adapters.driven.jpa.adapter;
 
 
-import bootcamp.stockmircoservice.adapters.driven.jpa.adapter.CategoryJpaAdapter;
 import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.adapters.driven.jpa.entity.ArticleEntity;
 import bootcamp.stockmircoservice.adapters.driven.jpa.entity.CategoryEntity;
