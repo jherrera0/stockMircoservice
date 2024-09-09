@@ -1,4 +1,4 @@
-package bootcamp.stockmircoservice.adapters.driving.http.dto;
+package bootcamp.stockmircoservice.adapters.driving.http.dto.request;
 
 import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValues;
 import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryNullFieldException;
