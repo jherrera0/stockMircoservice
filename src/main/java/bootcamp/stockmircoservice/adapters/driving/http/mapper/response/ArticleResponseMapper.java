@@ -1,7 +1,7 @@
 package bootcamp.stockmircoservice.adapters.driving.http.mapper.response;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResponse;
-import bootcamp.stockmircoservice.domain.model.Article;
+import bootcamp.stockmircoservice.domain.model.ArticleToPrint;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -18,7 +18,8 @@ public interface ArticleResponseMapper {
     @Mapping(source = "description", target = "description")
     @Mapping(source = "price", target = "price")
     @Mapping(source = "stock", target = "stock")
-    @Mapping(source = "brand", target = "brand", qualifiedByName = "toResponse")
-    @Mapping(source = "category", target = "category", qualifiedByName = "toResponse")
-    List<ArticleResponse> toResponseList(List<Article> articleRequestList);
+    @Mapping(source = "brand", target = "brand", qualifiedByName = "toResponseCustom")
+    @Mapping(source = "category", target = "category", qualifiedByName = "toResponseCustom")
+
+    List<ArticleResponse> toResponseList(List<ArticleToPrint> articleRequestList);
 }

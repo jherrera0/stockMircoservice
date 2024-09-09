@@ -15,7 +15,7 @@ import java.util.List;
 public interface CategoryResponseMapper {
     @Mapping(target = "id")
     @Mapping(source = "name", target = "name")
-    @Mapping(source = "description", target = "description")
+    @Mapping(target = "description", source = "description")
 
     CategoryResponse toResponse(Category category);
     List<CategoryResponse> toResponseList(List<Category> categoryRequestList) ;

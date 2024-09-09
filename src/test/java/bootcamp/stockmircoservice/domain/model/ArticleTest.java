@@ -123,4 +123,116 @@ class ArticleTest {
         assertEquals(1L, article.getBrandId());
         assertEquals(categoriesId, article.getCategoriesId());
     }
+    @Test
+    void setId_withValidId_setsId() {
+        Article article = new Article();
+        article.setId(1L);
+
+        assertEquals(1L, article.getId());
+    }
+
+    @Test
+    void setId_withNullId_setsIdToNull() {
+        Article article = new Article();
+        article.setId(null);
+
+        assertNull(article.getId());
+    }
+
+    @Test
+    void setName_withValidName_setsName() {
+        Article article = new Article();
+        article.setName("Valid Name");
+
+        assertEquals("Valid Name", article.getName());
+    }
+
+    @Test
+    void setName_withNullName_setsNameToNull() {
+        Article article = new Article();
+        article.setName(null);
+
+        assertNull(article.getName());
+    }
+
+    @Test
+    void setDescription_withValidDescription_setsDescription() {
+        Article article = new Article();
+        article.setDescription("Valid Description");
+
+        assertEquals("Valid Description", article.getDescription());
+    }
+
+    @Test
+    void setDescription_withNullDescription_setsDescriptionToNull() {
+        Article article = new Article();
+        article.setDescription(null);
+
+        assertNull(article.getDescription());
+    }
+
+    @Test
+    void setStock_withValidStock_setsStock() {
+        Article article = new Article();
+        article.setStock(100L);
+
+        assertEquals(100L, article.getStock());
+    }
+
+    @Test
+    void setStock_withNullStock_setsStockToNull() {
+        Article article = new Article();
+        article.setStock(null);
+
+        assertNull(article.getStock());
+    }
+
+    @Test
+    void setPrice_withValidPrice_setsPrice() {
+        Article article = new Article();
+        article.setPrice(new BigDecimal("19.99"));
+
+        assertEquals(new BigDecimal("19.99"), article.getPrice());
+    }
+
+    @Test
+    void setPrice_withNullPrice_setsPriceToNull() {
+        Article article = new Article();
+        article.setPrice(null);
+
+        assertNull(article.getPrice());
+    }
+
+    @Test
+    void setBrandId_withValidBrandId_setsBrandId() {
+        Article article = new Article();
+        article.setBrandId(1L);
+
+        assertEquals(1L, article.getBrandId());
+    }
+
+    @Test
+    void setBrandId_withNullBrandId_setsBrandIdToNull() {
+        Article article = new Article();
+        article.setBrandId(null);
+
+        assertNull(article.getBrandId());
+    }
+
+    @Test
+    void setCategoriesId_withValidCategoriesId_setsCategoriesId() {
+        Article article = new Article();
+        List<Long> categoriesId = List.of(1L, 2L, 3L);
+        article.setCategoriesId(categoriesId);
+
+        assertEquals(categoriesId, article.getCategoriesId());
+    }
+
+    @Test
+    void setCategoriesId_withNullCategoriesId_setsCategoriesIdToNull() {
+        Article article = new Article();
+        article.setCategoriesId(null);
+
+        assertNull(article.getCategoriesId());
+    }
 }
