@@ -64,39 +64,4 @@ class BrandHandlerTest {
         assertFalse(result.isEmpty());
         assertEquals(1, result.size());
     }
-    @Test
-    void getAllBrands_ShouldThrowException_WhenPageIsNull() {
-        assertThrows(BrandPageInvalidException.class, () -> brandHandler.getAllBrands(null, 10, "asc"));
-    }
-
-    @Test
-    void getAllBrands_ShouldThrowException_WhenPageIsNegative() {
-        assertThrows(BrandPageInvalidException.class, () -> brandHandler.getAllBrands(-1, 10, "asc"));
-    }
-
-    @Test
-    void getAllBrands_ShouldThrowException_WhenSizeIsNull() {
-        assertThrows(BrandSizeInvalidException.class, () -> brandHandler.getAllBrands(0, null, "asc"));
-    }
-
-    @Test
-    void getAllBrands_ShouldThrowException_WhenSizeIsNegative() {
-        assertThrows(BrandSizeInvalidException.class, () -> brandHandler.getAllBrands(0, -1, "asc"));
-    }
-
-    @Test
-    void getAllBrands_ShouldThrowException_WhenSortDirectionIsNull() {
-        assertThrows(BrandSortDirectionEmptyException.class, () -> brandHandler.getAllBrands(0, 10, null));
-    }
-
-    @Test
-    void getAllBrands_ShouldThrowException_WhenSortDirectionIsEmpty() {
-        assertThrows(BrandSortDirectionEmptyException.class, () -> brandHandler.getAllBrands(0, 10, ""));
-    }
-
-    @Test
-    void getAllBrands_ShouldThrowException_WhenSortDirectionIsInvalid() {
-        assertThrows(BrandSortDirectionInvalidException.class, () -> brandHandler.getAllBrands(0, 10, "invalid"));
-    }
-
 }

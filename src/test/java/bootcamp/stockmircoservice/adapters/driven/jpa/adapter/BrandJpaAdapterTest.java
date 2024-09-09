@@ -1,4 +1,4 @@
-package bootcamp.stockmircoservice.infrastructure.output.jpa.adapter;
+package bootcamp.stockmircoservice.adapters.driven.jpa.adapter;
 
 import bootcamp.stockmircoservice.adapters.driven.jpa.adapter.BrandJpaAdapter;
 import bootcamp.stockmircoservice.domain.model.Brand;

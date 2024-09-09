@@ -45,4 +45,51 @@ class CategoryTest {
         assertEquals("TestName", category.getName());
         assertEquals("TestDescription", category.getDescription());
     }
+    @Test
+    void setName_withValidName_setsName() {
+        Category category = new Category();
+        category.setName("Valid Name");
+
+        assertEquals("Valid Name", category.getName());
+    }
+
+    @Test
+    void setName_withNullName_setsNameToNull() {
+        Category category = new Category();
+        category.setName(null);
+
+        assertNull(category.getName());
+    }
+
+    @Test
+    void setDescription_withValidDescription_setsDescription() {
+        Category category = new Category();
+        category.setDescription("Valid Description");
+
+        assertEquals("Valid Description", category.getDescription());
+    }
+
+    @Test
+    void setDescription_withNullDescription_setsDescriptionToNull() {
+        Category category = new Category();
+        category.setDescription(null);
+
+        assertNull(category.getDescription());
+    }
+
+    @Test
+    void setId_withValidId_setsId() {
+        Category category = new Category();
+        category.setId(1L);
+
+        assertEquals(1L, category.getId());
+    }
+
+    @Test
+    void setId_withNullId_setsIdToNull() {
+        Category category = new Category();
+        category.setId(null);
+
+        assertNull(category.getId());
+    }
 }

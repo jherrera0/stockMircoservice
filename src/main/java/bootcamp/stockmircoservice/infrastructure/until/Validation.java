@@ -3,9 +3,7 @@ package bootcamp.stockmircoservice.infrastructure.until;
 import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValues;
 import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValuesToPage;
 import bootcamp.stockmircoservice.domain.model.Article;
-import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
 import bootcamp.stockmircoservice.infrastructure.exception.article.*;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryNotExistException;
 
 import java.math.BigDecimal;
 
@@ -13,7 +11,7 @@ public class Validation {
     private Validation() {
     }
 
-    public static void validationSaveArticle(Article article, ICategoryPersistencePort categoryPersistencePort) {
+    public static void validationSaveArticle(Article article) {
         if(article == null){
             throw new ArticleRequestNullException();
         }
@@ -37,12 +35,6 @@ public class Validation {
         }
         if(article.getCategoriesId() == null || article.getCategoriesId().isEmpty()){
             throw new ArticleCategoriesIdEmptyException();
-        }
-
-        for(Long categoryId: article.getCategoriesId()){
-            if(categoryPersistencePort.findById(categoryId).isEmpty()){
-                throw new CategoryNotExistException();
-            }
         }
     }
 

@@ -3,9 +3,12 @@ package bootcamp.stockmircoservice.domain.usecase;
 import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
 import bootcamp.stockmircoservice.infrastructure.exception.category.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -14,23 +17,34 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class CategoryCaseTest {
-    @Test
-    void saveCategory_savesCategorySuccessfully_whenValidCategory() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
-        Category category = new Category();
-        category.setName("Valid Name");
-        category.setDescription("Valid Description");
 
-        categoryCase.saveCategory(category);
+    @Mock
+    private ICategoryPersistencePort categoryPersistencePort;
 
-        verify(categoryPersistencePort).saveCategory(category);
+    @Mock
+    private CategoryCase categoryCase;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        categoryCase = new CategoryCase(categoryPersistencePort);
     }
 
     @Test
-    void saveCategory_throwsCategoryNameEmptyException_whenNameIsEmpty() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
+    void saveCategory_withValidCategory_savesSuccessfully() {
+        Category category = new Category();
+        category.setName("Valid Category");
+        category.setDescription("Valid Description");
+
+        when(categoryPersistencePort.findByName("Valid Category")).thenReturn(Optional.empty());
+
+        categoryCase.saveCategory(category);
+
+        verify(categoryPersistencePort, times(1)).saveCategory(category);
+    }
+
+    @Test
+    void saveCategory_withEmptyName_throwsCategoryNameEmptyException() {
         Category category = new Category();
         category.setName("");
         category.setDescription("Valid Description");
@@ -39,9 +53,7 @@ class CategoryCaseTest {
     }
 
     @Test
-    void saveCategory_throwsCategoryNameEmptyException_whenNameIsBlank() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
+    void saveCategory_withBlankName_throwsCategoryNameEmptyException() {
         Category category = new Category();
         category.setName("   ");
         category.setDescription("Valid Description");
@@ -50,9 +62,7 @@ class CategoryCaseTest {
     }
 
     @Test
-    void saveCategory_throwsCategoryOversizeNameException_whenNameExceedsMaxLength() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
+    void saveCategory_withOversizeName_throwsCategoryOversizeNameException() {
         Category category = new Category();
         category.setName("A".repeat(Category.MAX_NAME_LENGTH + 1));
         category.setDescription("Valid Description");
@@ -61,141 +71,94 @@ class CategoryCaseTest {
     }
 
     @Test
-    void saveCategory_throwsCategoryDescriptionEmptyException_whenDescriptionIsEmpty() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
+    void saveCategory_withEmptyDescription_throwsCategoryDescriptionEmptyException() {
         Category category = new Category();
-        category.setName("Valid Name");
+        category.setName("Valid Category");
         category.setDescription("");
 
         assertThrows(CategoryDescriptionEmptyException.class, () -> categoryCase.saveCategory(category));
     }
 
     @Test
-    void saveCategory_throwsCategoryDescriptionEmptyException_whenDescriptionIsBlank() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
+    void saveCategory_withBlankDescription_throwsCategoryDescriptionEmptyException() {
         Category category = new Category();
-        category.setName("Valid Name");
+        category.setName("Valid Category");
         category.setDescription("   ");
 
         assertThrows(CategoryDescriptionEmptyException.class, () -> categoryCase.saveCategory(category));
     }
 
     @Test
-    void saveCategory_throwsCategoryOversizeDescriptionException_whenDescriptionExceedsMaxLength() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
+    void saveCategory_withOversizeDescription_throwsCategoryOversizeDescriptionException() {
         Category category = new Category();
-        category.setName("Valid Name");
+        category.setName("Valid Category");
         category.setDescription("A".repeat(Category.MAX_DESCRIPTION_LENGTH + 1));
 
         assertThrows(CategoryOversizeDescriptionException.class, () -> categoryCase.saveCategory(category));
     }
 
     @Test
-    void saveCategory_throwsCategoryAlreadyExistsException_whenCategoryNameAlreadyExists() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
+    void saveCategory_withExistingName_throwsCategoryAlreadyExistsException() {
         Category category = new Category();
-        category.setName("Existing Name");
+        category.setName("Existing Category");
         category.setDescription("Valid Description");
 
-        when(categoryPersistencePort.findByName("Existing Name")).thenReturn(Optional.of(category));
+        when(categoryPersistencePort.findByName("Existing Category")).thenReturn(Optional.of(new Category()));
 
         assertThrows(CategoryAlreadyExistsException.class, () -> categoryCase.saveCategory(category));
     }
 
     @Test
-    void getAllCategories_returnsCategoriesList_whenValidPageSizeAndSortDirection() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
-        List<Category> categories = Arrays.asList(new Category(), new Category());
-        when(categoryPersistencePort.getAllCategories(0, 10, "asc")).thenReturn(categories);
+    void getAllCategories_withValidParameters_returnsCategories() {
+        categoryCase.getAllCategories(0, 10, "asc");
 
-        List<Category> result = categoryCase.getAllCategories(0, 10, "asc");
-
-        assertEquals(categories, result);
-        verify(categoryPersistencePort).getAllCategories(0, 10, "asc");
+        verify(categoryPersistencePort, times(1)).getAllCategories(0, 10, "asc");
     }
 
     @Test
-    void getAllCategories_returnsEmptyList_whenNoCategoriesFound() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
-        when(categoryPersistencePort.getAllCategories(0, 10, "asc")).thenReturn(Collections.emptyList());
-
-        List<Category> result = categoryCase.getAllCategories(0, 10, "asc");
-
-        assertTrue(result.isEmpty());
-        verify(categoryPersistencePort).getAllCategories(0, 10, "asc");
-    }
-    @Test
-    void getAllCategories_throwsCategoryRequestNegativeException_whenPageIsNull() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
-
-        assertThrows(CategoryRequestNegativeException.class, () -> categoryCase.getAllCategories(null, 10, "asc"));
+    void getAllCategories_withNullPage_throwsCategoryPageInvalidException() {
+        assertThrows(CategoryPageInvalidException.class, () -> categoryCase.getAllCategories(null, 10, "asc"));
     }
 
     @Test
-    void getAllCategories_throwsCategoryRequestNegativeException_whenSizeIsNull() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
-
-        assertThrows(CategoryRequestNegativeException.class, () -> categoryCase.getAllCategories(0, null, "asc"));
-    }
-    @Test
-    void getAllCategories_throwsCategoryRequestNegativeException_whenPageIsNegative() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
-
-        assertThrows(CategoryRequestNegativeException.class, () -> categoryCase.getAllCategories(-1, 10, "asc"));
+    void getAllCategories_withNegativePage_throwsCategoryPageInvalidException() {
+        assertThrows(CategoryPageInvalidException.class, () -> categoryCase.getAllCategories(-1, 10, "asc"));
     }
 
     @Test
-    void getAllCategories_throwsCategoryRequestNegativeException_whenSizeIsNegative() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
-
-        assertThrows(CategoryRequestNegativeException.class, () -> categoryCase.getAllCategories(0, -1, "asc"));
+    void getAllCategories_withNullSize_throwsCategorySizeInvalidException() {
+        assertThrows(CategorySizeInvalidException.class, () -> categoryCase.getAllCategories(0, null, "asc"));
     }
 
     @Test
-    void getAllCategories_returnsCategoriesList_whenSortDirectionIsNull() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
-        List<Category> categories = Arrays.asList(new Category(), new Category());
-        when(categoryPersistencePort.getAllCategories(0, 10, null)).thenReturn(categories);
-
-        List<Category> result = categoryCase.getAllCategories(0, 10, null);
-
-        assertEquals(categories, result);
-        verify(categoryPersistencePort).getAllCategories(0, 10, null);
+    void getAllCategories_withNegativeSize_throwsCategorySizeInvalidException() {
+        assertThrows(CategorySizeInvalidException.class, () -> categoryCase.getAllCategories(0, -1, "asc"));
     }
 
     @Test
-    void findByArticleId_returnsCategoriesList_whenArticleIdExists() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
-        List<Category> categories = Arrays.asList(new Category(), new Category());
-        when(categoryPersistencePort.findByArticleId(1L)).thenReturn(categories);
-
-        List<Category> result = categoryCase.findByArticleId(1L);
-
-        assertEquals(categories, result);
-        verify(categoryPersistencePort).findByArticleId(1L);
+    void getAllCategories_withNullSortDirection_throwsCategorySortDirectionEmptyException() {
+        assertThrows(CategorySortDirectionEmptyException.class, () -> categoryCase.getAllCategories(0, 10, null));
     }
 
     @Test
-    void findByArticleId_returnsEmptyList_whenNoCategoriesFoundForArticleId() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        CategoryCase categoryCase = new CategoryCase(categoryPersistencePort);
+    void getAllCategories_withInvalidSortDirection_throwsCategorySortDirectionInvalidException() {
+        assertThrows(CategorySortDirectionInvalidException.class, () -> categoryCase.getAllCategories(0, 10, "invalid"));
+    }
+
+    @Test
+    void findByArticleId_withExistingArticleId_returnsCategories() {
+        categoryCase.findByArticleId(1L);
+
+        verify(categoryPersistencePort, times(1)).findByArticleId(1L);
+    }
+
+    @Test
+    void findByArticleId_withNonExistingArticleId_returnsEmptyList() {
         when(categoryPersistencePort.findByArticleId(1L)).thenReturn(Collections.emptyList());
 
         List<Category> result = categoryCase.findByArticleId(1L);
 
         assertTrue(result.isEmpty());
-        verify(categoryPersistencePort).findByArticleId(1L);
     }
+  
 }

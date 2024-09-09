@@ -8,6 +8,7 @@ import bootcamp.stockmircoservice.domain.spi.IBrandPersistencePort;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
 import bootcamp.stockmircoservice.infrastructure.exception.article.CategoriesSizeException;
 import bootcamp.stockmircoservice.infrastructure.exception.article.DuplicateCategoriesException;
+import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryNotExistException;
 import bootcamp.stockmircoservice.infrastructure.until.Validation;
 
 import java.util.HashSet;
@@ -25,14 +26,19 @@ public class ArticleCase implements IArticleServicePort {
     }
 
     public void saveArticle(Article article) {
-        Validation.validationSaveArticle(article, categoryPersistencePort);
         if(article.getCategoriesId().size() != new HashSet<>(article.getCategoriesId()).size()){
             throw new DuplicateCategoriesException();
         }
         if(article.getCategoriesId().isEmpty()|| article.getCategoriesId().size()>3){
             throw new CategoriesSizeException();
         }
+        Validation.validationSaveArticle(article);
         branchPersistencePort.findById(article.getBrandId());
+        for(Long categoryId: article.getCategoriesId()){
+            if(categoryPersistencePort.findById(categoryId).isEmpty()){
+                throw new CategoryNotExistException();
+            }
+        }
         articlePersistencePort.saveArticle(article);
     }
 

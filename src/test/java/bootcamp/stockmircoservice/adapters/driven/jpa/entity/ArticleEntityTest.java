@@ -1,4 +1,4 @@
-package bootcamp.stockmircoservice.infrastructure.output.jpa.entity;
+package bootcamp.stockmircoservice.adapters.driven.jpa.entity;
 
 import bootcamp.stockmircoservice.adapters.driven.jpa.entity.ArticleEntity;
 import org.junit.jupiter.api.Test;

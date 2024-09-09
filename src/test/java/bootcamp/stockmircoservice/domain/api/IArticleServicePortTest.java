@@ -1,6 +1,7 @@
 package bootcamp.stockmircoservice.domain.api;
 
 import bootcamp.stockmircoservice.domain.model.Article;
+import bootcamp.stockmircoservice.domain.model.ArticleToPrint;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
@@ -25,18 +26,18 @@ class IArticleServicePortTest {
         IArticleServicePort articleServicePort = mock(IArticleServicePort.class);
         when(articleServicePort.getAllArticles(0, 10, "asc", "name")).thenReturn(Collections.emptyList());
 
-        List<Article> articles = articleServicePort.getAllArticles(0, 10, "asc", "name");
+        List<ArticleToPrint> articles = articleServicePort.getAllArticles(0, 10, "asc", "name");
 
         assertTrue(articles.isEmpty());
     }
 
     @Test
     void getAllArticles_ShouldReturnArticlesList_WhenArticlesExist() {
-        List<Article> expectedArticles = List.of(new Article());
+        List<ArticleToPrint> expectedArticles = List.of(new ArticleToPrint());
         IArticleServicePort articleServicePort = mock(IArticleServicePort.class);
         when(articleServicePort.getAllArticles(0, 10, "asc", "name")).thenReturn(expectedArticles);
 
-        List<Article> articles = articleServicePort.getAllArticles(0, 10, "asc", "name");
+        List<ArticleToPrint> articles = articleServicePort.getAllArticles(0, 10, "asc", "name");
 
         assertEquals(expectedArticles, articles);
     }

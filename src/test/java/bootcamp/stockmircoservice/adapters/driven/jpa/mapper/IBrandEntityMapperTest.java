@@ -1,4 +1,4 @@
-package bootcamp.stockmircoservice.infrastructure.output.jpa.mapper;
+package bootcamp.stockmircoservice.adapters.driven.jpa.mapper;
 
 import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.IBrandEntityMapper;
 import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.IBrandEntityMapperImpl;
