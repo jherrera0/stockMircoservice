@@ -1,4 +1,4 @@
-package bootcamp.stockmircoservice.infrastructure.exception.category;
+package bootcamp.stockmircoservice.infrastructure.exception;
 
 public class CategoryDescriptionEmptyException extends  RuntimeException{
     public CategoryDescriptionEmptyException() {

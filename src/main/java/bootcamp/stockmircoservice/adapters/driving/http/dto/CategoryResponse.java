@@ -1,4 +1,4 @@
-package bootcamp.stockmircoservice.adapters.driving.http.dto.response;
+package bootcamp.stockmircoservice.adapters.driving.http.dto;
 
 import lombok.Data;
 
