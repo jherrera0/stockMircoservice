@@ -4,7 +4,7 @@ public class Brand {
     private Long id;
     private String name;
     private String description;
-    public static final int MAX_DESCRIPTION_LENGTH = 100;
+    public static final int MAX_DESCRIPTION_LENGTH = 120;
     public static final int MAX_NAME_LENGTH = 50;
 
     public Brand(String name, String description) {
