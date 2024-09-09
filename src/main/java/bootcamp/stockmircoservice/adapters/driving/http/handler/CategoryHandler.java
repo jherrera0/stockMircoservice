@@ -5,15 +5,9 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryRes
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.ICategoryHandler;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.CategoryRequestMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.CategoryResponseMapper;
-import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValuesToPage;
 import bootcamp.stockmircoservice.domain.api.ICategoryServicePort;
 import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryRequestNullException;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryPageInvalidException;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategorySizeInvalidException;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategorySortDirectionEmptyException;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategorySortDirectionInvalidException;
-import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,11 +1,9 @@
 package bootcamp.stockmircoservice.domain.usecase;
 
-import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValues;
 import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValuesToPage;
 import bootcamp.stockmircoservice.domain.api.ICategoryServicePort;
 import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryRequestNegativeException;
 import bootcamp.stockmircoservice.infrastructure.exception.category.*;
 import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
 

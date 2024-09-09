@@ -1,6 +1,5 @@
 package bootcamp.stockmircoservice.domain.usecase;
 
-import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValues;
 import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValuesToPage;
 import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.model.Brand;

@@ -7,7 +7,6 @@ import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.ICategoryEntityMapp
 import bootcamp.stockmircoservice.adapters.driven.jpa.repository.IBrandRepository;
 import bootcamp.stockmircoservice.adapters.driven.jpa.repository.ICategoryRepository;
 import bootcamp.stockmircoservice.domain.api.IArticleServicePort;
-import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.spi.IArticlePersistencePort;
 import bootcamp.stockmircoservice.domain.spi.IBrandPersistencePort;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;

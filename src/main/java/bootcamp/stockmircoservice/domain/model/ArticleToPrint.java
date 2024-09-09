@@ -12,17 +12,6 @@ public class ArticleToPrint {
     private Brand brand;
     private List<Category> categories;
 
-
-    public ArticleToPrint(Long id, String name, String description, Long stock, BigDecimal price, Brand brand, List<Category> categories) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.stock = stock;
-        this.price = price;
-        this.brand = brand;
-        this.categories = categories;
-    }
-
     public ArticleToPrint() {
     }
 

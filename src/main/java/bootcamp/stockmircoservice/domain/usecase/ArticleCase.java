@@ -1,7 +1,6 @@
 package bootcamp.stockmircoservice.domain.usecase;
 
 import bootcamp.stockmircoservice.domain.api.IArticleServicePort;
-import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.model.Article;
 import bootcamp.stockmircoservice.domain.model.ArticleToPrint;
 import bootcamp.stockmircoservice.domain.spi.IArticlePersistencePort;

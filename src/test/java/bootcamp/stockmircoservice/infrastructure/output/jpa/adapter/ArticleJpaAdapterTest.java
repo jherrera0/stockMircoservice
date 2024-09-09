@@ -5,6 +5,7 @@ import bootcamp.stockmircoservice.domain.model.Article;
 import bootcamp.stockmircoservice.adapters.driven.jpa.entity.ArticleEntity;
 import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.IArticleEntityMapper;
 import bootcamp.stockmircoservice.adapters.driven.jpa.repository.IArticleRepository;
+import bootcamp.stockmircoservice.domain.model.ArticleToPrint;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -41,8 +42,8 @@ class ArticleJpaAdapterTest {
     @Test
     void getAllArticles_ShouldReturnArticlesList() {
         when(articleRepository.findAll()).thenReturn(List.of(new ArticleEntity()));
-        when(articleEntityMapper.toArticleList(anyList())).thenReturn(List.of(new Article()));
-        List<Article> articles = articleJpaAdapter.getAllArticles(1, 10, "ASC", "name");
+        when(articleEntityMapper.toArticleList(anyList())).thenReturn(List.of(new ArticleToPrint()));
+        List<ArticleToPrint> articles = articleJpaAdapter.getAllArticles(1, 10, "ASC", "name");
         assertNotNull(articles);
         assertFalse(articles.isEmpty());
     }
@@ -50,7 +51,7 @@ class ArticleJpaAdapterTest {
     void getAllArticles_ShouldReturnEmptyList_WhenNoArticlesFound() {
         when(articleRepository.findAll()).thenReturn(List.of());
         when(articleEntityMapper.toArticleList(anyList())).thenReturn(List.of());
-        List<Article> articles = articleJpaAdapter.getAllArticles(1, 10, "ASC", "name");
+        List<ArticleToPrint> articles = articleJpaAdapter.getAllArticles(1, 10, "ASC", "name");
         assertNotNull(articles);
         assertTrue(articles.isEmpty());
     }

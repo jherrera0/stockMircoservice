@@ -12,7 +12,4 @@ import org.mapstruct.ReportingPolicy;
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 
 public interface IBrandResponseCustomMapper {
-    @Mapping(target = "id")
-    @Mapping(source = "name", target = "name")
-    BrandResponseCustom toResponseCustom(Brand brand);
 }

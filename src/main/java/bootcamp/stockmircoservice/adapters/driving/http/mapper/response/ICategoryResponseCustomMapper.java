@@ -11,6 +11,4 @@ import org.mapstruct.ReportingPolicy;
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 
 public interface ICategoryResponseCustomMapper {
-    @Mapping(target = "id")
-    CategoryResponseCustom toResponseCustom(Category category);
 }

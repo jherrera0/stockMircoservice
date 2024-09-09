@@ -3,8 +3,6 @@ package bootcamp.stockmircoservice.infrastructure.input.rest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.ArticleRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IArticleHandler;
-import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
-import bootcamp.stockmircoservice.infrastructure.until.Validation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -23,7 +21,6 @@ import java.util.List;
 @Tag(name = "article", description = "API for managing articles")
 public class ArticleRestController {
     private final IArticleHandler articleHandler;
-    private final ICategoryPersistencePort categoryPersistencePort;
 
     @Operation(summary = "Add a new category")
     @ApiResponses(value = {

@@ -1,7 +1,6 @@
 package bootcamp.stockmircoservice.adapters.driving.http.mapper.response;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResponse;
-import bootcamp.stockmircoservice.domain.model.Article;
 import bootcamp.stockmircoservice.domain.model.ArticleToPrint;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

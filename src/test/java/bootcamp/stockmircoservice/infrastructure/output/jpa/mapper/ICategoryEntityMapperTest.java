@@ -1,6 +1,7 @@
 package bootcamp.stockmircoservice.infrastructure.output.jpa.mapper;
 
 import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.ICategoryEntityMapper;
+import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.ICategoryEntityMapperImpl;
 import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.adapters.driven.jpa.entity.ArticleEntity;
 import bootcamp.stockmircoservice.adapters.driven.jpa.entity.CategoryEntity;
