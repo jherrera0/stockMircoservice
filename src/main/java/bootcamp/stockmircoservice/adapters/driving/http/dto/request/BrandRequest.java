@@ -1,9 +1,7 @@
 package bootcamp.stockmircoservice.adapters.driving.http.dto.request;
 
 import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValues;
-import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandNameEmptyException;
-import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandNullFieldException;
-import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandOversizeNameException;
+import bootcamp.stockmircoservice.infrastructure.exception.brand.*;
 import lombok.Data;
 
 @Data
@@ -50,10 +48,10 @@ public class BrandRequest {
 
     public void setDescription(String description) {
         if (description == null || description.isEmpty()) {
-            throw new BrandNameEmptyException();
+            throw new BrandDescriptionEmptyException();
         }
         if (description.length() > ConstValues.BRAND_DESCRIPTION_LENGTH_MAX) {
-            throw new BrandOversizeNameException();
+            throw new BrandOversizeDescriptionException();
         }
        this.description = description;
     }

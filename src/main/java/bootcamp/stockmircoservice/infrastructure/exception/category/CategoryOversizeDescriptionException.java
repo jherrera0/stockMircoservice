@@ -1,4 +1,4 @@
-package bootcamp.stockmircoservice.infrastructure.exception;
+package bootcamp.stockmircoservice.infrastructure.exception.category;
 
 public class CategoryOversizeDescriptionException extends RuntimeException {
     public CategoryOversizeDescriptionException() {
