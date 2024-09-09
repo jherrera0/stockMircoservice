@@ -1,11 +1,13 @@
 package bootcamp.stockmircoservice.domain.usecase;
 
 import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValues;
+import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValuesToPage;
 import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.model.Brand;
 import bootcamp.stockmircoservice.domain.spi.IBrandPersistencePort;
 import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandNotFoundException;
 import bootcamp.stockmircoservice.infrastructure.exception.brand.*;
+import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
 
 import java.util.List;
 
@@ -41,8 +43,17 @@ public class BrandCase implements IBrandServicePort {
 
     @Override
     public List<Brand> getAllBRands(Integer page, Integer size, String sortDirection) {
-        if((page == null) || (page < ConstValues.ZERO) || (size == null) || (size < ConstValues.ZERO)){
-            throw new BrandRequestNegativeException();
+        if(page == null || page< ConstValuesToPage.ZERO){
+            throw new BrandPageInvalidException();
+        }
+        if(size == null || size < ConstValuesToPage.ZERO){
+            throw new BrandSizeInvalidException();
+        }
+        if(sortDirection == null || sortDirection.isEmpty()){
+            throw new BrandSortDirectionEmptyException();
+        }
+        if(!sortDirection.equals(ConstValuesToSort.ASCENDANT_SORT) && (!sortDirection.equals(ConstValuesToSort.DESCENDANT_SORT))){
+            throw new BrandSortDirectionInvalidException();
         }
         return brandPersistencePort.getAllBrands(page, size, sortDirection);
     }

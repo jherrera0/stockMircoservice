@@ -37,18 +37,6 @@ public class BrandHandler implements IBrandHandler {
 
     @Override
     public List<BrandResponse> getAllBrands(Integer page, Integer size, String sortDirection) {
-        if(page == null || page< ConstValuesToPage.ZERO){
-            throw new BrandPageInvalidException();
-        }
-        if(size == null || size < ConstValuesToPage.ZERO){
-            throw new BrandSizeInvalidException();
-        }
-        if(sortDirection == null || sortDirection.isEmpty()){
-            throw new BrandSortDirectionEmptyException();
-        }
-        if(!sortDirection.equals(ConstValuesToSort.ASCENDANT_SORT) && (!sortDirection.equals(ConstValuesToSort.DESCENDANT_SORT))){
-            throw new BrandSortDirectionInvalidException();
-        }
         return brandResponseMapper.toResponseList(brandServicePort.getAllBRands(page, size, sortDirection));
     }
 }

@@ -1,11 +1,13 @@
 package bootcamp.stockmircoservice.domain.usecase;
 
 import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValues;
+import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValuesToPage;
 import bootcamp.stockmircoservice.domain.api.ICategoryServicePort;
 import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
 import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryRequestNegativeException;
 import bootcamp.stockmircoservice.infrastructure.exception.category.*;
+import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
 
 import java.util.List;
 
@@ -40,10 +42,18 @@ public class CategoryCase implements ICategoryServicePort {
 
     @Override
     public List<Category> getAllCategories(Integer page, Integer size, String sortDirection) {
-        if(page == null || page < ConstValues.ZERO || size == null || size < ConstValues.ZERO){
-            throw new CategoryRequestNegativeException();
+        if(page == null || page< ConstValuesToPage.ZERO){
+            throw new CategoryPageInvalidException();
         }
-
+        if(size == null || size < ConstValuesToPage.ZERO){
+            throw new CategorySizeInvalidException();
+        }
+        if(sortDirection == null || sortDirection.isEmpty()){
+            throw new CategorySortDirectionEmptyException();
+        }
+        if(!sortDirection.equals(ConstValuesToSort.ASCENDANT_SORT) && (!sortDirection.equals(ConstValuesToSort.DESCENDANT_SORT))){
+            throw new CategorySortDirectionInvalidException();
+        }
         return categoryPersistencePort.getAllCategories(page, size, sortDirection);
     }
 

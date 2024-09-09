@@ -41,19 +41,6 @@ public class CategoryHandler implements ICategoryHandler {
 
     @Override
     public List<CategoryResponse> getAllCategories(Integer page, Integer size, String sortDirection) {
-        if(page == null || page< ConstValuesToPage.ZERO){
-            throw new CategoryPageInvalidException();
-        }
-        if(size == null || size < ConstValuesToPage.ZERO){
-            throw new CategorySizeInvalidException();
-        }
-        if(sortDirection == null || sortDirection.isEmpty()){
-            throw new CategorySortDirectionEmptyException();
-        }
-        if(!sortDirection.equals(ConstValuesToSort.ASCENDANT_SORT) && (!sortDirection.equals(ConstValuesToSort.DESCENDANT_SORT))){
-                throw new CategorySortDirectionInvalidException();
-        }
-
         return categoryResponseMapper.toResponseList(categoryServicePort.getAllCategories(page, size, sortDirection));
     }
 }
