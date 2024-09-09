@@ -1,6 +1,6 @@
-package bootcamp.stockmircoservice.infrastructure.output.jpa.repository;
+package bootcamp.stockmircoservice.adapters.driven.jpa.repository;
 
-import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.BrandEntity;
+import bootcamp.stockmircoservice.adapters.driven.jpa.entity.BrandEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

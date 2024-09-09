@@ -1,11 +1,12 @@
 package bootcamp.stockmircoservice.infrastructure.output.jpa.adapter;
 
 
+import bootcamp.stockmircoservice.adapters.driven.jpa.adapter.CategoryJpaAdapter;
 import bootcamp.stockmircoservice.domain.model.Category;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.ArticleEntity;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.CategoryEntity;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.mapper.ICategoryEntityMapper;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.ICategoryRepository;
+import bootcamp.stockmircoservice.adapters.driven.jpa.entity.ArticleEntity;
+import bootcamp.stockmircoservice.adapters.driven.jpa.entity.CategoryEntity;
+import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.ICategoryEntityMapper;
+import bootcamp.stockmircoservice.adapters.driven.jpa.repository.ICategoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

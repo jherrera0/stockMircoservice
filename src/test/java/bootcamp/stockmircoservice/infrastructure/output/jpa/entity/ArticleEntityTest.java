@@ -1,5 +1,6 @@
 package bootcamp.stockmircoservice.infrastructure.output.jpa.entity;
 
+import bootcamp.stockmircoservice.adapters.driven.jpa.entity.ArticleEntity;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

@@ -10,8 +10,8 @@ public class ArticleResponse {
     private long id;
     private String name;
     private String description;
-    private BrandResponse brand;
-    private List<CategoryResponse> categories;
+    private BrandResponseCustom brand;
+    private List<CategoryResponseCustom> categories;
     private BigDecimal price;
     private Long stock;
 

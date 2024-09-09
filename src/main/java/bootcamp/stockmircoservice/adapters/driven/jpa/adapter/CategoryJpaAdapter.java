@@ -1,10 +1,10 @@
-package bootcamp.stockmircoservice.infrastructure.output.jpa.adapter;
+package bootcamp.stockmircoservice.adapters.driven.jpa.adapter;
 
 import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.CategoryEntity;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.mapper.ICategoryEntityMapper;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.ICategoryRepository;
+import bootcamp.stockmircoservice.adapters.driven.jpa.entity.CategoryEntity;
+import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.ICategoryEntityMapper;
+import bootcamp.stockmircoservice.adapters.driven.jpa.repository.ICategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

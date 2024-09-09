@@ -1,7 +1,7 @@
-package bootcamp.stockmircoservice.infrastructure.output.jpa.mapper;
+package bootcamp.stockmircoservice.adapters.driven.jpa.mapper;
 
 import bootcamp.stockmircoservice.domain.model.Category;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.CategoryEntity;
+import bootcamp.stockmircoservice.adapters.driven.jpa.entity.CategoryEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;

@@ -1,9 +1,10 @@
 package bootcamp.stockmircoservice.infrastructure.output.jpa.adapter;
 
+import bootcamp.stockmircoservice.adapters.driven.jpa.adapter.BrandJpaAdapter;
 import bootcamp.stockmircoservice.domain.model.Brand;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.BrandEntity;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.mapper.IBrandEntityMapper;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.repository.IBrandRepository;
+import bootcamp.stockmircoservice.adapters.driven.jpa.entity.BrandEntity;
+import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.IBrandEntityMapper;
+import bootcamp.stockmircoservice.adapters.driven.jpa.repository.IBrandRepository;
 import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

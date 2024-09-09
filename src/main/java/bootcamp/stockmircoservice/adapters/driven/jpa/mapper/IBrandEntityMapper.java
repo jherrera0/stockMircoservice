@@ -1,7 +1,7 @@
-package bootcamp.stockmircoservice.infrastructure.output.jpa.mapper;
+package bootcamp.stockmircoservice.adapters.driven.jpa.mapper;
 
 import bootcamp.stockmircoservice.domain.model.Brand;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.BrandEntity;
+import bootcamp.stockmircoservice.adapters.driven.jpa.entity.BrandEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;

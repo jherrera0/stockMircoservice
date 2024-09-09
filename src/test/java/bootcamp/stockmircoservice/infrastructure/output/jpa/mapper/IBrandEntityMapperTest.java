@@ -1,8 +1,9 @@
 package bootcamp.stockmircoservice.infrastructure.output.jpa.mapper;
 
+import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.IBrandEntityMapper;
 import bootcamp.stockmircoservice.domain.model.Brand;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.ArticleEntity;
-import bootcamp.stockmircoservice.infrastructure.output.jpa.entity.BrandEntity;
+import bootcamp.stockmircoservice.adapters.driven.jpa.entity.ArticleEntity;
+import bootcamp.stockmircoservice.adapters.driven.jpa.entity.BrandEntity;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
