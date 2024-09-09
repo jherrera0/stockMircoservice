@@ -1,11 +1,9 @@
 package bootcamp.stockmircoservice.infrastructure.until;
 
-import bootcamp.stockmircoservice.adapters.driving.http.dto.request.ArticleRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValues;
 import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValuesToPage;
-import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
+import bootcamp.stockmircoservice.domain.model.Article;
 import bootcamp.stockmircoservice.infrastructure.exception.article.*;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryNotExistException;
 
 import java.math.BigDecimal;
 
@@ -13,36 +11,30 @@ public class Validation {
     private Validation() {
     }
 
-    public static void validationSaveArticle(ArticleRequest articleRequest, ICategoryPersistencePort categoryPersistencePort) {
-        if(articleRequest == null){
+    public static void validationSaveArticle(Article article) {
+        if(article == null){
             throw new ArticleRequestNullException();
         }
-        if(articleRequest.getBrandId() == null || articleRequest.getBrandId()<= ConstValuesToPage.ZERO){
+        if(article.getBrandId() == null || article.getBrandId()<= ConstValuesToPage.ZERO){
             throw new ArticleBrandIdErrorException();
         }
-        if(articleRequest.getPrice() == null){
+        if(article.getPrice() == null){
             throw new ArticlePriceNullException();
         }
-        if(articleRequest.getPrice().compareTo(BigDecimal.ZERO)< ConstValues.ZERO){
+        if(article.getPrice().compareTo(BigDecimal.ZERO)< ConstValues.ZERO){
             throw new ArticlePriceNegativeException();
         }
-        if(articleRequest.getName() == null || articleRequest.getName().isEmpty()){
+        if(article.getName() == null || article.getName().isEmpty()){
             throw new ArticleNameEmptyException();
         }
-        if(articleRequest.getDescription() == null || articleRequest.getDescription().isEmpty()){
+        if(article.getDescription() == null || article.getDescription().isEmpty()){
             throw new ArticleDescriptionEmptyException();
         }
-        if(articleRequest.getStock() < ConstValues.ZERO){
+        if(article.getStock() < ConstValues.ZERO){
             throw new ArticleIllegalStockValueException();
         }
-        if(articleRequest.getCategoriesId() == null || articleRequest.getCategoriesId().isEmpty()){
+        if(article.getCategoriesId() == null || article.getCategoriesId().isEmpty()){
             throw new ArticleCategoriesIdEmptyException();
-        }
-
-        for(Long categoryId: articleRequest.getCategoriesId()){
-            if(categoryPersistencePort.findById(categoryId).isEmpty()){
-                throw new CategoryNotExistException();
-            }
         }
     }
 

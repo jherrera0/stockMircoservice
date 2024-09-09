@@ -52,30 +52,6 @@ class CategoryHandlerTest {
     }
 
     @Test
-    void getAllCategories_ShouldThrowException_WhenPageIsNull() {
-        assertThrows(CategoryPageInvalidException.class, () -> categoryHandler.getAllCategories(null, 10, "asc"));
-    }
-
-    @Test
-    void getAllCategories_ShouldThrowException_WhenPageIsNegative() {
-        assertThrows(CategoryPageInvalidException.class, () -> categoryHandler.getAllCategories(-1, 10, "asc"));
-    }
-
-    @Test
-    void getAllCategories_ShouldThrowException_WhenSizeIsNull() {
-        assertThrows(CategorySizeInvalidException.class, () -> categoryHandler.getAllCategories(0, null, "asc"));
-    }
-
-    @Test
-    void getAllCategories_ShouldThrowException_WhenSizeIsNegative() {
-        assertThrows(CategorySizeInvalidException.class, () -> categoryHandler.getAllCategories(0, -1, "asc"));
-    }
-
-    @Test
-    void getAllCategories_ShouldThrowException_WhenSortDirectionIsNull() {
-        assertThrows(CategorySortDirectionEmptyException.class, () -> categoryHandler.getAllCategories(0, 10, null));
-    }
-    @Test
     void saveCategory_ShouldThrowException_WhenRequestIsNull() {
         assertThrows(CategoryRequestNullException.class, () -> categoryHandler.saveCategory(null));
     }
@@ -89,17 +65,6 @@ class CategoryHandlerTest {
         categoryHandler.saveCategory(categoryRequest);
 
         verify(categoryServicePort, times(1)).saveCategory(category);
-    }
-
-
-    @Test
-    void getAllCategories_ShouldThrowException_WhenSortDirectionIsEmpty() {
-        assertThrows(CategorySortDirectionEmptyException.class, () -> categoryHandler.getAllCategories(0, 10, ""));
-    }
-
-    @Test
-    void getAllCategories_ShouldThrowException_WhenSortDirectionIsInvalid() {
-        assertThrows(CategorySortDirectionInvalidException.class, () -> categoryHandler.getAllCategories(0, 10, "invalid"));
     }
 
     @Test

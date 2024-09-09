@@ -14,8 +14,8 @@ class ArticleResponseTest {
         response.setId(123L);
         response.setName("Test Article");
         response.setDescription("Test Description");
-        response.setBrand(new BrandResponse());
-        response.setCategories(Collections.singletonList(new CategoryResponse()));
+        response.setBrand(new BrandResponseCustom());
+        response.setCategories(Collections.singletonList(new CategoryResponseCustom()));
         response.setPrice(BigDecimal.valueOf(10.0));
         response.setStock(100L);
 
@@ -34,8 +34,8 @@ class ArticleResponseTest {
         response.setId(123L);
         response.setName(null);
         response.setDescription("Test Description");
-        response.setBrand(new BrandResponse());
-        response.setCategories(Collections.singletonList(new CategoryResponse()));
+        response.setBrand(new BrandResponseCustom());
+        response.setCategories(Collections.singletonList(new CategoryResponseCustom()));
         response.setPrice(BigDecimal.valueOf(10.0));
         response.setStock(100L);
 
@@ -54,8 +54,8 @@ class ArticleResponseTest {
         response.setId(123L);
         response.setName("Test Article");
         response.setDescription("Test Description");
-        response.setBrand(new BrandResponse());
-        response.setCategories(Collections.singletonList(new CategoryResponse()));
+        response.setBrand(new BrandResponseCustom());
+        response.setCategories(Collections.singletonList(new CategoryResponseCustom()));
         response.setPrice(BigDecimal.valueOf(-10.0));
         response.setStock(100L);
 
@@ -74,8 +74,8 @@ class ArticleResponseTest {
         response.setId(0L);
         response.setName("Test Article");
         response.setDescription("Test Description");
-        response.setBrand(new BrandResponse());
-        response.setCategories(Collections.singletonList(new CategoryResponse()));
+        response.setBrand(new BrandResponseCustom());
+        response.setCategories(Collections.singletonList(new CategoryResponseCustom()));
         response.setPrice(BigDecimal.valueOf(10.0));
         response.setStock(100L);
 
