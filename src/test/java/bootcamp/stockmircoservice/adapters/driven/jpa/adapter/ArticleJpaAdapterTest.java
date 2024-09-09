@@ -1,6 +1,5 @@
 package bootcamp.stockmircoservice.adapters.driven.jpa.adapter;
 
-import bootcamp.stockmircoservice.adapters.driven.jpa.adapter.ArticleJpaAdapter;
 import bootcamp.stockmircoservice.domain.model.Article;
 import bootcamp.stockmircoservice.adapters.driven.jpa.entity.ArticleEntity;
 import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.IArticleEntityMapper;

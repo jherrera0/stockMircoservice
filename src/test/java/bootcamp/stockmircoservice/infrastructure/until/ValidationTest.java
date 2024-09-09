@@ -3,7 +3,6 @@ package bootcamp.stockmircoservice.infrastructure.until;
 import bootcamp.stockmircoservice.domain.model.Article;
 import bootcamp.stockmircoservice.infrastructure.exception.article.*;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -12,9 +11,6 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ValidationTest {
-
-
-
 
     @Test
     void validationSaveArticle_withValidArticle_doesNotThrowException() {

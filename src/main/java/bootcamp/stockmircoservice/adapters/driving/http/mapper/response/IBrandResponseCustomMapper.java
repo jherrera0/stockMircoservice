@@ -1,10 +1,7 @@
 package bootcamp.stockmircoservice.adapters.driving.http.mapper.response;
 
 
-import bootcamp.stockmircoservice.adapters.driving.http.dto.response.BrandResponseCustom;
-import bootcamp.stockmircoservice.domain.model.Brand;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring",

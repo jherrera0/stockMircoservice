@@ -5,8 +5,6 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResp
 import bootcamp.stockmircoservice.adapters.driving.http.handler.ArticleHandler;
 import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
-import bootcamp.stockmircoservice.infrastructure.exception.article.*;
-import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryNotExistException;
 import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.IArticleEntityMapper;
 import bootcamp.stockmircoservice.adapters.driven.jpa.repository.IArticleRepository;
 import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;

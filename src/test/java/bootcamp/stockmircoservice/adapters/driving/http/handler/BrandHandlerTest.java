@@ -6,10 +6,6 @@ import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.BrandRequ
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.BrandResponseMapper;
 import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.model.Brand;
-import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandPageInvalidException;
-import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandSizeInvalidException;
-import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandSortDirectionEmptyException;
-import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandSortDirectionInvalidException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
