@@ -10,7 +10,7 @@ import java.security.Key;
 
 public class JwtService {
     @Value("${app-security-key}")
-    private String secretKey;
+    private String secretKey = "mysecretkeymysecretkeymysecretkeymy";
 
     public String extractUsername(String jwt) {
         return extractAllClaims(jwt).getSubject();
@@ -18,10 +18,10 @@ public class JwtService {
     public String extractRole(String jwt){
         return extractAllClaims(jwt).get("Role").toString();
     }
-    private Claims extractAllClaims(String jwt) {
+    Claims extractAllClaims(String jwt) {
         return Jwts.parserBuilder().setSigningKey(generateKey()).build().parseClaimsJws(jwt).getBody();
     }
-    private Key generateKey() {
+    Key generateKey() {
         return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 }

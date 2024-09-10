@@ -40,7 +40,7 @@ class BrandTest {
 
     @Test
     void constructorWithIdNameAndDescription_ShouldInitializeFields() {
-        Brand brand = new Brand(1L, "TestDescription", "TestName");
+        Brand brand = new Brand(1L, "TestName","TestDescription");
 
         assertEquals(1L, brand.getId());
         assertEquals("TestName", brand.getName());
@@ -104,7 +104,7 @@ class BrandTest {
 
     @Test
     void constructorWithIdNameAndDescription_setsFieldsCorrectly() {
-        Brand brand = new Brand(1L, "TestDescription", "TestName");
+        Brand brand = new Brand(1L, "TestName","TestDescription");
 
         assertEquals(1L, brand.getId());
         assertEquals("TestName", brand.getName());

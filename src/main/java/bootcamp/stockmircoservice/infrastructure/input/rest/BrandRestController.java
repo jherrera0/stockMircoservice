@@ -8,7 +8,6 @@ import bootcamp.stockmircoservice.infrastructure.until.DocumentationConst;
 import bootcamp.stockmircoservice.infrastructure.until.JwtConst;
 import bootcamp.stockmircoservice.infrastructure.until.RuteConst;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
