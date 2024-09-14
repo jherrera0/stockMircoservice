@@ -1,5 +1,6 @@
 package bootcamp.stockmircoservice.infrastructure.configuration.security;
 
+import bootcamp.stockmircoservice.infrastructure.exception.jwt.MalFormJwtException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -13,14 +14,24 @@ public class JwtService {
     private String secretKey = "mysecretkeymysecretkeymysecretkeymy";
 
     public String extractUsername(String jwt) {
-        return extractAllClaims(jwt).getSubject();
+        try {
+            return extractAllClaims(jwt).getSubject();
+        } catch (Exception e) {
+            throw new MalFormJwtException();
+        }
     }
     public String extractRole(String jwt){
         return extractAllClaims(jwt).get("Role").toString();
     }
-    Claims extractAllClaims(String jwt) {
-        return Jwts.parserBuilder().setSigningKey(generateKey()).build().parseClaimsJws(jwt).getBody();
+
+    public Claims extractAllClaims(String jwt) {
+        try {
+            return Jwts.parserBuilder().setSigningKey(generateKey()).build().parseClaimsJws(jwt).getBody();
+        } catch (Exception e) {
+            throw new MalFormJwtException();
+        }
     }
+
     Key generateKey() {
         return Keys.hmacShaKeyFor(secretKey.getBytes());
     }

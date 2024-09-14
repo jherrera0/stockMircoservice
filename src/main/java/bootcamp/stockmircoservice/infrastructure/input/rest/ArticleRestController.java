@@ -43,9 +43,7 @@ public class ArticleRestController {
 
     @Operation(summary = DocumentationConst.ARTICLE_ALL_DESCRIPTION)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = DocumentationConst.CODE_201, description = DocumentationConst.CODE_201_DESCRIPTION_ARTICLES_ALL,
-                    content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = CategoryResponse.class)))),
+            @ApiResponse(responseCode = DocumentationConst.CODE_201, description = DocumentationConst.CODE_201_DESCRIPTION_ARTICLES_ALL,content = @Content),
             @ApiResponse(responseCode = DocumentationConst.CODE_404, description = DocumentationConst.CODE_404_DESCRIPTION_ARTICLES_ALL, content = @Content)
     })
     @PreAuthorize(JwtConst.PERMIT_ALL)
