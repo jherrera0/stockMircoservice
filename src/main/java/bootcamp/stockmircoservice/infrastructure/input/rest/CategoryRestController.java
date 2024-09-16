@@ -3,8 +3,10 @@ package bootcamp.stockmircoservice.infrastructure.input.rest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.ICategoryHandler;
+import bootcamp.stockmircoservice.infrastructure.until.DocumentationConst;
+import bootcamp.stockmircoservice.infrastructure.until.JwtConst;
+import bootcamp.stockmircoservice.infrastructure.until.RuteConst;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,6 +16,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,36 +26,35 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/category/")
+@RequestMapping(RuteConst.CATEGORY)
 @RequiredArgsConstructor
 @Tag(name = "Category", description = "API for managing categories")
 public class CategoryRestController {
     private final ICategoryHandler categoryHandler;
 
-    @Operation(summary = "Add a new category")
+    @Operation(summary = DocumentationConst.CATEGORY_SAVE_DESCRIPTION)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Category created", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content),
-            @ApiResponse(responseCode = "409", description = "Category already exists", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+            @ApiResponse(responseCode = DocumentationConst.CODE_201, description = DocumentationConst.CODE_201_DESCRIPTION_CATEGORY, content = @Content),
+            @ApiResponse(responseCode = DocumentationConst.CODE_400, description = DocumentationConst.CODE_400_DESCRIPTION, content = @Content),
+            @ApiResponse(responseCode = DocumentationConst.CODE_409, description = DocumentationConst.CODE_409_DESCRIPTION_CATEGORY, content = @Content),
+            @ApiResponse(responseCode = DocumentationConst.CODE_500, description = DocumentationConst.CODE_500_DESCRIPTION, content = @Content)
     })
-    @PostMapping("/save")
+    @PreAuthorize(JwtConst.HAS_AUTHORITY_ADMIN)
+    @PostMapping(RuteConst.SAVE)
     public ResponseEntity<Void> saveCategory(@RequestBody CategoryRequest categoryRequest) {
         categoryHandler.saveCategory(categoryRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @Operation(summary = "Get all the Categories sorted by name or unsorted")
+    @Operation(summary = DocumentationConst.CATEGORY_ALL_DESCRIPTION)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "All Categories returned",
+            @ApiResponse(responseCode = DocumentationConst.CODE_201, description = DocumentationConst.CODE_201_DESCRIPTION_CATEGORY_ALL,
                     content = @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = CategoryResponse.class)))),
-            @ApiResponse(responseCode = "404", description = "No categories found", content = @Content)
+            @ApiResponse(responseCode = DocumentationConst.CODE_404, description = DocumentationConst.CODE_404_DESCRIPTION_CATEGORY_ALL, content = @Content)
     })
-    @GetMapping("/all")
-    @Parameter(name = "page" , description = "Page number to retrieve (0-based)", example = "0")
-    @Parameter(name = "size", description = "Number of items per page", example = "10")
-    @Parameter(name = "sortDirection", description = "Sort direction (asc or desc)", example = "asc")
+    @PreAuthorize(JwtConst.PERMIT_ALL)
+    @GetMapping(RuteConst.ALL)
     public ResponseEntity<List<CategoryResponse>> getCategories(@RequestParam Integer page, @RequestParam Integer size, @RequestParam String sortDirection){
         return ResponseEntity.ok(categoryHandler.getAllCategories(page, size, sortDirection));
     }

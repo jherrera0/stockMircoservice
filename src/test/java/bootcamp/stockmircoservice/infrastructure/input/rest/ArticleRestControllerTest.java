@@ -71,7 +71,7 @@ class ArticleRestControllerTest {
         ArticleRequest articleRequest = new ArticleRequest("name", "description", 1L, List.of(1L), BigDecimal.ONE, 1L);
         when(categoryPersistencePort.findById(1L)).thenReturn(Optional.of(new Category()));
         doNothing().when(articleHandler).saveArticle(articleRequest);
-        assertDoesNotThrow(() -> articleRestController.saveBrand(articleRequest));
+        assertDoesNotThrow(() -> articleRestController.saveArticle(articleRequest));
     }
 
 }
