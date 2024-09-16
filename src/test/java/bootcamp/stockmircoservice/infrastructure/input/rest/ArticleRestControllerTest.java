@@ -1,6 +1,7 @@
 package bootcamp.stockmircoservice.infrastructure.input.rest;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.ArticleRequest;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.request.SupplyRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.ArticleHandler;
 import bootcamp.stockmircoservice.domain.model.Category;
@@ -73,5 +74,30 @@ class ArticleRestControllerTest {
         doNothing().when(articleHandler).saveArticle(articleRequest);
         assertDoesNotThrow(() -> articleRestController.saveArticle(articleRequest));
     }
+    @Test
+    void updateArticleStock_ShouldUpdateSuccessfully_WhenValidParameters() {
+        SupplyRequest supplyRequest = new SupplyRequest();
+        supplyRequest.setProductId(1L);
+        supplyRequest.setQuantity(10L);
+        doNothing().when(articleHandler).updateArticle(1L, 10L);
+        assertDoesNotThrow(() -> articleRestController.updateArticleStock(supplyRequest));
+    }
 
+    @Test
+    void updateArticleStock_ShouldThrowException_WhenInvalidProductId() {
+        SupplyRequest supplyRequest = new SupplyRequest();
+        supplyRequest.setProductId(-1L);
+        supplyRequest.setQuantity(10L);
+        doThrow(new IllegalArgumentException("Invalid product ID")).when(articleHandler).updateArticle(-1L, 10L);
+        assertThrows(IllegalArgumentException.class, () -> articleRestController.updateArticleStock(supplyRequest));
+    }
+
+    @Test
+    void updateArticleStock_ShouldThrowException_WhenInvalidQuantity() {
+        SupplyRequest supplyRequest = new SupplyRequest();
+        supplyRequest.setProductId(1L);
+        supplyRequest.setQuantity(-10L);
+        doThrow(new IllegalArgumentException("Invalid quantity")).when(articleHandler).updateArticle(1L, -10L);
+        assertThrows(IllegalArgumentException.class, () -> articleRestController.updateArticleStock(supplyRequest));
+    }
 }

@@ -5,8 +5,7 @@ import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.domain.spi.IArticlePersistencePort;
 import bootcamp.stockmircoservice.domain.spi.IBrandPersistencePort;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
-import bootcamp.stockmircoservice.infrastructure.exception.article.CategoriesSizeException;
-import bootcamp.stockmircoservice.infrastructure.exception.article.DuplicateCategoriesException;
+import bootcamp.stockmircoservice.infrastructure.exception.article.*;
 import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandNotFoundException;
 import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryNotExistException;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +16,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -95,5 +95,36 @@ class ArticleCaseTest {
         articleCase.getAllArticles(0, 10, "asc", "name");
 
         verify(articlePersistencePort, times(1)).getAllArticles(0, 10, "asc", "name");
+    }
+
+    @Test
+    void updateArticle_withValidParameters_updatesStockSuccessfully() {
+        Article article = new Article();
+        article.setId(1L);
+        article.setStock(10L);
+
+        when(articlePersistencePort.findById(1L)).thenReturn(article);
+
+        articleCase.updateArticle(1L, 5L);
+
+        verify(articlePersistencePort, times(1)).updateArticle(article);
+        assertEquals(15L, article.getStock());
+    }
+
+    @Test
+    void updateArticle_withNonExistentArticle_throwsArticleNotFoundException() {
+        when(articlePersistencePort.findById(1L)).thenThrow(new ArticleNotFoundException());
+
+        assertThrows(ArticleNotFoundException.class, () -> articleCase.updateArticle(1L, 5L));
+    }
+
+    @Test
+    void updateArticle_withNegativeQuantity_throwsArticleQuantityNullException() {
+        assertThrows(ArticleQuantityNullException.class, () -> articleCase.updateArticle(1L, -5L));
+    }
+
+    @Test
+    void updateArticle_withNullId_throwsArticleIdNullException() {
+        assertThrows(ArticleIdNullException.class, () -> articleCase.updateArticle(null, 5L));
     }
 }

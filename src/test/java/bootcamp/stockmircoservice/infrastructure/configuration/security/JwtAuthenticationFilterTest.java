@@ -62,7 +62,7 @@ class JwtAuthenticationFilterTest {
     }
 
     @Test
-    void doFilterInternal_ValidJwt_ThrowsException() throws ServletException, IOException {
+    void doFilterInternal_ValidJwt_ThrowsException(){
         String jwt = "validJwt";
         String authHeader = "Bearer " + jwt;
 
