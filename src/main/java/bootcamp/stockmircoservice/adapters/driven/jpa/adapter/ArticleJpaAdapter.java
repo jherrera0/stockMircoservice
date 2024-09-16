@@ -36,14 +36,14 @@ public class ArticleJpaAdapter implements IArticlePersistencePort {
 
     @Override
     public Article findById(Long id) {
-        ArticleEntity articleEntity = articleRepository.findById(id).orElseThrow(() -> new ArticleNotFoundException());
+        ArticleEntity articleEntity = articleRepository.findById(id).orElseThrow(ArticleNotFoundException::new);
         return articleEntityMapper.toArticle(articleEntity);
     }
 
     @Override
     @Transactional
     public void updateArticle(Article article) {
-        ArticleEntity articleEntity =  articleRepository.findById(article.getId()).orElseThrow(() -> new ArticleNotFoundException());
+        ArticleEntity articleEntity =  articleRepository.findById(article.getId()).orElseThrow(ArticleNotFoundException::new);
         articleEntity.setStock(article.getStock());
         articleRepository.updateByArticle(articleEntity.getId(), articleEntity.getName(), articleEntity.getDescription(),articleEntity.getPrice(), articleEntity.getStock(),articleEntity.getBrand());
 
