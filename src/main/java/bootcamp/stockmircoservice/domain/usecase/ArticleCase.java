@@ -48,5 +48,12 @@ public class ArticleCase implements IArticleServicePort {
         return articlePersistencePort.getAllArticles(page, size, sortDirection, sortBy);
     }
 
+    @Override
+    public void updateArticle(Long id, Long quantity) {
+        Article article = articlePersistencePort.findById(id);
+        article.setStock(article.getStock() + quantity);
+        articlePersistencePort.updateArticle(article);
+    }
+
 
 }

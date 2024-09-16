@@ -33,4 +33,9 @@ public class ArticleHandler implements IArticleHandler {
         return articleResponseMapper.toResponseList(articleServicePort.getAllArticles(page, size, sortDirection, sortBy));
 
     }
+
+    @Override
+    public void updateArticle(Long id, Long quantity) {
+        articleServicePort.updateArticle(id, quantity);
+    }
 }

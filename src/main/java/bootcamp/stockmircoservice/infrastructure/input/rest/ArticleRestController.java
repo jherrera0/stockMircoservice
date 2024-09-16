@@ -1,6 +1,7 @@
 package bootcamp.stockmircoservice.infrastructure.input.rest;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.ArticleRequest;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.request.SupplyRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IArticleHandler;
 import bootcamp.stockmircoservice.infrastructure.until.DocumentationConst;
@@ -48,5 +49,12 @@ public class ArticleRestController {
     public ResponseEntity<List<ArticleResponse>> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy) {
         List<ArticleResponse> articleResponses = articleHandler.getAllArticles(page, size, sortDirection, sortBy);
         return ResponseEntity.ok(articleResponses);
+    }
+
+    @PreAuthorize(JwtConst.HAS_AUTHORITY_AUX_WAREHOUSE)
+    @PutMapping(RuteConst.UPDATE)
+    public ResponseEntity<Void> updateArticleStock(@RequestBody SupplyRequest supplyRequest) {
+        articleHandler.updateArticle(supplyRequest.getProductId(), supplyRequest.getQuantity());
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

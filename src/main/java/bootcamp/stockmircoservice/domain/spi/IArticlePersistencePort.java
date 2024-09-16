@@ -8,4 +8,6 @@ import java.util.List;
 public interface IArticlePersistencePort {
     void saveArticle(Article article);
     List<ArticleToPrint> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy);
+    Article findById(Long id);
+    void updateArticle(Article article);
 }
