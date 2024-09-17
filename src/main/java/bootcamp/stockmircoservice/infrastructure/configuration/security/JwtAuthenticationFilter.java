@@ -1,4 +1,5 @@
 package bootcamp.stockmircoservice.infrastructure.configuration.security;
+import bootcamp.stockmircoservice.infrastructure.exception.jwt.MalFormJwtException;
 import bootcamp.stockmircoservice.infrastructure.until.JwtConst;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -32,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
            UserDetails user = myUserDetailsService.loadUserByUsername(jwt);
            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user, jwt, user.getAuthorities());
            SecurityContextHolder.getContext().setAuthentication(authToken);
-       } catch (Exception e) {
+       } catch (MalFormJwtException e) {
            SecurityContextHolder.clearContext();
            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
            return;

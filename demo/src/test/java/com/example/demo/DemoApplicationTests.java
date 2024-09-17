@@ -8,6 +8,7 @@ class DemoApplicationTests {
 
     @Test
     void contextLoads() {
+        // This test is empty because it is used to check if the context loads correctly
     }
 
 }

@@ -99,5 +99,12 @@ class ArticleHandlerTest {
         verify(articleServicePort, times(1)).getAllArticles(0, 10, "asc", "name");
         verify(articleResponseMapper, times(1)).toResponseList(articles);
     }
+    @Test
+    void updateArticle_withValidParameters_callsServicePort() {
+        doNothing().when(articleServicePort).updateArticle(1L, 10L);
 
+        articleHandler.updateArticle(1L, 10L);
+
+        verify(articleServicePort, times(1)).updateArticle(1L, 10L);
+    }
 }

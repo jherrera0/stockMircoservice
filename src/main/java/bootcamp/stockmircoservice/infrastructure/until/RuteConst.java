@@ -5,6 +5,7 @@ public class RuteConst {
     public static final String CATEGORY = "/category";
     public static final String SAVE = "/save";
     public static final String ALL = "/all";
+    public static final String UPDATE = "/update";
     private RuteConst() {
     }
 }

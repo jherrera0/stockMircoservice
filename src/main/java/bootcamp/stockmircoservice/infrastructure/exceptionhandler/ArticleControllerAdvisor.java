@@ -10,6 +10,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ArticleControllerAdvisor {
 
+    @ExceptionHandler(ArticleIdNullException.class)
+    public ResponseEntity<String> handleArticleIdNullException(ArticleIdNullException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ArticleQuantityNullException.class)
+    public ResponseEntity<String> handleArticleQuantityNullException(ArticleQuantityNullException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ArticleNotFoundException.class)
+    public ResponseEntity<String> handleArticleNotFoundException(ArticleNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(ArticleSortByInvalidException.class)
     public ResponseEntity<String> handleArticleSortByInvalidException(ArticleSortByInvalidException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
