@@ -49,5 +49,15 @@ public class ArticleJpaAdapter implements IArticlePersistencePort {
 
     }
 
+    @Override
+    public ArticleToPrint findArticleById(Long id) {
+        if (articleRepository.findById(id).isPresent()) {
+            return articleEntityMapper.toArticleToPrint(articleRepository.findById(id).get());
+        }
+        else {
+            return null;
+        }
+    }
+
 
 }

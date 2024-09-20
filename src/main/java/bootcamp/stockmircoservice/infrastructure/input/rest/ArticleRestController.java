@@ -3,6 +3,7 @@ package bootcamp.stockmircoservice.infrastructure.input.rest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.ArticleRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.SupplyRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleToCartResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IArticleHandler;
 import bootcamp.stockmircoservice.infrastructure.until.DocumentationConst;
 import bootcamp.stockmircoservice.infrastructure.until.JwtConst;
@@ -56,5 +57,12 @@ public class ArticleRestController {
     public ResponseEntity<Void> updateArticleStock(@RequestBody SupplyRequest supplyRequest) {
         articleHandler.updateArticle(supplyRequest.getProductId(), supplyRequest.getQuantity());
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PreAuthorize(JwtConst.HAS_AUTHORITY_CUSTOMER)
+    @GetMapping(RuteConst.GET)
+    public ResponseEntity<ArticleToCartResponse> getArticle(@RequestParam("id") Long productId) {
+        ArticleToCartResponse articleResponse = articleHandler.getArticleById(productId);
+        return ResponseEntity.ok(articleResponse);
     }
 }

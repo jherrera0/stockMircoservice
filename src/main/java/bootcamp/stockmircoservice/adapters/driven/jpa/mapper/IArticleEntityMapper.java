@@ -19,4 +19,6 @@ public interface IArticleEntityMapper {
 
     @Mapping(source ="categories", target = "categoriesId", qualifiedByName = "toCategoryEntityListToIdList")
     List<ArticleToPrint> toArticleList(List<ArticleEntity> articleEntities);
+
+    ArticleToPrint toArticleToPrint(ArticleEntity articleEntity);
 }

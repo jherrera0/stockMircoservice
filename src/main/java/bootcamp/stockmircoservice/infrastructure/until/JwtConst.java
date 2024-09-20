@@ -7,6 +7,7 @@ public class JwtConst {
     public static final String BEARER ="Bearer";
     public static final Integer SUB_STRING_INDEX = 7;
     public static final String PERMIT_ALL = "permitAll()";
+    public static final String HAS_AUTHORITY_CUSTOMER = "hasAuthority('CUSTOMER')";
 
     private JwtConst() {
     }
