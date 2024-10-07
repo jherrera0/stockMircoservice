@@ -5,7 +5,6 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryRes
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.PageCustomResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.ICategoryHandler;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.CategoryRequestMapper;
-import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.CategoryResponseMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.IPageCustomResponseMapper;
 import bootcamp.stockmircoservice.domain.api.ICategoryServicePort;
 import bootcamp.stockmircoservice.domain.model.Category;
@@ -13,9 +12,6 @@ import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryRequ
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

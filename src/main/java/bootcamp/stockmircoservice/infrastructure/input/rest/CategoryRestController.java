@@ -20,12 +20,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-/**
- * REST Controller for managing categories.
- */
-
 @RestController
 @RequestMapping(RuteConst.CATEGORY)
 @RequiredArgsConstructor

@@ -4,8 +4,6 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequ
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.PageCustomResponse;
 
-import java.util.List;
-
 public interface ICategoryHandler {
     void saveCategory(CategoryRequest categoryRequest);
     PageCustomResponse<CategoryResponse> getAllCategories(Integer page, Integer size, String sortDirection);
