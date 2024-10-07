@@ -20,7 +20,7 @@ public interface BrandResponseMapper {
 
     BrandResponse toResponse(Brand brand);
     List<Brand> toBrandList(List<BrandResponse> brandResponse);
-    @Named("toResponseList")
+    @Named("toResponseListOfBrand")
     default List<BrandResponse> toResponseList(List<Brand> brandRequestList){
         return brandRequestList.stream().map(
                 brandRequest->{

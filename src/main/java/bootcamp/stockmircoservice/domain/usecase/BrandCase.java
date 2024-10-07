@@ -9,8 +9,6 @@ import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandNotFoundEx
 import bootcamp.stockmircoservice.infrastructure.exception.brand.*;
 import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
 
-import java.util.List;
-
 public class BrandCase implements IBrandServicePort {
     private final IBrandPersistencePort brandPersistencePort;
 

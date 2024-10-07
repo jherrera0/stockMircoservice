@@ -5,7 +5,6 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.response.BrandRespon
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.PageCustomResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IBrandHandler;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.BrandRequestMapper;
-import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.BrandResponseMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.IPageCustomResponseMapper;
 import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 
@@ -13,8 +12,6 @@ import bootcamp.stockmircoservice.domain.model.Brand;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Transactional

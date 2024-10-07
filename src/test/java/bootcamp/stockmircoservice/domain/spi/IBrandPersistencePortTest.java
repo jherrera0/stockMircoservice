@@ -3,8 +3,6 @@ package bootcamp.stockmircoservice.domain.spi;
 import bootcamp.stockmircoservice.domain.model.Brand;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;

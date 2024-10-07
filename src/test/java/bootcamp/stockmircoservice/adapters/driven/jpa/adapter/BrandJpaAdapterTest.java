@@ -5,7 +5,6 @@ import bootcamp.stockmircoservice.adapters.driven.jpa.entity.BrandEntity;
 import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.IBrandEntityMapper;
 import bootcamp.stockmircoservice.adapters.driven.jpa.repository.IBrandRepository;
 import bootcamp.stockmircoservice.domain.model.PageCustom;
-import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -14,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

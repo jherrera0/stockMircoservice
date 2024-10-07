@@ -4,9 +4,6 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.request.BrandRequest
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.BrandResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.PageCustomResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IBrandHandler;
-import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.BrandResponseMapper;
-import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
-import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Collections;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -26,12 +22,6 @@ class BrandRestControllerTest {
 
     @Mock
     private IBrandHandler brandHandler;
-
-    @Mock
-    private IBrandServicePort brandServicePort;
-
-    @Mock
-    private BrandResponseMapper brandResponseMapper;
 
     @InjectMocks
     private BrandRestController brandRestController;

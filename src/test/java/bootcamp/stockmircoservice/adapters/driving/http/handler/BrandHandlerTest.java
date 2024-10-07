@@ -4,7 +4,6 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.request.BrandRequest
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.BrandResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.PageCustomResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.BrandRequestMapper;
-import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.BrandResponseMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.IPageCustomResponseMapper;
 import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.model.Brand;

@@ -3,8 +3,6 @@ package bootcamp.stockmircoservice.domain.api;
 import bootcamp.stockmircoservice.domain.model.Brand;
 import bootcamp.stockmircoservice.domain.model.PageCustom;
 
-import java.util.List;
-
 
 public interface IBrandServicePort {
     void saveBrand(Brand brand);
