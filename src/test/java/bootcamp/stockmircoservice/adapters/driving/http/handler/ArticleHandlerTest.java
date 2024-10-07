@@ -5,7 +5,6 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResp
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleToCartResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.PageCustomResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.ArticleRequestMapper;
-import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.ArticleResponseMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.IArticleToCartResponseMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.IPageCustomResponseMapper;
 import bootcamp.stockmircoservice.domain.api.IArticleServicePort;
@@ -18,8 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

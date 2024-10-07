@@ -15,8 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 
 public class ArticleJpaAdapter implements IArticlePersistencePort {

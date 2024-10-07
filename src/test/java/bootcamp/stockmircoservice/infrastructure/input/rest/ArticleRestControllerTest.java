@@ -8,8 +8,6 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.response.PageCustomR
 import bootcamp.stockmircoservice.adapters.driving.http.handler.ArticleHandler;
 import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
-import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.IArticleEntityMapper;
-import bootcamp.stockmircoservice.adapters.driven.jpa.repository.IArticleRepository;
 import bootcamp.stockmircoservice.infrastructure.exception.article.ArticleNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

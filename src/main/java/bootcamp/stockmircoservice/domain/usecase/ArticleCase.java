@@ -14,7 +14,6 @@ import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryNotE
 import bootcamp.stockmircoservice.infrastructure.until.Validation;
 
 import java.util.HashSet;
-import java.util.List;
 
 public class ArticleCase implements IArticleServicePort {
     private final IArticlePersistencePort articlePersistencePort;
