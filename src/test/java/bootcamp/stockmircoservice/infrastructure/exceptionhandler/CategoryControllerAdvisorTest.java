@@ -144,4 +144,14 @@ class CategoryControllerAdvisorTest {
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals("The page and size must be positive", response.getBody());
     }
+    @Test
+    void handleCategoryNotExistException_ShouldReturnNotFound() {
+        CategoryControllerAdvisor advisor = new CategoryControllerAdvisor();
+        CategoryNotExistException ex = new CategoryNotExistException();
+
+        ResponseEntity<String> response = advisor.handleCategoryNotExistException(ex);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals("Category does not exist", response.getBody());
+    }
 }

@@ -58,4 +58,13 @@ public class Validation {
                     throw new ArticleSortByInvalidException();
         }
     }
+
+    public static void validationUpdateArticle(Long id, Long quantity) {
+        if(id == null || id< ConstValuesToPage.ZERO){
+            throw new ArticleIdNullException();
+        }
+        if(quantity == null || quantity< ConstValuesToPage.ZERO){
+            throw new ArticleQuantityNullException();
+        }
+    }
 }

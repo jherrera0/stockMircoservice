@@ -78,5 +78,31 @@ class CategoryRequestTest {
         CategoryRequest categoryRequest = new CategoryRequest();
         assertThrows(CategoryNameEmptyException.class, () -> categoryRequest.setDescription(oversizedDescription));
     }
+    @Test
+    void constructor_ShouldThrowException_WhenCategoryRequestIsNull() {
+        assertThrows(CategoryNullFieldException.class, () -> new CategoryRequest(null));
+    }
 
+    @Test
+    void setName_ShouldThrowException_WhenNameIsNull() {
+        CategoryRequest categoryRequest = new CategoryRequest();
+        assertThrows(CategoryNameEmptyException.class, () -> categoryRequest.setName(null));
+    }
+    @Test
+    void constructor_ShouldInitializeFieldsCorrectly_WhenCategoryRequestIsValid() {
+        CategoryRequest originalRequest = new CategoryRequest("TestCategory", "TestDescription");
+        CategoryRequest categoryRequest = new CategoryRequest(originalRequest);
+
+        assertEquals("TestCategory", categoryRequest.getName());
+        assertEquals("TestDescription", categoryRequest.getDescription());
+    }
+
+    @Test
+    void constructor_ShouldCopyId_WhenCategoryRequestIsValid() {
+        CategoryRequest originalRequest = new CategoryRequest("TestCategory", "TestDescription");
+        originalRequest.setId(1L);
+        CategoryRequest categoryRequest = new CategoryRequest(originalRequest);
+
+        assertEquals(1L, categoryRequest.getId());
+    }
 }

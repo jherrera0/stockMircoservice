@@ -3,10 +3,12 @@ package bootcamp.stockmircoservice.adapters.driving.http.handler;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.PageCustomResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.CategoryRequestMapper;
-import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.CategoryResponseMapper;
+import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.IPageCustomResponseMapper;
 import bootcamp.stockmircoservice.domain.api.ICategoryServicePort;
 import bootcamp.stockmircoservice.domain.model.Category;
+import bootcamp.stockmircoservice.domain.model.PageCustom;
 import bootcamp.stockmircoservice.infrastructure.exception.category.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +16,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,7 +24,7 @@ import static org.mockito.Mockito.*;
 class CategoryHandlerTest {
 
     @Mock
-    private CategoryResponseMapper categoryResponseMapper;
+    private IPageCustomResponseMapper pageCustomResponseMapper;
 
     @Mock
     private ICategoryServicePort categoryServicePort;
@@ -41,15 +42,6 @@ class CategoryHandlerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void getAllCategories_ShouldReturnEmptyList_WhenNoCategoriesExist() {
-        when(categoryServicePort.getAllCategories(0, 10, "asc")).thenReturn(Collections.emptyList());
-        when(categoryResponseMapper.toResponseList(Collections.emptyList())).thenReturn(Collections.emptyList());
-
-        List<CategoryResponse> result = categoryHandler.getAllCategories(0, 10, "asc");
-
-        assertTrue(result.isEmpty());
-    }
 
     @Test
     void saveCategory_ShouldThrowException_WhenRequestIsNull() {
@@ -66,18 +58,15 @@ class CategoryHandlerTest {
 
         verify(categoryServicePort, times(1)).saveCategory(category);
     }
-
     @Test
-    void getAllCategories_ShouldReturnCategories_WhenValidParameters() {
-        List<Category> categories = Collections.singletonList(new Category());
-        List<CategoryResponse> categoryResponses = Collections.singletonList(new CategoryResponse());
-        when(categoryServicePort.getAllCategories(0, 10, "asc")).thenReturn(categories);
-        when(categoryResponseMapper.toResponseList(categories)).thenReturn(categoryResponses);
+    void getAllCategories_withValidParameters_returnsPageCustomResponse() {
+        PageCustom<Category> pageCustom = new PageCustom<>(1, 10, 1, List.of(new Category()));
+        PageCustomResponse<CategoryResponse> pageCustomResponse = new PageCustomResponse<>();
+        when(categoryServicePort.getAllCategories(1, 10, "asc")).thenReturn(pageCustom);
+        when(pageCustomResponseMapper.toResponsePageOfCategory(pageCustom)).thenReturn(pageCustomResponse);
 
-        List<CategoryResponse> result = categoryHandler.getAllCategories(0, 10, "asc");
+        PageCustomResponse<CategoryResponse> result = categoryHandler.getAllCategories(1, 10, "asc");
 
-        assertFalse(result.isEmpty());
-        assertEquals(1, result.size());
+        assertEquals(pageCustomResponse, result);
     }
-
 }

@@ -173,5 +173,28 @@ class ValidationTest {
     void validationGetAllArticles_withInvalidSortBy_throwsArticleSortByInvalidException() {
         assertThrows(ArticleSortByInvalidException.class, () -> Validation.validationGetAllArticles(0, 10, "asc", "invalid"));
     }
+    @Test
+    void validationUpdateArticle_withValidParameters_doesNotThrowException() {
+        assertDoesNotThrow(() -> Validation.validationUpdateArticle(1L, 10L));
+    }
 
+    @Test
+    void validationUpdateArticle_withNullId_throwsArticleIdNullException() {
+        assertThrows(ArticleIdNullException.class, () -> Validation.validationUpdateArticle(null, 10L));
+    }
+
+    @Test
+    void validationUpdateArticle_withNegativeId_throwsArticleIdNullException() {
+        assertThrows(ArticleIdNullException.class, () -> Validation.validationUpdateArticle(-1L, 10L));
+    }
+
+    @Test
+    void validationUpdateArticle_withNullQuantity_throwsArticleQuantityNullException() {
+        assertThrows(ArticleQuantityNullException.class, () -> Validation.validationUpdateArticle(1L, null));
+    }
+
+    @Test
+    void validationUpdateArticle_withNegativeQuantity_throwsArticleQuantityNullException() {
+        assertThrows(ArticleQuantityNullException.class, () -> Validation.validationUpdateArticle(1L, -10L));
+    }
 }

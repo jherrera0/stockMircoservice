@@ -1,9 +1,7 @@
 package bootcamp.stockmircoservice.adapters.driving.http.dto.request;
 
 import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValues;
-import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandNameEmptyException;
-import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandNullFieldException;
-import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandOversizeNameException;
+import bootcamp.stockmircoservice.infrastructure.exception.brand.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,12 +36,12 @@ class BrandRequestTest {
 
     @Test
     void constructor_ShouldThrowException_WhenDescriptionIsNull() {
-        assertThrows(BrandNameEmptyException.class, () -> new BrandRequest("TestBrand", null));
+        assertThrows(BrandDescriptionEmptyException.class, () -> new BrandRequest("TestBrand", null));
     }
 
     @Test
     void constructor_ShouldThrowException_WhenDescriptionIsEmpty() {
-        assertThrows(BrandNameEmptyException.class, () -> new BrandRequest("TestBrand", ""));
+        assertThrows(BrandDescriptionEmptyException.class, () -> new BrandRequest("TestBrand", ""));
     }
 
     @Test
@@ -57,13 +55,13 @@ class BrandRequestTest {
     @Test
     void setDescription_ShouldThrowException_WhenDescriptionIsNull() {
         BrandRequest brandRequest = new BrandRequest();
-        assertThrows(BrandNameEmptyException.class, () -> brandRequest.setDescription(null));
+        assertThrows(BrandDescriptionEmptyException.class, () -> brandRequest.setDescription(null));
     }
 
     @Test
     void setDescription_ShouldThrowException_WhenDescriptionIsEmpty() {
         BrandRequest brandRequest = new BrandRequest();
-        assertThrows(BrandNameEmptyException.class, () -> brandRequest.setDescription(""));
+        assertThrows(BrandDescriptionEmptyException.class, () -> brandRequest.setDescription(""));
     }
 
     @Test
@@ -77,7 +75,26 @@ class BrandRequestTest {
     void setDescription_ShouldThrowException_WhenDescriptionIsOversized() {
         String oversizedDescription = "B".repeat(ConstValues.BRAND_DESCRIPTION_LENGTH_MAX + 1);
         BrandRequest brandRequest = new BrandRequest();
-        assertThrows(BrandOversizeNameException.class, () -> brandRequest.setDescription(oversizedDescription));
+        assertThrows(BrandOversizeDescriptionException.class, () -> brandRequest.setDescription(oversizedDescription));
+    }
+    @Test
+    void constructor_ShouldThrowException_WhenBrandRequestIsNull() {
+        assertThrows(BrandNullFieldException.class, () -> new BrandRequest(null));
     }
 
+    @Test
+    void setName_ShouldThrowException_WhenNameIsNull() {
+        BrandRequest brandRequest = new BrandRequest();
+        assertThrows(BrandNameEmptyException.class, () -> brandRequest.setName(null));
+    }
+    @Test
+    void constructor_ShouldInitializeFieldsCorrectly_WhenBrandRequestIsValid() {
+        BrandRequest originalRequest = new BrandRequest("TestBrand", "TestDescription");
+        originalRequest.setId(1L);
+        BrandRequest brandRequest = new BrandRequest(originalRequest);
+
+        assertEquals(1L, brandRequest.getId());
+        assertEquals("TestBrand", brandRequest.getName());
+        assertEquals("TestDescription", brandRequest.getDescription());
+    }
 }

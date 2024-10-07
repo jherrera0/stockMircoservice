@@ -2,10 +2,12 @@ package bootcamp.stockmircoservice.adapters.driving.http.handler;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.BrandRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.BrandResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.PageCustomResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.BrandRequestMapper;
-import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.BrandResponseMapper;
+import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.IPageCustomResponseMapper;
 import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.model.Brand;
+import bootcamp.stockmircoservice.domain.model.PageCustom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -23,7 +25,7 @@ class BrandHandlerTest {
     private BrandRequestMapper brandRequestMapper;
 
     @Mock
-    private BrandResponseMapper brandResponseMapper;
+    private IPageCustomResponseMapper pageCustomResponseMapper;
 
     @Mock
     private IBrandServicePort brandServicePort;
@@ -46,18 +48,41 @@ class BrandHandlerTest {
 
         verify(brandServicePort, times(1)).saveBrand(brand);
     }
+    @Test
+    void getAllBrands_withValidParameters_returnsPageCustomResponse() {
+        List<Brand> brands = List.of(new Brand());
+        PageCustom<Brand> pageCustom = new PageCustom<>(1, 10, 1, brands);
+        PageCustomResponse<BrandResponse> pageCustomResponse = new PageCustomResponse<>();
+        when(brandServicePort.getAllBRands(1, 10, "asc")).thenReturn(pageCustom);
+        when(pageCustomResponseMapper.toResponsePageOfBrand(pageCustom)).thenReturn(pageCustomResponse);
 
+        PageCustomResponse<BrandResponse> result = brandHandler.getAllBrands(1, 10, "asc");
+
+        assertEquals(pageCustomResponse, result);
+    }
 
     @Test
-    void getAllBrands_ShouldReturnBrandResponses() {
-        List<Brand> brands = Collections.singletonList(new Brand());
-        List<BrandResponse> brandResponses = Collections.singletonList(new BrandResponse());
-        when(brandServicePort.getAllBRands(0, 10, "asc")).thenReturn(brands);
-        when(brandResponseMapper.toResponseList(brands)).thenReturn(brandResponses);
+    void getAllBrands_withNullSortDirection_returnsPageCustomResponse() {
+        List<Brand> brands = List.of(new Brand());
+        PageCustom<Brand> pageCustom = new PageCustom<>(1, 10, 1, brands);
+        PageCustomResponse<BrandResponse> pageCustomResponse = new PageCustomResponse<>();
+        when(brandServicePort.getAllBRands(1, 10, null)).thenReturn(pageCustom);
+        when(pageCustomResponseMapper.toResponsePageOfBrand(pageCustom)).thenReturn(pageCustomResponse);
 
-        List<BrandResponse> result = brandHandler.getAllBrands(0, 10, "asc");
+        PageCustomResponse<BrandResponse> result = brandHandler.getAllBrands(1, 10, null);
 
-        assertFalse(result.isEmpty());
-        assertEquals(1, result.size());
+        assertEquals(pageCustomResponse, result);
+    }
+
+    @Test
+    void getAllBrands_withEmptyResult_returnsEmptyPageCustomResponse() {
+        PageCustom<Brand> pageCustom = new PageCustom<>(1, 10, 1, Collections.emptyList());
+        PageCustomResponse<BrandResponse> pageCustomResponse = new PageCustomResponse<>();
+        when(brandServicePort.getAllBRands(1, 10, "asc")).thenReturn(pageCustom);
+        when(pageCustomResponseMapper.toResponsePageOfBrand(pageCustom)).thenReturn(pageCustomResponse);
+
+        PageCustomResponse<BrandResponse> result = brandHandler.getAllBrands(1, 10, "asc");
+
+        assertEquals(pageCustomResponse, result);
     }
 }

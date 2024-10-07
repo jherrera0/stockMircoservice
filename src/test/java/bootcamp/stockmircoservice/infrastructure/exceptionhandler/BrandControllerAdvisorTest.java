@@ -17,7 +17,7 @@ class BrandControllerAdvisorTest {
         ResponseEntity<String> response = advisor.handleBrandDescriptionEmptyException(ex);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("The brand description is empty", response.getBody());
+        assertEquals("Brand description is empty", response.getBody());
     }
 
     @Test
@@ -28,7 +28,7 @@ class BrandControllerAdvisorTest {
         ResponseEntity<String> response = advisor.handleBrandOversizeDescriptionException(ex);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("The brand description is too long", response.getBody());
+        assertEquals("Brand description is too long", response.getBody());
     }
 
     @Test
@@ -39,7 +39,7 @@ class BrandControllerAdvisorTest {
         ResponseEntity<String> response = advisor.handleBrandOversizeNameException(ex);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("The brand name is too long", response.getBody());
+        assertEquals("Brand name is too long", response.getBody());
     }
 
     @Test
@@ -50,7 +50,7 @@ class BrandControllerAdvisorTest {
         ResponseEntity<String> response = advisor.handleBrandNameEmptyException(ex);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("The brand name is empty", response.getBody());
+        assertEquals("Brand name is empty", response.getBody());
     }
     @Test
     void handleBrandSortDirectionEmptyException_ShouldReturnBadRequest() {

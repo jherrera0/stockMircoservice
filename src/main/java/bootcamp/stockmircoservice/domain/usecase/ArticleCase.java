@@ -3,16 +3,17 @@ package bootcamp.stockmircoservice.domain.usecase;
 import bootcamp.stockmircoservice.domain.api.IArticleServicePort;
 import bootcamp.stockmircoservice.domain.model.Article;
 import bootcamp.stockmircoservice.domain.model.ArticleToPrint;
+import bootcamp.stockmircoservice.domain.model.PageCustom;
 import bootcamp.stockmircoservice.domain.spi.IArticlePersistencePort;
 import bootcamp.stockmircoservice.domain.spi.IBrandPersistencePort;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
+import bootcamp.stockmircoservice.infrastructure.exception.article.ArticleNotFoundException;
 import bootcamp.stockmircoservice.infrastructure.exception.article.CategoriesSizeException;
 import bootcamp.stockmircoservice.infrastructure.exception.article.DuplicateCategoriesException;
 import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryNotExistException;
 import bootcamp.stockmircoservice.infrastructure.until.Validation;
 
 import java.util.HashSet;
-import java.util.List;
 
 public class ArticleCase implements IArticleServicePort {
     private final IArticlePersistencePort articlePersistencePort;
@@ -43,9 +44,27 @@ public class ArticleCase implements IArticleServicePort {
     }
 
     @Override
-    public List<ArticleToPrint> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy) {
+    public PageCustom<ArticleToPrint> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy) {
         Validation.validationGetAllArticles(page, size, sortDirection, sortBy);
         return articlePersistencePort.getAllArticles(page, size, sortDirection, sortBy);
+    }
+
+    @Override
+    public void updateArticle(Long id, Long quantity) {
+        Validation.validationUpdateArticle(id, quantity);
+        Article article = articlePersistencePort.findById(id);
+        article.setStock(article.getStock() + quantity);
+        articlePersistencePort.updateArticle(article);
+    }
+
+    @Override
+    public ArticleToPrint getArticleById(Long id) {
+        if (articlePersistencePort.findArticleById(id) != null) {
+            return articlePersistencePort.findArticleById(id);
+        }
+        else {
+            throw new ArticleNotFoundException();
+        }
     }
 
 

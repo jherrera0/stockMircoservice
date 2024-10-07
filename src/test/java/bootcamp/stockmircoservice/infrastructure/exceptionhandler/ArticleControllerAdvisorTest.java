@@ -173,4 +173,37 @@ class ArticleControllerAdvisorTest {
         assertEquals("The article must have between 1 and 3 categories", response.getBody());
     }
 
+    @Test
+    void handleArticleIdNullException_ShouldReturnBadRequest() {
+        ArticleControllerAdvisor advisor = new ArticleControllerAdvisor();
+        ArticleIdNullException ex = new ArticleIdNullException();
+
+        ResponseEntity<String> response = advisor.handleArticleIdNullException(ex);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Article id cannot be null or negative", response.getBody());
+    }
+
+    @Test
+    void handleArticleQuantityNullException_ShouldReturnBadRequest() {
+        ArticleControllerAdvisor advisor = new ArticleControllerAdvisor();
+        ArticleQuantityNullException ex = new ArticleQuantityNullException();
+
+        ResponseEntity<String> response = advisor.handleArticleQuantityNullException(ex);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Article quantity cannot be null or negative", response.getBody());
+    }
+
+    @Test
+    void handleArticleNotFoundException_ShouldReturnNotFound() {
+        ArticleControllerAdvisor advisor = new ArticleControllerAdvisor();
+        ArticleNotFoundException ex = new ArticleNotFoundException();
+
+        ResponseEntity<String> response = advisor.handleArticleNotFoundException(ex);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals("Article not found", response.getBody());
+    }
+
 }

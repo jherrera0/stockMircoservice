@@ -4,6 +4,7 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResp
 import bootcamp.stockmircoservice.domain.model.ArticleToPrint;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
@@ -20,6 +21,6 @@ public interface ArticleResponseMapper {
     @Mapping(source = "stock", target = "stock")
     @Mapping(source = "brand", target = "brand", qualifiedByName = "toResponseCustom")
     @Mapping(source = "category", target = "category", qualifiedByName = "toResponseCustom")
-
+    @Named("toResponseListOfArticle")
     List<ArticleResponse> toResponseList(List<ArticleToPrint> articleRequestList);
 }
