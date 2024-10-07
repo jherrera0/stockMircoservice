@@ -54,7 +54,7 @@ class BrandHandlerTest {
         PageCustom<Brand> pageCustom = new PageCustom<>(1, 10, 1, brands);
         PageCustomResponse<BrandResponse> pageCustomResponse = new PageCustomResponse<>();
         when(brandServicePort.getAllBRands(1, 10, "asc")).thenReturn(pageCustom);
-        when(pageCustomResponseMapper.toResponsePage(pageCustom)).thenReturn(pageCustomResponse);
+        when(pageCustomResponseMapper.toResponsePageOfBrand(pageCustom)).thenReturn(pageCustomResponse);
 
         PageCustomResponse<BrandResponse> result = brandHandler.getAllBrands(1, 10, "asc");
 
@@ -67,7 +67,7 @@ class BrandHandlerTest {
         PageCustom<Brand> pageCustom = new PageCustom<>(1, 10, 1, brands);
         PageCustomResponse<BrandResponse> pageCustomResponse = new PageCustomResponse<>();
         when(brandServicePort.getAllBRands(1, 10, null)).thenReturn(pageCustom);
-        when(pageCustomResponseMapper.toResponsePage(pageCustom)).thenReturn(pageCustomResponse);
+        when(pageCustomResponseMapper.toResponsePageOfBrand(pageCustom)).thenReturn(pageCustomResponse);
 
         PageCustomResponse<BrandResponse> result = brandHandler.getAllBrands(1, 10, null);
 
@@ -79,7 +79,7 @@ class BrandHandlerTest {
         PageCustom<Brand> pageCustom = new PageCustom<>(1, 10, 1, Collections.emptyList());
         PageCustomResponse<BrandResponse> pageCustomResponse = new PageCustomResponse<>();
         when(brandServicePort.getAllBRands(1, 10, "asc")).thenReturn(pageCustom);
-        when(pageCustomResponseMapper.toResponsePage(pageCustom)).thenReturn(pageCustomResponse);
+        when(pageCustomResponseMapper.toResponsePageOfBrand(pageCustom)).thenReturn(pageCustomResponse);
 
         PageCustomResponse<BrandResponse> result = brandHandler.getAllBrands(1, 10, "asc");
 

@@ -2,9 +2,11 @@ package bootcamp.stockmircoservice.adapters.driving.http.handler;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.PageCustomResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.ICategoryHandler;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.CategoryRequestMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.CategoryResponseMapper;
+import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.IPageCustomResponseMapper;
 import bootcamp.stockmircoservice.domain.api.ICategoryServicePort;
 import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryRequestNullException;
@@ -21,7 +23,7 @@ import java.util.List;
 public class CategoryHandler implements ICategoryHandler {
 
     private final CategoryRequestMapper categoryRequestMapper;
-    private final CategoryResponseMapper categoryResponseMapper;
+    private final IPageCustomResponseMapper pageCustomResponseMapper;
     private final ICategoryServicePort categoryServicePort;
 
     @Override
@@ -34,7 +36,7 @@ public class CategoryHandler implements ICategoryHandler {
     }
 
     @Override
-    public List<CategoryResponse> getAllCategories(Integer page, Integer size, String sortDirection) {
-        return categoryResponseMapper.toResponseList(categoryServicePort.getAllCategories(page, size, sortDirection));
+    public PageCustomResponse<CategoryResponse> getAllCategories(Integer page, Integer size, String sortDirection) {
+        return pageCustomResponseMapper.toResponsePageOfCategory(categoryServicePort.getAllCategories(page, size, sortDirection));
     }
 }

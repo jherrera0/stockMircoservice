@@ -1,11 +1,13 @@
 package bootcamp.stockmircoservice.adapters.driven.jpa.adapter;
 
 import bootcamp.stockmircoservice.domain.model.Category;
+import bootcamp.stockmircoservice.domain.model.PageCustom;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
 import bootcamp.stockmircoservice.adapters.driven.jpa.entity.CategoryEntity;
 import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.ICategoryEntityMapper;
 import bootcamp.stockmircoservice.adapters.driven.jpa.repository.ICategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -26,15 +28,15 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
     }
 
     @Override
-    public List<Category> getAllCategories(Integer page, Integer size, String sortDirection) {
+    public PageCustom<Category> getAllCategories(Integer page, Integer size, String sortDirection) {
         Pageable pagination;
         if (sortDirection == null || sortDirection.isEmpty()) {
             pagination = PageRequest.of(page, size);
         } else {
             pagination = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), "name"));
         }
-        List<CategoryEntity> categories = categoryRepository.findAll(pagination).getContent();
-        return categoryEntityMapper.toCategoryList(categories);
+        Page<CategoryEntity> categoryPage = categoryRepository.findAll(pagination);
+        return new PageCustom<>(categoryPage.getNumber(), categoryPage.getSize(), categoryPage.getTotalPages(), categoryEntityMapper.toCategoryList(categoryPage.getContent()));
     }
 
     @Override

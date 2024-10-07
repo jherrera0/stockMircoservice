@@ -30,6 +30,6 @@ public class BrandHandler implements IBrandHandler {
 
     @Override
     public PageCustomResponse<BrandResponse> getAllBrands(Integer page, Integer size, String sortDirection) {
-        return pageCustomResponseMapper.toResponsePage(brandServicePort.getAllBRands(page, size, sortDirection));
+        return pageCustomResponseMapper.toResponsePageOfBrand(brandServicePort.getAllBRands(page, size, sortDirection));
     }
 }

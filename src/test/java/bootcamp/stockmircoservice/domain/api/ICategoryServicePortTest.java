@@ -21,24 +21,4 @@ class ICategoryServicePortTest {
         verify(categoryServicePort, times(1)).saveCategory(category);
     }
 
-    @Test
-    void getAllCategories_ShouldReturnEmptyList_WhenNoCategoriesExist() {
-        ICategoryServicePort categoryServicePort = mock(ICategoryServicePort.class);
-        when(categoryServicePort.getAllCategories(0, 10, "asc")).thenReturn(Collections.emptyList());
-
-        List<Category> categories = categoryServicePort.getAllCategories(0, 10, "asc");
-
-        assertTrue(categories.isEmpty());
-    }
-
-    @Test
-    void getAllCategories_ShouldReturnCategoriesList_WhenCategoriesExist() {
-        List<Category> expectedCategories = List.of(new Category());
-        ICategoryServicePort categoryServicePort = mock(ICategoryServicePort.class);
-        when(categoryServicePort.getAllCategories(0, 10, "asc")).thenReturn(expectedCategories);
-
-        List<Category> categories = categoryServicePort.getAllCategories(0, 10, "asc");
-
-        assertEquals(expectedCategories, categories);
-    }
 }

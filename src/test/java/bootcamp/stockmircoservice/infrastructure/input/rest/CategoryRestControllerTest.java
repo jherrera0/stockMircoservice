@@ -2,6 +2,7 @@ package bootcamp.stockmircoservice.infrastructure.input.rest;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.PageCustomResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.ICategoryHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,26 +42,14 @@ class CategoryRestControllerTest {
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
-
     @Test
-    void getCategories_ShouldReturnCategories() {
-        List<CategoryResponse> categoryResponses = Collections.singletonList(new CategoryResponse());
-        when(categoryHandler.getAllCategories(0, 10, "asc")).thenReturn(categoryResponses);
+    void getCategories_withValidParameters_returnsOkStatus() {
+        PageCustomResponse<CategoryResponse> pageCustomResponse = new PageCustomResponse<>();
+        when(categoryHandler.getAllCategories(1, 10, "asc")).thenReturn(pageCustomResponse);
 
-        ResponseEntity<List<CategoryResponse>> response = categoryRestController.getCategories(0, 10, "asc");
+        ResponseEntity<PageCustomResponse<CategoryResponse>> response = categoryRestController.getCategories(1, 10, "asc");
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertFalse(response.getBody().isEmpty());
-    }
-
-    @Test
-    void getCategories_ShouldReturnCategories_WhenSortDirectionIsEmpty() {
-        List<CategoryResponse> categoryResponses = Collections.singletonList(new CategoryResponse());
-        when(categoryHandler.getAllCategories(0, 10, "")).thenReturn(categoryResponses);
-
-        ResponseEntity<List<CategoryResponse>> response = categoryRestController.getCategories(0, 10, "");
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertFalse(response.getBody().isEmpty());
+        assertEquals(pageCustomResponse, response.getBody());
     }
 }

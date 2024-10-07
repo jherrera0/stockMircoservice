@@ -3,6 +3,7 @@ package bootcamp.stockmircoservice.domain.usecase;
 import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValuesToPage;
 import bootcamp.stockmircoservice.domain.api.ICategoryServicePort;
 import bootcamp.stockmircoservice.domain.model.Category;
+import bootcamp.stockmircoservice.domain.model.PageCustom;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
 import bootcamp.stockmircoservice.infrastructure.exception.category.*;
 import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
@@ -39,7 +40,7 @@ public class CategoryCase implements ICategoryServicePort {
 
 
     @Override
-    public List<Category> getAllCategories(Integer page, Integer size, String sortDirection) {
+    public PageCustom<Category> getAllCategories(Integer page, Integer size, String sortDirection) {
         if(page == null || page< ConstValuesToPage.ZERO){
             throw new CategoryPageInvalidException();
         }

@@ -22,26 +22,6 @@ class ICategoryPersistencePortTest {
         verify(categoryPersistencePort, times(1)).saveCategory(category);
     }
 
-    @Test
-    void getAllCategories_ShouldReturnEmptyList_WhenNoCategoriesExist() {
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        when(categoryPersistencePort.getAllCategories(0, 10, "asc")).thenReturn(Collections.emptyList());
-
-        List<Category> categories = categoryPersistencePort.getAllCategories(0, 10, "asc");
-
-        assertTrue(categories.isEmpty());
-    }
-
-    @Test
-    void getAllCategories_ShouldReturnCategoriesList_WhenCategoriesExist() {
-        List<Category> expectedCategories = List.of(new Category());
-        ICategoryPersistencePort categoryPersistencePort = mock(ICategoryPersistencePort.class);
-        when(categoryPersistencePort.getAllCategories(0, 10, "asc")).thenReturn(expectedCategories);
-
-        List<Category> categories = categoryPersistencePort.getAllCategories(0, 10, "asc");
-
-        assertEquals(expectedCategories, categories);
-    }
 
     @Test
     void findByName_ShouldReturnCategory_WhenCategoryExists() {
