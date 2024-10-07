@@ -6,6 +6,7 @@ import bootcamp.stockmircoservice.domain.model.ArticleToPrint;
 import bootcamp.stockmircoservice.domain.spi.IArticlePersistencePort;
 import bootcamp.stockmircoservice.domain.spi.IBrandPersistencePort;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
+import bootcamp.stockmircoservice.infrastructure.exception.article.ArticleNotFoundException;
 import bootcamp.stockmircoservice.infrastructure.exception.article.CategoriesSizeException;
 import bootcamp.stockmircoservice.infrastructure.exception.article.DuplicateCategoriesException;
 import bootcamp.stockmircoservice.infrastructure.exception.category.CategoryNotExistException;
@@ -54,6 +55,16 @@ public class ArticleCase implements IArticleServicePort {
         Article article = articlePersistencePort.findById(id);
         article.setStock(article.getStock() + quantity);
         articlePersistencePort.updateArticle(article);
+    }
+
+    @Override
+    public ArticleToPrint getArticleById(Long id) {
+        if (articlePersistencePort.findArticleById(id) != null) {
+            return articlePersistencePort.findArticleById(id);
+        }
+        else {
+            throw new ArticleNotFoundException();
+        }
     }
 
 

@@ -2,11 +2,14 @@ package bootcamp.stockmircoservice.adapters.driving.http.handler;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.ArticleRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleToCartResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.request.ArticleRequestMapper;
 import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.ArticleResponseMapper;
+import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.IArticleToCartResponseMapper;
 import bootcamp.stockmircoservice.domain.api.IArticleServicePort;
 import bootcamp.stockmircoservice.domain.model.Article;
 import bootcamp.stockmircoservice.domain.model.ArticleToPrint;
+import bootcamp.stockmircoservice.infrastructure.exception.article.ArticleNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,6 +19,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class ArticleHandlerTest {
@@ -27,6 +31,9 @@ class ArticleHandlerTest {
 
     @Mock
     private ArticleRequestMapper articleRequestMapper;
+
+    @Mock
+    private IArticleToCartResponseMapper articleToCartResponseMapper;
 
     @InjectMocks
     private ArticleHandler articleHandler;
@@ -107,4 +114,39 @@ class ArticleHandlerTest {
 
         verify(articleServicePort, times(1)).updateArticle(1L, 10L);
     }
+
+    @Test
+    void getArticleById_withValidId_returnsArticleToCartResponse() {
+        ArticleToCartResponse expectedResponse = new ArticleToCartResponse();
+        when(articleServicePort.getArticleById(1L)).thenReturn(new ArticleToPrint());
+        when(articleToCartResponseMapper.toArticleToCartResponse(any(ArticleToPrint.class))).thenReturn(expectedResponse);
+
+        ArticleToCartResponse response = articleHandler.getArticleById(1L);
+
+        assertEquals(expectedResponse, response);
+        verify(articleServicePort, times(1)).getArticleById(1L);
+        verify(articleToCartResponseMapper, times(1)).toArticleToCartResponse(any(ArticleToPrint.class));
+    }
+
+    @Test
+    void getArticleById_withNonExistentId_throwsArticleNotFoundException() {
+        when(articleServicePort.getArticleById(1L)).thenThrow(new ArticleNotFoundException());
+
+        assertThrows(ArticleNotFoundException.class, () -> articleHandler.getArticleById(1L));
+        verify(articleServicePort, times(1)).getArticleById(1L);
+    }
+
+
+    @Test
+    void saveArticle_withValidRequest_callsServicePort() {
+        ArticleRequest articleRequest = new ArticleRequest();
+        Article article = new Article();
+        when(articleRequestMapper.toArticle(articleRequest)).thenReturn(article);
+
+        articleHandler.saveArticle(articleRequest);
+
+        verify(articleRequestMapper, times(1)).toArticle(articleRequest);
+        verify(articleServicePort, times(1)).saveArticle(article);
+    }
+
 }
