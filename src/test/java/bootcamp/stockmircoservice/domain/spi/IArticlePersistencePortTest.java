@@ -21,25 +21,4 @@ class IArticlePersistencePortTest {
 
         verify(articlePersistencePort, times(1)).saveArticle(article);
     }
-
-    @Test
-    void getAllArticles_ShouldReturnEmptyList_WhenNoArticlesExist() {
-        IArticlePersistencePort articlePersistencePort = mock(IArticlePersistencePort.class);
-        when(articlePersistencePort.getAllArticles(0, 10, "asc", "id")).thenReturn(Collections.emptyList());
-
-        List<ArticleToPrint> articles = articlePersistencePort.getAllArticles(0, 10, "asc", "id");
-
-        assertTrue(articles.isEmpty());
-    }
-
-    @Test
-    void getAllArticles_ShouldReturnArticlesList_WhenArticlesExist() {
-        List<ArticleToPrint> expectedArticles = List.of(new ArticleToPrint());
-        IArticlePersistencePort articlePersistencePort = mock(IArticlePersistencePort.class);
-        when(articlePersistencePort.getAllArticles(0, 10, "asc", "id")).thenReturn(expectedArticles);
-
-        List<ArticleToPrint> articles = articlePersistencePort.getAllArticles(0, 10, "asc", "id");
-
-        assertEquals(expectedArticles, articles);
-    }
 }

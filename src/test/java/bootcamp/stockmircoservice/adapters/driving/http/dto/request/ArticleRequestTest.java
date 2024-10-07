@@ -126,4 +126,26 @@ class ArticleRequestTest {
 
         assertEquals(200L, articleRequest.getStock());
     }
+    @Test
+    void setPrice_ShouldThrowException_WhenPriceIsNegative() {
+        articleRequest = new ArticleRequest();
+        assertThrows(ArticlePriceNegativeException.class, () -> articleRequest.setPrice(new BigDecimal("-1.00")));
+    }
+
+    @Test
+    void setPrice_ShouldUpdatePrice_WhenPriceIsPositive() {
+        articleRequest = new ArticleRequest();
+        articleRequest.setPrice(new BigDecimal("19.99"));
+        assertEquals(new BigDecimal("19.99"), articleRequest.getPrice());
+    }
+
+    @Test
+    void constructor_ShouldThrowException_WhenPriceIsNull() {
+        assertThrows(ArticlePriceNullException.class, () -> articleRequest = new ArticleRequest(1L, "TestName", "TestDescription", 1L, List.of(1L, 2L, 3L), null, 100L));
+    }
+
+    @Test
+    void constructor_ShouldThrowException_WhenPriceIsNegative() {
+        assertThrows(ArticlePriceNegativeException.class, () -> articleRequest = new ArticleRequest(1L, "TestName", "TestDescription", 1L, List.of(1L, 2L, 3L), new BigDecimal("-1.00"), 100L));
+    }
 }
