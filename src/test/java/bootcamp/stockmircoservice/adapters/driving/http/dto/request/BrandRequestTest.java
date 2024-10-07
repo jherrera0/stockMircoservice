@@ -77,5 +77,24 @@ class BrandRequestTest {
         BrandRequest brandRequest = new BrandRequest();
         assertThrows(BrandOversizeDescriptionException.class, () -> brandRequest.setDescription(oversizedDescription));
     }
+    @Test
+    void constructor_ShouldThrowException_WhenBrandRequestIsNull() {
+        assertThrows(BrandNullFieldException.class, () -> new BrandRequest(null));
+    }
 
+    @Test
+    void setName_ShouldThrowException_WhenNameIsNull() {
+        BrandRequest brandRequest = new BrandRequest();
+        assertThrows(BrandNameEmptyException.class, () -> brandRequest.setName(null));
+    }
+    @Test
+    void constructor_ShouldInitializeFieldsCorrectly_WhenBrandRequestIsValid() {
+        BrandRequest originalRequest = new BrandRequest("TestBrand", "TestDescription");
+        originalRequest.setId(1L);
+        BrandRequest brandRequest = new BrandRequest(originalRequest);
+
+        assertEquals(1L, brandRequest.getId());
+        assertEquals("TestBrand", brandRequest.getName());
+        assertEquals("TestDescription", brandRequest.getDescription());
+    }
 }

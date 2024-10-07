@@ -4,6 +4,7 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.request.ArticleReque
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.SupplyRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleToCartResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.PageCustomResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IArticleHandler;
 import bootcamp.stockmircoservice.infrastructure.until.DocumentationConst;
 import bootcamp.stockmircoservice.infrastructure.until.JwtConst;
@@ -18,8 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(RuteConst.ARTICLE)
@@ -47,9 +46,9 @@ public class ArticleRestController {
     })
     @PreAuthorize(JwtConst.PERMIT_ALL)
     @GetMapping(RuteConst.ALL)
-    public ResponseEntity<List<ArticleResponse>> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy) {
-        List<ArticleResponse> articleResponses = articleHandler.getAllArticles(page, size, sortDirection, sortBy);
-        return ResponseEntity.ok(articleResponses);
+    public ResponseEntity<PageCustomResponse<ArticleResponse>> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy) {
+        PageCustomResponse<ArticleResponse> articleResponsePageCustomResponse = articleHandler.getAllArticles(page, size, sortDirection, sortBy);
+        return ResponseEntity.ok(articleResponsePageCustomResponse);
     }
 
     @PreAuthorize(JwtConst.HAS_AUTHORITY_AUX_WAREHOUSE)

@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
+
 public interface IArticleToCartResponseMapper {
     @Mapping(target = "productId", source = "id")
     @Mapping(target = "productName", source = "name")

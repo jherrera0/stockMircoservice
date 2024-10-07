@@ -2,6 +2,7 @@ package bootcamp.stockmircoservice.infrastructure.input.rest;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.CategoryRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.CategoryResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.PageCustomResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.ICategoryHandler;
 import bootcamp.stockmircoservice.infrastructure.until.DocumentationConst;
 import bootcamp.stockmircoservice.infrastructure.until.JwtConst;
@@ -18,12 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-/**
- * REST Controller for managing categories.
- */
 
 @RestController
 @RequestMapping(RuteConst.CATEGORY)
@@ -55,7 +50,7 @@ public class CategoryRestController {
     })
     @PreAuthorize(JwtConst.PERMIT_ALL)
     @GetMapping(RuteConst.ALL)
-    public ResponseEntity<List<CategoryResponse>> getCategories(@RequestParam Integer page, @RequestParam Integer size, @RequestParam String sortDirection){
+    public ResponseEntity<PageCustomResponse<CategoryResponse>> getCategories(@RequestParam Integer page, @RequestParam Integer size, @RequestParam String sortDirection){
         return ResponseEntity.ok(categoryHandler.getAllCategories(page, size, sortDirection));
     }
 }

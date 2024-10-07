@@ -3,12 +3,11 @@ package bootcamp.stockmircoservice.domain.usecase;
 import bootcamp.stockmircoservice.adapters.driving.http.until.ConstValuesToPage;
 import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
 import bootcamp.stockmircoservice.domain.model.Brand;
+import bootcamp.stockmircoservice.domain.model.PageCustom;
 import bootcamp.stockmircoservice.domain.spi.IBrandPersistencePort;
 import bootcamp.stockmircoservice.infrastructure.exception.brand.BrandNotFoundException;
 import bootcamp.stockmircoservice.infrastructure.exception.brand.*;
 import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
-
-import java.util.List;
 
 public class BrandCase implements IBrandServicePort {
     private final IBrandPersistencePort brandPersistencePort;
@@ -41,7 +40,7 @@ public class BrandCase implements IBrandServicePort {
     }
 
     @Override
-    public List<Brand> getAllBRands(Integer page, Integer size, String sortDirection) {
+    public PageCustom<Brand> getAllBRands(Integer page, Integer size, String sortDirection) {
         if(page == null || page< ConstValuesToPage.ZERO){
             throw new BrandPageInvalidException();
         }

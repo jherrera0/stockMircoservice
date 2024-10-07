@@ -5,14 +5,14 @@ import bootcamp.stockmircoservice.adapters.driven.jpa.entity.ArticleEntity;
 import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.IArticleEntityMapper;
 import bootcamp.stockmircoservice.adapters.driven.jpa.repository.IArticleRepository;
 import bootcamp.stockmircoservice.domain.model.ArticleToPrint;
+import bootcamp.stockmircoservice.domain.model.PageCustom;
 import bootcamp.stockmircoservice.infrastructure.exception.article.ArticleNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -42,26 +42,6 @@ class ArticleJpaAdapterTest {
         when(articleEntityMapper.toArticleEntity(article)).thenReturn(new ArticleEntity());
         articleJpaAdapter.saveArticle(article);
         verify(articleRepository, times(1)).save(any(ArticleEntity.class));
-    }
-    @Test
-    void getAllArticles_withValidParameters_returnsArticleList() {
-        List<ArticleEntity> articleEntities = List.of(new ArticleEntity(), new ArticleEntity());
-        when(articleRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(articleEntities));
-        when(articleEntityMapper.toArticleList(articleEntities)).thenReturn(List.of(new ArticleToPrint(), new ArticleToPrint()));
-
-        List<ArticleToPrint> result = articleJpaAdapter.getAllArticles(0, 10, "asc", "name");
-
-        assertEquals(2, result.size());
-    }
-
-    @Test
-    void getAllArticles_withEmptyResult_returnsEmptyList() {
-        when(articleRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(List.of()));
-        when(articleEntityMapper.toArticleList(List.of())).thenReturn(List.of());
-
-        List<ArticleToPrint> result = articleJpaAdapter.getAllArticles(0, 10, "asc", "name");
-
-        assertTrue(result.isEmpty());
     }
 
     @Test
@@ -163,5 +143,23 @@ class ArticleJpaAdapterTest {
                 eq(1L), eq("Test Name"), eq("Test Description"), eq(BigDecimal.valueOf(10.0)), eq(100L), any()
         );
     }
+    @Test
+    void getAllArticles_withValidParameters_returnsPageCustomResponse() {
+        int page = 0;
+        int size = 10;
+        String sortDirection = "ASC";
+        String sortBy = "name";
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, sortBy));
+        List<ArticleEntity> articleEntities = List.of(new ArticleEntity());
+        Page<ArticleEntity> articlePage = new PageImpl<>(articleEntities, pageable, 1);
+        when(articleRepository.findAll(pageable)).thenReturn(articlePage);
+        when(articleEntityMapper.toArticleList(articleEntities)).thenReturn(List.of(new ArticleToPrint()));
 
+        PageCustom<ArticleToPrint> result = articleJpaAdapter.getAllArticles(page, size, sortDirection, sortBy);
+
+        assertEquals(page, result.getCurrentPage());
+        assertEquals(size, result.getPageSize());
+        assertEquals(1, result.getTotalPages());
+        assertEquals(1, result.getItems().size());
+    }
 }

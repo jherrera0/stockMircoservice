@@ -2,10 +2,8 @@ package bootcamp.stockmircoservice.infrastructure.input.rest;
 
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.BrandRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.BrandResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.PageCustomResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.interfaces.IBrandHandler;
-import bootcamp.stockmircoservice.adapters.driving.http.mapper.response.BrandResponseMapper;
-import bootcamp.stockmircoservice.domain.api.IBrandServicePort;
-import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Collections;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,12 +22,6 @@ class BrandRestControllerTest {
 
     @Mock
     private IBrandHandler brandHandler;
-
-    @Mock
-    private IBrandServicePort brandServicePort;
-
-    @Mock
-    private BrandResponseMapper brandResponseMapper;
 
     @InjectMocks
     private BrandRestController brandRestController;
@@ -49,24 +40,38 @@ class BrandRestControllerTest {
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
-
     @Test
-    void getAllBrands_ShouldReturnEmptyList_WhenNoBrandsExist() {
-        when(brandServicePort.getAllBRands(0, 10, ConstValuesToSort.ASCENDANT_SORT)).thenReturn(Collections.emptyList());
-        when(brandResponseMapper.toResponseList(Collections.emptyList())).thenReturn(Collections.emptyList());
+    void getBrands_withValidParameters_returnsBrandPage() {
+        PageCustomResponse<BrandResponse> pageResponse = new PageCustomResponse<>();
+        when(brandHandler.getAllBrands(0, 10, "asc")).thenReturn(pageResponse);
 
-        List<BrandResponse> result = brandHandler.getAllBrands(0, 10, "asc");
-
-        assertTrue(result.isEmpty());
-    }
-    @Test
-    void getBrands_ShouldReturnEmptyList_WhenNoBrandsExist() {
-        when(brandServicePort.getAllBRands(0, 10, ConstValuesToSort.ASCENDANT_SORT)).thenReturn(Collections.emptyList());
-        when(brandResponseMapper.toResponseList(Collections.emptyList())).thenReturn(Collections.emptyList());
-
-        ResponseEntity<List<BrandResponse>> response = brandRestController.getBrands(0, 10, ConstValuesToSort.ASCENDANT_SORT);
+        ResponseEntity<PageCustomResponse<BrandResponse>> response = brandRestController.getBrands(0, 10, "asc");
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertTrue(response.getBody().isEmpty());
+        assertEquals(pageResponse, response.getBody());
     }
+
+    @Test
+    void getBrands_withEmptyResult_returnsEmptyPage() {
+        PageCustomResponse<BrandResponse> emptyPageResponse = new PageCustomResponse<>();
+        emptyPageResponse.setItems(Collections.emptyList());
+        when(brandHandler.getAllBrands(0, 10, "asc")).thenReturn(emptyPageResponse);
+
+        ResponseEntity<PageCustomResponse<BrandResponse>> response = brandRestController.getBrands(0, 10, "asc");
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.getBody().getItems().isEmpty());
+    }
+
+    @Test
+    void getBrands_withNullSortDirection_returnsUnsortedPage() {
+        PageCustomResponse<BrandResponse> pageResponse = new PageCustomResponse<>();
+        when(brandHandler.getAllBrands(0, 10, null)).thenReturn(pageResponse);
+
+        ResponseEntity<PageCustomResponse<BrandResponse>> response = brandRestController.getBrands(0, 10, null);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(pageResponse, response.getBody());
+    }
+
 }

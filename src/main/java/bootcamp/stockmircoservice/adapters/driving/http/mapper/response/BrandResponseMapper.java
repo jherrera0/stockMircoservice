@@ -4,6 +4,7 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.response.BrandRespon
 import bootcamp.stockmircoservice.domain.model.Brand;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface BrandResponseMapper {
     @Mapping(source = "description", target = "description")
 
     BrandResponse toResponse(Brand brand);
-    List<Brand> toBrandList(List<BrandResponse> brandResponse);
+    @Named("toResponseListOfBrand")
     default List<BrandResponse> toResponseList(List<Brand> brandRequestList){
         return brandRequestList.stream().map(
                 brandRequest->{

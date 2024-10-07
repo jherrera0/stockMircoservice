@@ -4,11 +4,10 @@ import bootcamp.stockmircoservice.adapters.driving.http.dto.request.ArticleReque
 import bootcamp.stockmircoservice.adapters.driving.http.dto.request.SupplyRequest;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.dto.response.ArticleToCartResponse;
+import bootcamp.stockmircoservice.adapters.driving.http.dto.response.PageCustomResponse;
 import bootcamp.stockmircoservice.adapters.driving.http.handler.ArticleHandler;
 import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.domain.spi.ICategoryPersistencePort;
-import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.IArticleEntityMapper;
-import bootcamp.stockmircoservice.adapters.driven.jpa.repository.IArticleRepository;
 import bootcamp.stockmircoservice.infrastructure.exception.article.ArticleNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,13 +30,6 @@ class ArticleRestControllerTest {
 
     @Mock
     private ArticleHandler articleHandler;
-
-    @Mock
-    private IArticleRepository articleRepository;
-
-    @Mock
-    private IArticleEntityMapper articleEntityMapper;
-
 
     @InjectMocks
     private ArticleRestController articleRestController;
@@ -107,27 +99,18 @@ class ArticleRestControllerTest {
 
         assertThrows(ArticleNotFoundException.class, () -> articleRestController.getArticle(1L));
     }
-
-
     @Test
-    void getAllArticles_withValidParameters_returnsArticleList() {
-        List<ArticleResponse> expectedArticles = List.of(new ArticleResponse());
-        when(articleHandler.getAllArticles(1, 10, "ASC", "name")).thenReturn(expectedArticles);
+    void getAllArticles_withValidParameters_returnsPageCustomResponse() {
+        int page = 0;
+        int size = 10;
+        String sortDirection = "ASC";
+        String sortBy = "name";
+        PageCustomResponse<ArticleResponse> expectedResponse = new PageCustomResponse<>();
+        when(articleHandler.getAllArticles(page, size, sortDirection, sortBy)).thenReturn(expectedResponse);
 
-        ResponseEntity<List<ArticleResponse>> response = articleRestController.getAllArticles(1, 10, "ASC", "name");
+        ResponseEntity<PageCustomResponse<ArticleResponse>> response = articleRestController.getAllArticles(page, size, sortDirection, sortBy);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(expectedArticles, response.getBody());
-    }
-
-    @Test
-    void getAllArticles_withNoArticlesFound_returnsEmptyList() {
-        when(articleHandler.getAllArticles(1, 10, "ASC", "name")).thenReturn(List.of());
-
-        ResponseEntity<List<ArticleResponse>> response = articleRestController.getAllArticles(1, 10, "ASC", "name");
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNotNull(response.getBody());
-        assertTrue(response.getBody().isEmpty());
+        assertEquals(expectedResponse, response.getBody());
     }
 }

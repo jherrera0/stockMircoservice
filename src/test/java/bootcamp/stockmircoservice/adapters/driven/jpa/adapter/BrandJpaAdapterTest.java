@@ -4,7 +4,7 @@ import bootcamp.stockmircoservice.domain.model.Brand;
 import bootcamp.stockmircoservice.adapters.driven.jpa.entity.BrandEntity;
 import bootcamp.stockmircoservice.adapters.driven.jpa.mapper.IBrandEntityMapper;
 import bootcamp.stockmircoservice.adapters.driven.jpa.repository.IBrandRepository;
-import bootcamp.stockmircoservice.infrastructure.until.ConstValuesToSort;
+import bootcamp.stockmircoservice.domain.model.PageCustom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -13,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,57 +72,6 @@ class BrandJpaAdapterTest {
     }
 
     @Test
-    void getAllBrands_ShouldReturnEmptyList_WhenNoBrandsExist() {
-        when(brandRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(Collections.emptyList()));
-        when(brandEntityMapper.toBrandList(Collections.emptyList())).thenReturn(Collections.emptyList());
-
-        List<Brand> result = brandJpaAdapter.getAllBrands(0, 10, "asc");
-
-        assertTrue(result.isEmpty());
-    }
-
-    @Test
-    void getAllBrands_ShouldReturnBrandsList_WhenBrandsExist() {
-        List<BrandEntity> brandEntities = List.of(new BrandEntity(), new BrandEntity());
-        List<Brand> brands = List.of(new Brand("Brand1", "Description1"), new Brand("Brand2", "Description2"));
-        when(brandRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(brandEntities));
-        when(brandEntityMapper.toBrandList(brandEntities)).thenReturn(brands);
-
-        List<Brand> result = brandJpaAdapter.getAllBrands(0, 10, ConstValuesToSort.ASCENDANT_SORT);
-
-        assertEquals(2, result.size());
-        assertEquals("Brand1", result.get(0).getName());
-        assertEquals("Brand2", result.get(1).getName());
-    }
-
-    @Test
-    void getAllBrands_ShouldReturnBrandsList_WhenSortDirectionIsNull() {
-        List<BrandEntity> brandEntities = List.of(new BrandEntity(), new BrandEntity());
-        List<Brand> brands = List.of(new Brand("Brand1", "Description1"), new Brand("Brand2", "Description2"));
-        when(brandRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(brandEntities));
-        when(brandEntityMapper.toBrandList(brandEntities)).thenReturn(brands);
-
-        List<Brand> result = brandJpaAdapter.getAllBrands(0, 10, null);
-
-        assertEquals(2, result.size());
-        assertEquals("Brand1", result.get(0).getName());
-        assertEquals("Brand2", result.get(1).getName());
-    }
-
-    @Test
-    void getAllBrands_ShouldReturnBrandsList_WhenSortDirectionIsEmpty() {
-        List<BrandEntity> brandEntities = List.of(new BrandEntity(), new BrandEntity());
-        List<Brand> brands = List.of(new Brand("Brand1", "Description1"), new Brand("Brand2", "Description2"));
-        when(brandRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(brandEntities));
-        when(brandEntityMapper.toBrandList(brandEntities)).thenReturn(brands);
-
-        List<Brand> result = brandJpaAdapter.getAllBrands(0, 10, "");
-
-        assertEquals(2, result.size());
-        assertEquals("Brand1", result.get(0).getName());
-        assertEquals("Brand2", result.get(1).getName());
-    }
-    @Test
     void findById_ShouldReturnBrand_WhenBrandExists() {
         Long brandId = 1L;
         BrandEntity brandEntity = new BrandEntity();
@@ -145,6 +93,37 @@ class BrandJpaAdapterTest {
         Optional<Brand> result = brandJpaAdapter.findById(brandId);
 
         assertFalse(result.isPresent());
+    }
+    @Test
+    void getAllBrands_withValidParameters_returnsBrandList() {
+        List<BrandEntity> brandEntities = List.of(new BrandEntity(), new BrandEntity());
+        when(brandRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(brandEntities));
+        when(brandEntityMapper.toBrandList(brandEntities)).thenReturn(List.of(new Brand(), new Brand()));
+
+        PageCustom<Brand> result = brandJpaAdapter.getAllBrands(0, 10, "asc");
+
+        assertEquals(2, result.getItems().size());
+    }
+
+    @Test
+    void getAllBrands_withEmptyResult_returnsEmptyList() {
+        when(brandRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(List.of()));
+        when(brandEntityMapper.toBrandList(List.of())).thenReturn(List.of());
+
+        PageCustom<Brand> result = brandJpaAdapter.getAllBrands(0, 10, "asc");
+
+        assertTrue(result.getItems().isEmpty());
+    }
+
+    @Test
+    void getAllBrands_withNullSortDirection_returnsUnsortedList() {
+        List<BrandEntity> brandEntities = List.of(new BrandEntity(), new BrandEntity());
+        when(brandRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(brandEntities));
+        when(brandEntityMapper.toBrandList(brandEntities)).thenReturn(List.of(new Brand(), new Brand()));
+
+        PageCustom<Brand> result = brandJpaAdapter.getAllBrands(0, 10, null);
+
+        assertEquals(2, result.getItems().size());
     }
 
 }

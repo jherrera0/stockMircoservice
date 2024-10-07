@@ -1,6 +1,8 @@
 package bootcamp.stockmircoservice.domain.usecase;
 
 import bootcamp.stockmircoservice.domain.model.Article;
+import bootcamp.stockmircoservice.domain.model.ArticleToPrint;
+import bootcamp.stockmircoservice.domain.model.Brand;
 import bootcamp.stockmircoservice.domain.model.Category;
 import bootcamp.stockmircoservice.domain.spi.IArticlePersistencePort;
 import bootcamp.stockmircoservice.domain.spi.IBrandPersistencePort;
@@ -127,4 +129,40 @@ class ArticleCaseTest {
     void updateArticle_withNullId_throwsArticleIdNullException() {
         assertThrows(ArticleIdNullException.class, () -> articleCase.updateArticle(null, 5L));
     }
+    @Test
+    void getArticleById_withValidId_returnsArticleToPrint() {
+        ArticleToPrint expectedArticle = new ArticleToPrint();
+        when(articlePersistencePort.findArticleById(1L)).thenReturn(expectedArticle);
+
+        ArticleToPrint result = articleCase.getArticleById(1L);
+
+        assertEquals(expectedArticle, result);
+    }
+
+    @Test
+    void getArticleById_withNonExistentId_throwsArticleNotFoundException() {
+        when(articlePersistencePort.findArticleById(1L)).thenReturn(null);
+
+        assertThrows(ArticleNotFoundException.class, () -> articleCase.getArticleById(1L));
+    }
+
+    @Test
+    void saveArticle_withValidArticle_savesSuccessfully() {
+        Article article = new Article();
+        article.setName("Test");
+        article.setDescription("Test");
+        article.setCategoriesId(Arrays.asList(1L, 2L));
+        article.setBrandId(1L);
+        article.setStock(1L);
+        article.setPrice(BigDecimal.valueOf(100));
+
+        when(categoryPersistencePort.findById(1L)).thenReturn(Optional.of(new Category()));
+        when(categoryPersistencePort.findById(2L)).thenReturn(Optional.of(new Category()));
+        when(branchPersistencePort.findById(1L)).thenReturn(Optional.of(new Brand()));
+
+        articleCase.saveArticle(article);
+
+        verify(articlePersistencePort, times(1)).saveArticle(article);
+    }
+
 }

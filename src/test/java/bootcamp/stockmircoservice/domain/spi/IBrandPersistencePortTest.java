@@ -3,8 +3,6 @@ package bootcamp.stockmircoservice.domain.spi;
 import bootcamp.stockmircoservice.domain.model.Brand;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,27 +18,6 @@ class IBrandPersistencePortTest {
         brandPersistencePort.saveBrand(brand);
 
         verify(brandPersistencePort, times(1)).saveBrand(brand);
-    }
-
-    @Test
-    void getAllBrands_ShouldReturnEmptyList_WhenNoBrandsExist() {
-        IBrandPersistencePort brandPersistencePort = mock(IBrandPersistencePort.class);
-        when(brandPersistencePort.getAllBrands(0, 10, "asc")).thenReturn(Collections.emptyList());
-
-        List<Brand> brands = brandPersistencePort.getAllBrands(0, 10, "asc");
-
-        assertTrue(brands.isEmpty());
-    }
-
-    @Test
-    void getAllBrands_ShouldReturnBrandsList_WhenBrandsExist() {
-        List<Brand> expectedBrands = List.of(new Brand());
-        IBrandPersistencePort brandPersistencePort = mock(IBrandPersistencePort.class);
-        when(brandPersistencePort.getAllBrands(0, 10, "asc")).thenReturn(expectedBrands);
-
-        List<Brand> brands = brandPersistencePort.getAllBrands(0, 10, "asc");
-
-        assertEquals(expectedBrands, brands);
     }
 
     @Test
