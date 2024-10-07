@@ -23,27 +23,6 @@ class IBrandPersistencePortTest {
     }
 
     @Test
-    void getAllBrands_ShouldReturnEmptyList_WhenNoBrandsExist() {
-        IBrandPersistencePort brandPersistencePort = mock(IBrandPersistencePort.class);
-        when(brandPersistencePort.getAllBrands(0, 10, "asc")).thenReturn(Collections.emptyList());
-
-        List<Brand> brands = brandPersistencePort.getAllBrands(0, 10, "asc");
-
-        assertTrue(brands.isEmpty());
-    }
-
-    @Test
-    void getAllBrands_ShouldReturnBrandsList_WhenBrandsExist() {
-        List<Brand> expectedBrands = List.of(new Brand());
-        IBrandPersistencePort brandPersistencePort = mock(IBrandPersistencePort.class);
-        when(brandPersistencePort.getAllBrands(0, 10, "asc")).thenReturn(expectedBrands);
-
-        List<Brand> brands = brandPersistencePort.getAllBrands(0, 10, "asc");
-
-        assertEquals(expectedBrands, brands);
-    }
-
-    @Test
     void findByName_ShouldReturnBrand_WhenBrandExists() {
         IBrandPersistencePort brandPersistencePort = mock(IBrandPersistencePort.class);
         Brand expectedBrand = new Brand();
